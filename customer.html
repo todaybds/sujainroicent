@@ -46,6 +46,8 @@
     });
   </script>
   <script src="js/device-redirect.js"></script>
+  <script src="/js/utm.js"></script>
+  <script src="/js/antifraud.js" async></script>
 </head>
 
 <body>
@@ -212,7 +214,182 @@
 
 <script src="js/smenu-breadcrumb.js"></script>  <section class="sub_section">
     <div class="rel_wrap">
-      <iframe src="board/bbs/write.php.html?bo_table=guest" frameborder="0" style="width: 100%; height: 720px" scrolling="no"></iframe>
+
+      <style>
+        .reg-wrap{max-width:560px;margin:30px auto 60px;padding:40px 32px;background:#fff;border:1px solid #e5e5e5;border-radius:8px;font-family:"Pretendard","Noto Sans",sans-serif;}
+        .reg-title{text-align:center;font-size:22px;font-weight:700;color:#004976;margin:0 0 8px;}
+        .reg-desc{text-align:center;font-size:13px;color:#888;margin:0 0 28px;}
+        .reg-field{margin-bottom:18px;}
+        .reg-label{display:block;font-size:14px;font-weight:600;color:#333;margin-bottom:8px;}
+        .reg-input{width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:6px;font-size:15px;color:#222;box-sizing:border-box;font-family:inherit;}
+        .reg-input:focus{outline:none;border-color:#004976;}
+        .reg-trigger{width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:6px;font-size:14px;color:#777;background:#fafafa;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left;font-family:inherit;}
+        .reg-trigger.has-value{color:#004976;font-weight:600;background:#fff;border-color:#004976;}
+        .reg-trigger-icon{color:#bbb;font-size:18px;}
+        .optional-tag{display:inline-block;font-size:11px;color:#888;background:#f5f5f5;padding:2px 8px;border-radius:10px;margin-left:6px;}
+        .reg-agree{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:24px 0 20px;}
+        .reg-agree label{margin:0;font-size:13px;color:#555;display:flex;align-items:center;gap:6px;cursor:pointer;}
+        .reg-agree a{font-size:12px;color:#888;text-decoration:underline;cursor:pointer;}
+        .reg-submit{width:100%;padding:14px;background:#004976;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;}
+        .reg-submit:hover{background:#003658;}
+        .reg-submit:disabled{background:#999;cursor:not-allowed;}
+        .reg-benefits{background:#f7f9fb;border-left:3px solid #004976;padding:14px 16px;margin-bottom:24px;font-size:13px;color:#555;line-height:1.6;}
+        .success-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;}
+        .success-modal-box{background:#fff;border-radius:12px;padding:40px 32px;text-align:center;max-width:340px;width:90%;}
+        .success-icon{width:60px;height:60px;background:#004976;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+        .success-icon svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+        .success-title{font-size:18px;font-weight:700;color:#222;margin-bottom:10px;}
+        .success-desc{font-size:14px;color:#666;line-height:1.6;margin-bottom:22px;}
+        .success-close-btn{background:#004976;color:#fff;border:none;border-radius:6px;padding:10px 24px;font-size:14px;cursor:pointer;}
+      </style>
+
+      <div class="reg-wrap">
+        <h3 class="reg-title">관심고객등록</h3>
+        <p class="reg-desc">등록 시 분양 일정 및 단지 정보를 안내해드립니다.</p>
+
+        <div class="reg-benefits">
+          최신 분양정보와 잔여세대,<br>견본주택 방문안내를 받아보실 수 있습니다.
+        </div>
+
+        <form id="interRegForm" name="interRegForm" onsubmit="return handleRegSubmit(this);">
+          <input type="hidden" name="visitDate" id="visitDate">
+          <input type="hidden" name="visitTime" id="visitTime">
+          <input type="text" name="hp_check" id="hp_check" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="reg-field">
+            <label for="name" class="reg-label">성명</label>
+            <input type="text" class="reg-input" name="name" id="name" maxlength="20" placeholder="성함을 입력해 주세요" autocomplete="name">
+          </div>
+
+          <div class="reg-field">
+            <label for="phone" class="reg-label">연락처</label>
+            <input type="tel" class="reg-input" name="phone" id="phone" maxlength="13" placeholder="휴대폰 번호를 입력해 주세요" autocomplete="tel">
+          </div>
+
+          <div class="reg-field">
+            <label class="reg-label">견본주택 방문예약 <span class="optional-tag">선택</span></label>
+            <button type="button" class="reg-trigger" id="resvTrigger" onclick="openResvModalParent()">
+              <span id="resvDisplay">날짜와 시간을 선택해 주세요</span>
+              <span class="reg-trigger-icon">›</span>
+            </button>
+          </div>
+
+          <div class="reg-agree">
+            <label>
+              <input type="checkbox" id="agreeCheck">
+              <span>개인정보 수집 및 이용에 동의합니다</span>
+            </label>
+            <a onclick="document.getElementById('customerPrivacyModal').style.display='flex';document.body.style.overflow='hidden';">개인정보처리방침 보기</a>
+          </div>
+
+          <button type="submit" class="reg-submit" id="submitBtn">등록하기</button>
+        </form>
+      </div>
+
+      <div id="successModal" class="success-modal-overlay" onclick="if(event.target===this)closeSuccessModal()">
+        <div class="success-modal-box">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="success-title">등록이 완료되었습니다</div>
+          <div class="success-desc">담당자가 빠른 시일 내에 연락드리겠습니다.</div>
+          <button type="button" class="success-close-btn" onclick="closeSuccessModal()">확인</button>
+        </div>
+      </div>
+
+      <script>
+        function getUTM(param){
+          var u=new URLSearchParams(location.search);
+          var v=u.get(param)||localStorage.getItem(param)||localStorage.getItem("first_"+param)||"";
+          if(!v){var m=document.cookie.match(new RegExp('(?:^|; )first_'+param+'=([^;]*)'));if(m)v=decodeURIComponent(m[1]);}
+          if(!v&&param==="utm_source")v="direct";
+          if(!v&&param==="utm_medium")v="none";
+          return v;
+        }
+        var _isSubmitting=false,_submitSuccess=false;
+        var deviceType=/Mobi|Android/i.test(navigator.userAgent)?"Mobile":"Desktop";
+
+        document.addEventListener('DOMContentLoaded',function(){
+          var phoneEl=document.getElementById('phone');
+          phoneEl.addEventListener('focus',function(){if(!this.value)this.value="010-";});
+          phoneEl.addEventListener('input',function(){
+            var n=this.value.replace(/[^0-9]/g,"");
+            if(!n.startsWith("010"))n="010"+n;
+            var f="";
+            if(n.length<4)f=n;
+            else if(n.length<8)f=n.substr(0,3)+"-"+n.substr(3);
+            else f=n.substr(0,3)+"-"+n.substr(3,4)+"-"+n.substr(7,4);
+            this.value=f;
+          });
+        });
+
+        function closeSuccessModal(){document.getElementById('successModal').style.display='none';window.scrollTo({top:0,behavior:'smooth'});}
+
+        function handleRegSubmit(form){
+          if(_submitSuccess){alert("이미 등록이 완료되었습니다.\n담당자가 빠른 시일 내에 연락드리겠습니다.");return false;}
+          if(_isSubmitting)return false;
+          _isSubmitting=true;
+          var btn=document.getElementById('submitBtn');
+          btn.disabled=true;
+
+          if(form.name.value.trim().length<2){alert("성명을 정확히 입력해주세요 (2글자 이상).");form.name.focus();_isSubmitting=false;btn.disabled=false;return false;}
+          if(!/^010-\d{4}-\d{4}$/.test(form.phone.value)){alert("휴대폰번호를 정확히 입력해주세요 (예: 010-1234-5678).");form.phone.focus();_isSubmitting=false;btn.disabled=false;return false;}
+
+          var vDate=form.visitDate.value,vTime=form.visitTime.value;
+          if(vDate&&!vTime){
+            if(!confirm("방문 시간을 선택하지 않으셨습니다. 예약 없이 정보만 등록하시겠습니까?")){openResvModalParent();_isSubmitting=false;btn.disabled=false;return false;}
+            vDate="";
+          }
+          if(!document.getElementById('agreeCheck').checked){alert("개인정보 수집 및 이용에 동의하셔야 합니다.");_isSubmitting=false;btn.disabled=false;return false;}
+
+          // 클라이언트 중복 방지: 같은 이름+번호+날짜 5분 이내 재전송 차단
+          var regKey=form.name.value.trim()+'|'+form.phone.value+'|'+(vDate||'');
+          var lastKey=localStorage.getItem('last_reg_key');
+          var lastTime=parseInt(localStorage.getItem('last_reg_time')||'0');
+          if(lastKey===regKey&&(Date.now()-lastTime)<300000){alert("이미 등록이 완료되었습니다.\n담당자가 빠른 시일 내에 연락드리겠습니다.");_isSubmitting=false;btn.disabled=false;return false;}
+          localStorage.setItem('last_reg_key',regKey);
+          localStorage.setItem('last_reg_time',String(Date.now()));
+
+          var idemKey=(typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).substr(2,9);
+
+          var postData={
+            name:form.name.value.trim(),phone:form.phone.value,
+            visitDate:vDate,visitTime:vTime,privacyAgree:"동의",
+            hp_check:form.hp_check.value,idempotency_key:idemKey,
+            site_domain:location.hostname,
+            utm_source:getUTM("utm_source"),utm_medium:getUTM("utm_medium"),
+            utm_campaign:getUTM("utm_campaign"),utm_term:getUTM("utm_term"),
+            utm_content:getUTM("utm_content"),device:deviceType
+          };
+
+          // 부정클릭시스템에 화이트리스트 신호 (등록한 사용자는 차단 해제)
+          try{window.postMessage({type:'DB_REGISTERED',action:'formSubmitted'},'*');}catch(e){}
+          // 광고 추적 ID 받으면 활성화 (현재는 안전 호출)
+          try{if(window.wcs){var c={};c.type='lead';wcs.trans(c);}}catch(e){}
+          try{if(typeof gtag!=='undefined')gtag('event','generate_lead',{currency:'KRW',value:0});}catch(e){}
+          try{if(typeof fbq!=='undefined'){var ph=form.phone.value.replace(/[^0-9]/g,'');var fn=form.name.value.trim();var eid=Date.now()+'_'+Math.random().toString(36).substr(2,9);fbq('track','Lead',{value:0,currency:'KRW'},{eventID:eid});}}catch(e){}
+          try{if(typeof kakaoPixel==='function'){/* kakaoPixel('PIXEL_ID').completeRegistration(); */}}catch(e){}
+
+          // 성공 모달 표시 + 폼 리셋
+          _submitSuccess=true;
+          document.getElementById('successModal').style.display='flex';
+          try{
+            form.reset();
+            document.getElementById('agreeCheck').checked=false;
+            document.getElementById('resvDisplay').textContent="날짜와 시간을 선택해 주세요";
+            document.getElementById('resvTrigger').classList.remove('has-value');
+            form.visitDate.value="";form.visitTime.value="";
+            if(window._resvSelectedDate)window._resvSelectedDate="";
+          }catch(e){}
+          _isSubmitting=false;btn.disabled=false;
+
+          // 백그라운드 전송 (fire-and-forget)
+          fetch("/api/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(postData)}).catch(function(){});
+
+          return false;
+        }
+      </script>
+
     </div>
   </section>
 </div>
@@ -391,10 +568,10 @@ $(document).ready(function(){
 	var today=new Date();var maxD=new Date();maxD.setMonth(today.getMonth()+1);
 	window.fpResv=flatpickr('#inline_calendar',{inline:true,locale:'ko',minDate:'today',maxDate:maxD,dateFormat:'Y-m-d',disableMobile:true,
 		onChange:function(sel,ds){
-			setIframeField('visitDate', ds);
+			document.getElementById('visitDate').value = ds;
 			$('#time_msg_default').hide();$('#time_select_box').fadeIn();
 			var days=['일','월','화','수','목','금','토'];$('#dateDisplay').html('<span style="color:#004976">'+ds+' ('+days[sel[0].getDay()]+')</span>');
-			$('.time-btn').removeClass('active disabled');setIframeField('visitTime', '');
+			$('.time-btn').removeClass('active disabled');document.getElementById('visitTime').value = '';
 			if(sel[0].toDateString()===new Date().toDateString()){var now=new Date(),cm=now.getHours()*60+now.getMinutes();$('.time-btn').each(function(){var p=$(this).data('value').split(':');if(parseInt(p[0])*60+parseInt(p[1])<=cm)$(this).addClass('disabled');});}
 			window._resvSelectedDate = ds;
 		}
@@ -405,44 +582,24 @@ $(document).ready(function(){
 		$('.time-btn').removeClass('active');$(this).addClass('active');
 		var tv=$(this).data('value'),tl=$(this).data('label');
 		var d=new Date(sd),days=['일','월','화','수','목','금','토'];
-		setIframeField('visitTime', tv);
-		setIframeField('resvDisplay', sd+' ('+days[d.getDay()]+') '+tl);
-		setIframeButton('resvClear', true);
+		document.getElementById('visitTime').value = tv;
+		var disp = document.getElementById('resvDisplay');
+		if (disp) {
+			disp.textContent = sd+' ('+days[d.getDay()]+') '+tl;
+			var trig = document.getElementById('resvTrigger');
+			if (trig) trig.classList.add('has-value');
+		}
 		setTimeout(function(){closeResvModalParent();},150);
 	});
 });
 
-// Helpers to write into iframe form fields
-function getIframeDoc() {
-	var iframes = document.querySelectorAll('iframe[src*="write.php"]');
-	if (!iframes.length) return null;
-	try { return iframes[0].contentDocument || iframes[0].contentWindow.document; } catch(e) { return null; }
+function openResvModalParent(){
+	$('#resvModal').css('display','flex').hide().fadeIn(200);
+	if(window.fpResv)window.fpResv.redraw();
+	var d = document.getElementById('visitDate');
+	if(!d || !d.value){$('#time_select_box').hide();$('#time_msg_default').show();}
 }
-function setIframeField(id, val) {
-	var doc = getIframeDoc(); if (!doc) return;
-	var el = doc.getElementById(id); if (el) el.value = val;
-}
-function setIframeButton(id, show) {
-	var doc = getIframeDoc(); if (!doc) return;
-	var el = doc.getElementById(id); if (el) el.style.display = show ? '' : 'none';
-}
-function clearResvParent(){
-	setIframeField('resvDisplay', '');
-	setIframeField('visitDate', '');
-	setIframeField('visitTime', '');
-	setIframeButton('resvClear', false);
-	if(window.fpResv)window.fpResv.clear();
-	$('#time_select_box').hide();$('#time_msg_default').show();$('.time-btn').removeClass('active disabled');
-	window._resvSelectedDate = '';
-}
-function openResvModalParent(){$('#resvModal').css('display','flex').hide().fadeIn(200);if(window.fpResv)window.fpResv.redraw();var doc=getIframeDoc();var d=doc?doc.getElementById('visitDate').value:'';if(!d){$('#time_select_box').hide();$('#time_msg_default').show();}}
 function closeResvModalParent(){$('#resvModal').fadeOut(200);}
-
-// Listen for iframe form messages
-window.addEventListener('message', function(e){
-	if (e.data && e.data.type === 'openResvModal') openResvModalParent();
-	if (e.data && e.data.type === 'clearResv') clearResvParent();
-});
 </script>
 
 </body>
