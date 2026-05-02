@@ -88,11 +88,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /* ============================================================ */
 /* 모바일 하단 고정 CTA 바 (관심고객등록 / 방문예약)             */
-/* customer.html 에서는 표시하지 않음                            */
+/* customer.html 과 메인(index)에서는 표시하지 않음              */
+/* (메인은 폼이 페이지 내에 인라인으로 임베드됨)                  */
 /* ============================================================ */
 (function () {
   var path = (location.pathname || '').toLowerCase();
   if (path.indexOf('customer.html') !== -1) return;
+  // 메인 페이지: /, /mobile/, /mobile/index.html, /mobile/index.htm 등
+  if (/\/(index\.html?)?$/i.test(path)) return;
 
   function inject() {
     if (document.querySelector('.m_cta_bar')) return;
