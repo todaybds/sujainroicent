@@ -1,0 +1,256 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>이동통신 상호협의 결과서 > 공지사항 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/board/notice_file/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "notice";
+var g5_sca       = "";
+var g5_editor    = "smarteditor2";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+
+
+
+<script src="../js/viewimageresize.js"></script>
+
+<!-- 게시물 읽기 시작 { -->
+<article id="bo_v" style="width:100%">
+    <header>
+        <h1 id="bo_v_title">
+            이동통신 상호협의 결과서        </h1>
+    </header>
+
+         <section id="bo_v_info">
+        <span class="sound_only">작성일</span><strong>25-10-30 14:39</strong>
+                <span style="float:right">조회<strong>221</strong></span>
+    </section>
+
+
+
+
+
+    <!-- 게시물 상단 버튼 시작 { -->
+    <div id="bo_v_top">
+        
+
+        <ul class="bo_v_com">
+                                    <li><a href="board.php-17.html?bo_table=notice&amp;sst=wr_datetime&amp;sod=asc&amp;sop=and&amp;page=1" class="btn_b01">목록</a></li>
+                    </ul>
+            </div>
+    <!-- } 게시물 상단 버튼 끝 -->
+
+    <section id="bo_v_atc">
+        <h2 id="bo_v_atc_title">본문</h2>
+
+
+
+        <!-- 본문 내용 시작 { -->
+        <div id="bo_v_con"><p><a href="view_image.php.html?fn=%2Fdata%2Feditor%2F2510%2Ff0f0daeb4d28f705738ee553740f6eda_1761802749_5256.jpg" target="_blank" class="view_image"><img src="../data/editor/2510/thumb-f0f0daeb4d28f705738ee553740f6eda_1761802749_5256_835x3545.jpg" alt="f0f0daeb4d28f705738ee553740f6eda_1761802749_5256.jpg"></a><br style="clear:both;"> </p></div>
+                <!-- } 본문 내용 끝 -->
+
+        <!-- 유튜브 -->
+                <!-- 유튜브 끝 -->
+
+        
+
+        
+        
+
+    </section>
+    <div class="list_btn" style="margin:0 auto;text-align:center;margin-top:30px">
+      <a href="board.php-17.html?bo_table=notice&amp;sst=wr_datetime&amp;sod=asc&amp;sop=and&amp;page=1" class="btn_b01">목록</a>
+    </div>
+    
+
+
+
+
+</article>
+<!-- } 게시판 읽기 끝 -->
+
+<script>
+
+function board_move(href)
+{
+    window.open(href, "boardmove", "left=50, top=50, width=500, height=550, scrollbars=1");
+}
+</script>
+
+<script>
+$(function() {
+    $("a.view_image").click(function() {
+        window.open(this.href, "large_image", "location=yes,links=no,toolbar=no,top=10,left=10,width=10,height=10,resizable=yes,scrollbars=no,status=no");
+        return false;
+    });
+
+    // 추천, 비추천
+    $("#good_button, #nogood_button").click(function() {
+        var $tx;
+        if(this.id == "good_button")
+            $tx = $("#bo_v_act_good");
+        else
+            $tx = $("#bo_v_act_nogood");
+
+        excute_good(this.href, $(this), $tx);
+        return false;
+    });
+
+    // 이미지 리사이즈
+    $("#bo_v_atc").viewimageresize();
+});
+
+function excute_good(href, $el, $tx)
+{
+    $.post(
+        href,
+        { js: "on" },
+        function(data) {
+            if(data.error) {
+                alert(data.error);
+                return false;
+            }
+
+            if(data.count) {
+                $el.find("strong").text(number_format(String(data.count)));
+                if($tx.attr("id").search("nogood") > -1) {
+                    $tx.text("이 글을 비추천하셨습니다.");
+                    $tx.fadeIn(200).delay(2500).fadeOut(200);
+                } else {
+                    $tx.text("이 글을 추천하셨습니다.");
+                    $tx.fadeIn(200).delay(2500).fadeOut(200);
+                }
+            }
+        }, "json"
+    );
+}
+</script>
+<!-- } 게시글 읽기 끝 -->
+
+    
+    <div id="aside">
+        
+<!-- 로그인 전 아웃로그인 시작 { -->
+<section id="ol_before" class="ol">
+	<div id="ol_be_cate">
+    	<h2><span class="sound_only">회원</span>로그인</h2>
+    	<a href="register.php.html" class="join">회원가입</a>
+    </div>
+    <form name="foutlogin" action="/board/bbs/login_check.php" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
+    <fieldset>
+        <div class="ol_wr">
+            <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fboard.php%3Fbo_table%3Dnotice%26wr_id%3D1%26sst%3Dwr_datetime%26sod%3Dasc%26sop%3Dand%26page%3D1">
+            <label for="ol_id" id="ol_idlabel" class="sound_only">회원아이디<strong>필수</strong></label>
+            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+            <label for="ol_pw" id="ol_pwlabel" class="sound_only">비밀번호<strong>필수</strong></label>
+            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20" placeholder="비밀번호">
+            <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
+        </div>
+        <div class="ol_auto_wr"> 
+            <div id="ol_auto" class="chk_box">
+                <input type="checkbox" name="auto_login" value="1" id="auto_login" class="selec_chk">
+                <label for="auto_login" id="auto_login_label"><span></span>자동로그인</label>
+            </div>
+            <div id="ol_svc">
+                <a href="password_lost.php.html">ID/PW 찾기</a>
+            </div>
+        </div>
+        
+    </fieldset>
+    </form>
+</section>
+
+<script>
+jQuery(function($) {
+
+    var $omi = $('#ol_id'),
+        $omp = $('#ol_pw'),
+        $omi_label = $('#ol_idlabel'),
+        $omp_label = $('#ol_pwlabel');
+
+    $omi_label.addClass('ol_idlabel');
+    $omp_label.addClass('ol_pwlabel');
+
+    $("#auto_login").click(function(){
+        if ($(this).is(":checked")) {
+            if(!confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?"))
+                return false;
+        }
+    });
+});
+
+function fhead_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+</script>
+<!-- } 로그인 전 아웃로그인 끝 -->
+            </div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+
+
+</body>
+</html>
+
+<!-- 사용스킨 : notice_file -->

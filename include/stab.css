@@ -1,0 +1,85 @@
+.tabwrap {
+  width: 1100px;
+  margin: 0 auto 60px;
+  display: none;
+}
+.tabwrap.tab_on{
+  display: block;
+}
+.tabwrap.special-tabwrap {
+}
+.tabwrap.special-tabwrap ul li {
+  width: 33.3%;
+}
+.tabwrap ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tabwrap ul:nth-child(2) {
+}
+.tabwrap ul li {
+  width: auto;
+  height: 40px;
+  flex: 1;
+  /* 다음차수엔 이거 하자.. */
+  /* flex: 1 1 30%; */
+  background: #ffffff;
+}
+.tabwrap ul li:first-child {
+}
+.tabwrap ul:first-child {
+}
+
+.tabwrap ul li a {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #444444;
+  position: relative;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+  transition: all .3s ease-in-out ;
+  background-color: #e9eaec;
+}
+.tabwrap ul li a::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  background-color: var(--m_color);
+  top: 0;
+  transition: all .3s ease-in-out;
+  z-index: -1;
+}
+/* .tabwrap ul li a:hover{
+  color: #fff;
+}
+.tabwrap ul li a:hover::before{
+  height: 100%;
+} */
+.tabwrap ul li a.on{
+  color: #fff;
+  font-weight: 700;
+  background-color: var(--m_color);
+}
+.tabwrap ul li.stab_100{
+  width: 100%;
+  flex: unset;
+}
+.tabwrap ul li.stab_50{
+  width: calc(50% - 20px / 2);
+  flex: unset;
+}
+.tabwrap ul li.stab_33{
+  width: calc(33.33% - (20px / 3));
+  flex: unset;
+}

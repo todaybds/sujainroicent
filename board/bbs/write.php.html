@@ -1,0 +1,523 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>관심고객등록 글쓰기 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/board/guest_add/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "guest";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+<!-- skin : guest_add --><script src="../js/common-1.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery-ui.min-1.js"></script>
+<link rel="stylesheet" href="../js/jquery-ui-1.css">
+<link rel="stylesheet" href="../skin/board/font/font.css">
+<script>
+$(document).ready(function(){
+	$(".site_name").text("인하대역 수자인 로이센트");
+	$(".site_name2").text("분양마케팅 업무대행");
+	$(".site_name3").text("아이월드(주), (주)BS한양");
+
+	// 방문예약 날짜의 최소값을 오늘로 설정
+	var today = new Date();
+	var yyyy = today.getFullYear();
+	var mm = String(today.getMonth()+1).padStart(2,'0');
+	var dd = String(today.getDate()).padStart(2,'0');
+	var dateInput = document.getElementById('visitDate');
+	if (dateInput) dateInput.setAttribute('min', yyyy+'-'+mm+'-'+dd);
+});
+</script>
+
+<section id="bo_w">
+    <!-- 게시물 작성/수정 시작 { -->
+    <form name="fwrite" id="fwrite" action="/board/bbs/write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" style="width:100%">
+    <input type="hidden" name="uid" value="2026042910393806">
+    <input type="hidden" name="w" value="">
+    <input type="hidden" name="bo_table" value="guest">
+    <input type="hidden" name="wr_id" value="0">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sfl" value="">
+    <input type="hidden" name="stx" value="">
+    <input type="hidden" name="spt" value="">
+    <input type="hidden" name="sst" value="">
+    <input type="hidden" name="sod" value="">
+    <input type="hidden" name="page" value="">
+    	<div class="customer_box">
+
+		<div class="guest_table">
+			<table>
+				<colgroup>
+					<col class="col1">
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th><label class="gutt_title">이름 <span class="req">*</span></label></th>
+						<td>
+							<div>
+								<input type="text" id="wr_name" name="wr_name" class="user_name" value="" required="" maxlength="20" placeholder="이름을 입력해 주세요">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th><label class="gutt_title">휴대폰 <span class="req">*</span></label></th>
+						<td>
+							<div class="wrap_none">
+								<input type="text" id="hp1_display" value="010" readonly class="hp_fixed">
+								<input type="hidden" name="hp1" id="hp1" value="010">
+								<em>-</em>
+								<input type="text" name="hp2" id="hp2" value="" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
+								<em>-</em>
+								<input type="text" name="hp3" id="hp3" value="" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
+								<input type="hidden" name="wr_1" id="wr_1" value="">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th><label class="gutt_title">관심타입 <span class="opt">(선택)</span></label></th>
+						<td>
+							<div class="unit_chk">
+								<span><input type="checkbox" name="wr_5[]" id="wr_5_1" value="84㎡"><label for="wr_5_1">84㎡</label></span>
+								<span><input type="checkbox" name="wr_5[]" id="wr_5_2" value="101㎡"><label for="wr_5_2">101㎡</label></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th><label class="gutt_title">방문예약 <span class="opt">(선택)</span></label></th>
+						<td>
+							<div class="visit_resv">
+								<input type="text" id="resvDisplay" readonly onclick="(window.parent||window).postMessage({type:'openResvModal'},'*')" value="" placeholder="날짜와 시간을 선택해 주세요" style="cursor:pointer;padding-right:32px;">
+								<button type="button" id="resvClear" onclick="(window.parent||window).postMessage({type:'clearResv'},'*')" style="display:none;margin-left:-30px;background:none;border:none;font-size:14px;color:#999;cursor:pointer;padding:4px;flex-shrink:0;">✕</button>
+								<input type="hidden" name="wr_8" id="visitDate">
+								<input type="hidden" name="wr_9" id="visitTime">
+							</div>
+						</td>
+					</tr>
+					<!--
+					<tr>
+						<th><label class="gutt_title">연령대</label></th>
+						<td>
+							<div class="label_margin">
+								<label class="label guest_check"><span class="radio"><input name="wr_4" type="radio" value="20대" id="wr_4_2" checked><i></i></span>20대</label>
+								<label class="label guest_check"><span class="radio"><input name="wr_4" type="radio" value="30대" id="wr_4_3"><i></i></span>30대</label>
+								<label class="label guest_check"><span class="radio"><input name="wr_4" type="radio" value="40대" id="wr_4_4"><i></i></span>40대</label>
+								<label class="label guest_check"><span class="radio"><input name="wr_4" type="radio" value="50대" id="wr_4_5"><i></i></span>50대</label>
+								<label class="label guest_check"><span class="radio"><input name="wr_4" type="radio" value="60대 이상" id="wr_4_6"><i></i></span>60대 이상</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th><label class="gutt_title">성별</label></th>
+						<td>
+							<div class="label_margin">
+								<label class="label guest_check"><span class="radio"><input name="wr_2" type="radio" value="남" id="wr_2_1" checked><i></i></span>남성</label>
+								<label class="label guest_check"><span class="radio"><input name="wr_2" type="radio" value="여" id="wr_2_2"><i></i></span>여성</label>
+							</div>
+						</td>
+					</tr>
+					-->
+					<!-- 거주지 row removed (Unjeong-style form simplification) -->
+					<input type="hidden" name="wr_6" value="">
+					<input type="hidden" name="wr_7" value="">
+					<input type="hidden" name="wr_8" value="">
+					<!--
+					<tr style="">
+						<th><label class="gutt_title">관심상품</label></th>
+						<td>
+							<div class="label_margin">
+								<label class="label guest_check"><span class="check"><input name="wr_5" type="checkbox" value="아파트" id="wr_5_1" checked><i></i></span>아파트</label>
+								<label class="label guest_check"><span class="check"><input name="wr_5" type="checkbox" value="상가" id="wr_5_2"><i></i></span>상가</label>
+                                <input type="hidden" name="wr_5" id="wr_5" >
+                                &nbsp;※ 중복 선택 가능
+						</td>
+					</tr>
+					-->
+				</tbody>
+			</table>
+		</div>
+
+		<table style="display:none">
+						<tr style='display:none;'>
+					<th scope="row"><label for="wr_password">비밀번호<strong class="sound_only">필수</strong></label></th>
+					<td><input type="password" name="wr_password" id="wr_password" value='1111' class="frm_input" maxlength="20"></td>
+			</tr>
+												<input type="hidden" name="ca_name" id="ca_name" value="" class="fd_cont">
+								<tr style='display:none;'>
+					<th scope="row"><label for="wr_subject">제목<strong class="sound_only">필수</strong></label></th>
+					<td>
+							<div id="autosave_wrapper">
+									<input type="text" name="wr_subject" value="관심고객등록" id="wr_subject" required="" class="frm_input required" size="50" maxlength="255">
+							</div>
+					</td>
+			</tr>
+			<tr style='display:none;'>
+					<th scope="row"><label for="wr_content">내용<strong class="sound_only">필수</strong></label></th>
+					<td class="wr_content">
+						 <div id="autosave_wrapper">
+							 								 <input type="text" name="wr_content" value="&#x200B;" id="wr_subject" required="" class="frm_input required" size="50" maxlength="255">
+							 							</div>
+					</td>
+			</tr>
+		</table>
+		<div class="agree_box">
+			<div class="agree_row">
+				<p class="agree_text"><span class="req">(필수)</span> 개인정보의 수집 및 이용에 관한 동의에 동의하십니까?
+					<button type="button" class="agree_view_btn" onclick="(window.parent||window).postMessage({type:'openPrivacyModal'},'*')">보기</button>
+				</p>
+				<ul class="agree_radios">
+					<li><label><input type="radio" name="radio1" id="U_checkAgreement2_1" value="Y"><span>동의</span></label></li>
+					<li><label><input type="radio" name="radio1" id="U_checkAgreement2_2" value="N"><span>동의하지 않음</span></label></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Hidden agreement (for legacy backend chk2 hand_yes) -->
+		<input type="hidden" id="hand_yes" checked>
+
+		<div class="oribox">
+			<ul>
+				<li>고객님의 개인정보는 개인정보보호법 및 정보통신망법에 따라 안전하게 보관되며 분양 완료 후 자동 파기됩니다.</li>
+				<li>고객님의 소중한 정보는 분양 이외의 목적으로 사용되지 않습니다.</li>
+				<li>관심고객으로 등록된 고객님의 정보는 분양정보를 안내하는데 사용합니다.</li>
+			</ul>
+		</div>
+
+		<div class="btnWrap">
+			<div class="btn_submit"><input type="submit" value="등록하기" id="btn_submit" accesskey="s"></div>
+			<div class="btn_cancel"><input type="button" value="취소하기" onclick="top.location='javascript:location.reload()'"></div>
+		</div>
+	</div><!--customer_box-->
+</form>
+
+
+<script src="../skin/board/guest_add/sojaeji.js?v=2"></script>
+<script>
+	sojaeji();
+	
+</script>
+<script>
+
+    function html_auto_br(obj)
+    {
+        if (obj.checked) {
+            result = confirm("자동 줄바꿈을 하시겠습니까?\n\n자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다.");
+            if (result)
+                obj.value = "html2";
+            else
+                obj.value = "html1";
+        }
+        else
+            obj.value = "";
+    }
+
+    function fwrite_submit(f)
+    {
+
+		var param = {};
+	    param.name = $.trim($('#wr_name').val());
+			param.tel2 = $.trim($('#hp2').val());
+			param.tel3 = $.trim($('#hp3').val());
+	    param.tel = $.trim($('#wr_1').val());
+	    param.addrDo = $('#wr_6').val();
+	    param.addrGu = $('#wr_7').val();
+			param.addrDong = $('#wr_8').val();
+
+
+        var t1="";
+        if($('#wr_5_1').is(':checked') ){
+            t1 = t1 + $('#wr_5_1').val();
+        }
+         if($('#wr_5_2').is(':checked') ){
+            t1 = t1 + $('#wr_5_2').val();
+        }
+
+            $("#wr_5").val(t1);
+
+			$('#wr_1').val($('#hp1').val()+$('#hp2').val()+$('#hp3').val());
+
+
+		var chk1=document.getElementById("U_checkAgreement2_1");
+		if(chk1.checked==true){
+			//console.log('체크됨');
+		}else{
+			alert('개인정보 수집·이용에 동의하셔야 등록이 가능합니다');
+			chk1.focus();
+			return false;
+		}
+
+		var chk2=document.getElementById("hand_yes");
+		if(chk2.checked==true){
+			//console.log('체크됨');
+		}else{
+			alert('개인정보를 취급 위탁동의에 동의하셔야 등록이 가능합니다');
+			chk2.focus();
+			return false;
+		}
+
+		/*
+		if($('#wr_9_1').is(':checked') || $('#wr_9_2').is(':checked')){
+		}else{
+			alert('마케팅 정보활용을 선택해주세요.');
+			$('#wr_9_1').focus();
+			return false;
+		}
+		*/
+
+
+	    if (!param.name) {
+	        alert('이름을 입력해주세요.');
+	        $('#wr_name').focus();
+	        return false;
+	    }
+			if (!param.tel2) {
+	        alert('연락처를 입력해주세요.');
+	        $('#hp2').focus();
+	        return false;
+	    }
+			if (!param.tel3) {
+	        alert('연락처를 입력해주세요.');
+	        $('#hp3').focus();
+	        return false;
+	    }
+	    if (!param.addrDo) {
+	        alert('시/도를 선택해주세요.');
+	        $('#wr_6').focus();
+	        return false;
+	    }
+
+	    if (!param.addrGu) {
+	        alert('구/군을 선택해주세요.');
+	        $('#wr_7').focus();
+	        return false;
+	    }
+
+	    if (!param.addrDong) {
+	        alert('동/면을 선택해주세요.');
+	        $('#wr_8').focus();
+	        return false;
+	    }
+
+			if(!$('#ca_name').val()){
+				$('#ca_name').val('직접');
+			}
+				GA_event('관심고객');
+        
+        var subject = "";
+        var content = "";
+        $.ajax({
+            url: g5_bbs_url+"/ajax.filter.php",
+            type: "POST",
+            data: {
+                "subject": f.wr_subject.value,
+                "content": f.wr_content.value
+            },
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function(data, textStatus) {
+                subject = data.subject;
+                content = data.content;
+            }
+        });
+
+        if (subject) {
+            alert("제목에 금지단어('"+subject+"')가 포함되어있습니다");
+            f.wr_subject.focus();
+            return false;
+        }
+
+        if (content) {
+            alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
+            if (typeof(ed_wr_content) != "undefined")
+                ed_wr_content.returnFalse();
+            else
+                f.wr_content.focus();
+            return false;
+        }
+
+        if (document.getElementById("char_count")) {
+            if (char_min > 0 || char_max > 0) {
+                var cnt = parseInt(check_byte("wr_content", "char_count"));
+                if (char_min > 0 && char_min > cnt) {
+                    alert("내용은 "+char_min+"글자 이상 쓰셔야 합니다.");
+                    return false;
+                }
+                else if (char_max > 0 && char_max < cnt) {
+                    alert("내용은 "+char_max+"글자 이하로 쓰셔야 합니다.");
+                    return false;
+                }
+            }
+        }
+
+        
+        //document.getElementById("btn_submit").disabled = "disabled";
+
+        return true;
+    }
+
+		window.onload = function() {
+			if(parent.$('#guest_ifr').offset()){
+				var height  = Math.max($(document).height(), $(window).height());
+	      window.parent.postMessage({ childData : height }, '*');
+	      //window.parent.$('html, body').scrollTop(parent.$('#guest_ifr').offset().top);
+			}
+    };
+
+$( document ).ready(function() {
+	$(".upbtn01").click(function(){
+		if($(this).hasClass("on")){
+			$(this).removeClass("on")
+
+		}else{
+			$(this).addClass("on")
+		}
+	});
+	$(".upbtn01").click(function(){
+		$(this).parent().parent().children(".tablebox01").slideToggle(200);
+	});
+});
+
+$( document ).ready(function() {
+	$(".upbtn02").click(function(){
+		if($(this).hasClass("on")){
+			$(this).removeClass("on")
+
+		}else{
+			$(this).addClass("on")
+		}
+	});
+	$(".upbtn02").click(function(){
+		$(this).parent().parent().children(".tablebox02").slideToggle(200);
+	});
+});
+</script>
+</section>
+
+    
+    <div id="aside">
+        
+<!-- 로그인 전 아웃로그인 시작 { -->
+<section id="ol_before" class="ol">
+	<div id="ol_be_cate">
+    	<h2><span class="sound_only">회원</span>로그인</h2>
+    	<a href="register.php.html" class="join">회원가입</a>
+    </div>
+    <form name="foutlogin" action="/board/bbs/login_check.php" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
+    <fieldset>
+        <div class="ol_wr">
+            <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fwrite.php%3Fbo_table%3Dguest">
+            <label for="ol_id" id="ol_idlabel" class="sound_only">회원아이디<strong>필수</strong></label>
+            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+            <label for="ol_pw" id="ol_pwlabel" class="sound_only">비밀번호<strong>필수</strong></label>
+            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20" placeholder="비밀번호">
+            <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
+        </div>
+        <div class="ol_auto_wr"> 
+            <div id="ol_auto" class="chk_box">
+                <input type="checkbox" name="auto_login" value="1" id="auto_login" class="selec_chk">
+                <label for="auto_login" id="auto_login_label"><span></span>자동로그인</label>
+            </div>
+            <div id="ol_svc">
+                <a href="password_lost.php.html">ID/PW 찾기</a>
+            </div>
+        </div>
+        
+    </fieldset>
+    </form>
+</section>
+
+<script>
+jQuery(function($) {
+
+    var $omi = $('#ol_id'),
+        $omp = $('#ol_pw'),
+        $omi_label = $('#ol_idlabel'),
+        $omp_label = $('#ol_pwlabel');
+
+    $omi_label.addClass('ol_idlabel');
+    $omp_label.addClass('ol_pwlabel');
+
+    $("#auto_login").click(function(){
+        if ($(this).is(":checked")) {
+            if(!confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?"))
+                return false;
+        }
+    });
+});
+
+function fhead_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+</script>
+<!-- } 로그인 전 아웃로그인 끝 -->
+            </div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+
+
+</body>
+</html>

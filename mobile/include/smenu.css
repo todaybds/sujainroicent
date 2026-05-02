@@ -1,0 +1,70 @@
+/*서브탭메뉴*/
+.smenu_wrap {
+  display: none;
+  width: 38vw;
+  height: auto;
+  background: #fff;
+
+  box-sizing: border-box;
+
+  font-family: "yoongothic-regular";
+  position: relative;
+  z-index: 7777;
+}
+.smenu_wrap ul {
+  width: 100%;
+  /* height: 9vw; */
+  margin: 0 auto;
+  border: 1px solid #ddd;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+
+  position: absolute;
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+.smenu_wrap ul.active {
+  display: block;
+  top: 0;
+}
+.smenu_wrap ul li {
+  width: 100%;
+  height: 100%;
+
+  background: white;
+  border-bottom: 1px solid #ddd;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+.smenu_wrap ul li:last-child {
+  border-bottom: 0;
+}
+.smenu_wrap ul li a {
+  display: block;
+  font-size: 2.7vw;
+  font-weight: 300;
+  line-height: 9vw;
+  color: #6e6e6e;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+/*.smenu_wrap ul li a.smtab_on:after { content: ""; clear: both; display: block; width: 24%; height: 0.5vw; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); background: #01519b;}*/
+
+/* .smenu_wrap ul li a.smtab_on {
+  font-weight: 400;
+  box-sizing: border-box;
+  position: relative;
+  background: #fff;
+} */

@@ -1,0 +1,177 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>로그인 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/member/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 로그인 시작 { -->
+<div id="mb_login" class="mbskin">
+    <div class="mbskin_box">
+        <h1>로그인</h1>
+
+        <div class="mb_log_cate">
+            <h2 class="" id="login_tap" onclick="login_tap_click();">로그인</h2>
+            <!-- <h2 class="join" id="find_tap" onclick="find_tap_click();">찾기</h2> -->
+            <!--
+            <a href="/board/bbs/register.php" class="join">회원가입</a>
+          -->
+        </div>
+
+        <form name="flogin" action="/board/bbs/login_check.php" onsubmit="return flogin_submit(this);" method="post">
+        <input type="hidden" name="url" value="%2Fboard%2Fadm%2F">
+        <fieldset id="login_fs">
+          <div id="login_form">
+            <legend>회원로그인</legend>
+            <input type="text" name="mb_id" id="login_id" required="" class="frm_input required" size="20" maxlength="20" placeholder="아이디">
+            <input type="password" name="mb_password" id="login_pw" required="" class="frm_input required" size="20" maxlength="20" placeholder="비밀번호">
+            <button type="submit" class="btn_submit">로그인</button>
+
+            <div id="login_info">
+                <div class="login_if_auto chk_box">
+                    <input type="checkbox" name="auto_login" id="login_auto_login" class="selec_chk">
+                    <label for="login_auto_login"><span></span> 자동로그인</label>
+                </div>
+                <!--
+                <div class="login_if_lpl">
+                    <a href="/board/bbs/password_lost.php">아이디/비밀번호 찾기</a>
+                </div>
+                -->
+            </div>
+          </div>
+          </fieldset></form>
+          <div id="find_form" style="display:none">
+            <legend>계약번호찾기</legend>
+            <input type="text" name="find_name" id="find_name" class="frm_input " size="10" maxlength="10" placeholder="이름">
+            <input type="number" name="find_hp" id="find_hp" class="frm_input " size="11" maxlength="11" placeholder="전화번호" oninput="maxLengthCheck(this)" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+            <h2 id="find_result" style="display:none">계약번호 : 19951217</h2>
+            <button type="button" class="btn_submit" onclick="find_click()">찾기</button>
+          </div>
+        
+
+
+
+        <div class="login_main" style="display:none">
+          <a href="../../index.htm">메인으로가기</a>
+        </div>
+            </div>
+
+            
+</div>
+
+<script>
+jQuery(function($){
+    $("#login_auto_login").click(function(){
+        if (this.checked) {
+            this.checked = confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?");
+        }
+    });
+});
+
+function flogin_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'login_sumit', [f, 'flogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+
+function login_tap_click(){
+  $('#login_tap').removeClass('join2');
+  $('#login_form').show();
+  $('#find_tap').addClass('join');
+  $('#find_form').hide();
+}
+
+function find_tap_click(){
+  $('#login_tap').addClass('join2');
+  $('#login_form').hide();
+  $('#find_tap').removeClass('join');
+  $('#find_form').show();
+}
+
+function find_click(){
+
+  if(!$('#find_name').val()){
+    $('#find_name').focus();
+    alert('이름을 입력해주세요.');
+    return false;
+  }
+
+  if(!$('#find_hp').val()){
+    $('#find_hp').focus();
+    alert('전화번호를 입력해주세요.');
+    return false;
+  }
+
+  $.ajax({
+      url: g5_bbs_url+"/ajax.mb_id_find.php",
+      type: "POST",
+      data: {
+          "reg_mb_name": $('#find_name').val(),
+          "reg_mb_hp": $('#find_hp').val()
+      },
+      dataType: "text",
+      async: false,
+      cache: false,
+      success: function(data) {
+        console.log(data);
+        if(data){
+          $('#find_result').show();
+          $('#find_result').text('아이디: '+data);
+        }else{
+          $('#find_result').show();
+          $('#find_result').text('일치하는 아이디가 없습니다.');
+        }
+      }
+  });
+}
+
+</script>
+<!-- } 로그인 끝 -->
+
+
+
+
+</body>
+</html>

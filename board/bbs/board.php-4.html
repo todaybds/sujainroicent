@@ -1,0 +1,503 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>언론보도 4 페이지 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/board/news_add/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "news";
+var g5_sca       = "";
+var g5_editor    = "smarteditor2";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+
+
+<!-- 게시판 목록 시작 { -->
+<div id="bo_list" style="width:100%">
+
+    <!-- 게시판 카테고리 시작 { -->
+        <!-- } 게시판 카테고리 끝 -->
+
+    <!-- 게시판 페이지 정보 및 버튼 시작 { -->
+    <div class="bo_fx">
+        <div id="bo_list_total">
+            총 <span style="color:#f10000">57</span>건
+            (<span style="color:#f10000">4</span>/4페이지)
+        </div>
+
+            </div>
+    <!-- } 게시판 페이지 정보 및 버튼 끝 -->
+
+    <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post">
+    <input type="hidden" name="bo_table" value="news">
+    <input type="hidden" name="sfl" value="">
+    <input type="hidden" name="stx" value="">
+    <input type="hidden" name="spt" value="">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sst" value="wr_num, wr_reply">
+    <input type="hidden" name="sod" value="">
+    <input type="hidden" name="page" value="4">
+    <input type="hidden" name="sw" value="">
+
+	<div class="tbl_head01 tbl_wrap">
+	<table>
+	<caption>언론보도 목록</caption>
+		<tbody class="bo_tr">
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/014/0005400767?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[파이낸셜뉴스]</span>
+				소비자 기대심리 상승 속 미추홀구 용현학익지구 ‘인하대역 수자인 로이센트’ 관심
+				</li>
+
+				<li class="js_con">정부의 부동산 규제가 지속되는 상황에서도 수도권 주택 가격에 대한 소비자들의 기대 심리는 여전히 높은 수준을 유지하고 있다. 특히 인천 미추홀구 용현학익지구를 중심으로 한 주택 시장이 수요층의 관심이 집중되고 있다.한국은행이 발표한 ‘2025년 8월 소비자동향조사’에 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/011/0004527996?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[서울경제]</span>
+				최근 5년간 인천 공급 살펴보니… 전용 85㎡ 초과는 단 8%?
+				</li>
+
+				<li class="js_con">최근 인천 아파트 시장에서 전용 85㎡ 초과 중대형 평형의 공급이 크게 줄어들며, 중대형 아파트의 희소성이 더욱 부각되고 있다. 이에 따라 실수요자 사이에서 중대형 아파트에 대한 관심이 높아지고 있으며, 가격 상승률 역시 인천 전체 평균을 웃도는 흐름을 보이고 있다.부…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://biz.heraldcorp.com/article/10564461?ref=naver')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[헤럴드경제]</span>
+				안심통학권 찾는 3040 수요층 ‘인하대역 수자인 로이센트’에 관심 집중
+				</li>
+
+				<li class="js_con">주택시장에서 초·중·고교가 도보 거리에 위치해 안심통학권을 갖춘 아파트의 인기가 계속되고 있다. 특히 자녀의 교육 환경을 최우선으로 고려하는 3040 세대를 중심으로, 실수요자의 1순위 선택지로 자리 잡는 모습이다.3040 세대의 부동산 시장 영향력은 상당하다. 한국부…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/011/0004525680?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[서울경제]</span>
+				입주와 동시에 완성된 인프라 누리는 ‘인하대역 수자인 로이센트’ 주목
+				</li>
+
+				<li class="js_con">부동산 시장이 실수요자 중심으로 재편되면서, 생활 인프라가 이미 구축된 ‘완성형 인프라’를 누리는 단지가 주거 선택의 주요 기준으로 떠오르고 있다. 입주와 동시에 교통·교육·쇼핑·의료 등 다양한 생활 편의를 즉시 누릴 수 있는 아파트가 수요자들의 선호를 받고 있는 것이…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.mk.co.kr/news/realestate/11401891')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[매일경제]</span>
+				전세 품귀에 입주 물량 감소…인천 부동산 시장 새 아파트 관심↑
+				</li>
+
+				<li class="js_con">인천 부동산 시장이 전세 품귀 현상에 직면하면서, 새 아파트에 대한 수요자들의 관심이 높아지고 있다. 전세 매물이 빠르게 줄어드는 가운데, 향후 입주 물량도 지속적으로 감소할 것으로 예상되면서 신규 분양 단지의 희소가치가 부각되고 있다.실제 부동산 빅데이터 업체 ‘아실…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://news.naver.com/mnews/article/014/0005394566?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[파이낸셜뉴스]</span>
+				미추홀구 용현학익지구 핵심 입지… BS한양 수자인 로이센트 공급 예정
+				</li>
+
+				<li class="js_con">인천 원도심의 대표 주거지로 부상하고 있는 미추홀구 용현·학익동 일대가 도시개발사업의 본격화로 주거 수요자들의 이목을 집중시키고 있다. 특히 인하대역 역세권을 중심으로 생활 인프라와 교통망이 집약된 ‘용현학익지구’ 내 신규 공급 단지들이 주거 선호도에서 두각을 보이고 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://biz.heraldcorp.com/article/10556620?ref=naver')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[헤럴드경제]</span>
+				수도권 분양시장 이끄는 역세권의 가치... 청약자 상위 10곳 중 9곳이 역세권 아파트
+				</li>
+
+				<li class="js_con">올해 상반기 수도권 분양시장에서는 역세권 아파트의 강세가 두드러졌다. 실제 1순위 청약자 수 상위 10개 단지 중 9곳이 역세권 입지에 위치한 것으로 나타나, 분양 성패를 좌우하는 핵심 조건으로 ‘역세권’의 가치가 다시 한번 부각되고 있다.부동산R114에 따르면, 올해…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.sedaily.com/NewsView/2GWMFTBOEF')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[서울 경제]</span>
+				‘똘똘한 한채’ 열풍 속 인천 용현학익 대장주'인하대역 수자인 로이센트' 공급 예고에 관심 증폭
+				</li>
+
+				<li class="js_con">정부가 6.27 부동산 대책, DSR(총부채원리금상환비율) 3단계 시행 등을 통해 가계부채 축소 기조의 정책을 이어가면서, 주택 시장의 무게 중심이 투자 수요에서 실수요 중심으로 빠르게 이동하고 있다. 갭투자, 대출 등을 활용한 다주택 중심의 투자 방식이 사실상 어려워…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.fnnews.com/news/202508131042106323')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[파이낸셜]</span>
+				똘똘한 한채' 찾기 본격화…하반기 '대장주' 나온다
+				</li>
+
+				<li class="js_con">업계에 따르면 지난 6월 발표된 6·27 부동산 대책과 하반기부터 본격 시행된 DSR(총부채원리금상환비율) 3단계가 이러한 분위기에 불을 지폈다. 대출 여건이 까다로워지자 수요자들은 한정된 자금을 효율적으로 쓰기 위해 입지·미래가치가 확실한 단지를 선별해 움직이고 있다…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.donga.com/news/Economy/article/all/20250804/132126610/2')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[동아일보]</span>
+				인하대역 수자인 로이센트 분양… BS한양 20주년 특화 설계 적용
+				</li>
+
+				<li class="js_con">BS한양은 ‘인하대역 수자인 로이센트’를 내달 공급할 예정이다.인하대역 수자인 로이센트는 인천광역시 미추홀구 용현동 일원에 지하 2층~지상 최고 43층, 전용 84~101㎡, 6개동 총 1199가구 대단지로 조성된다.일반분양 물량은 959가구로, 전용면적 기준 ▲84㎡…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.sedaily.com/NewsView/2GWHURBPPJ')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[서울경제]</span>
+				"인천 용현학익지구 중심 입지"… 인하대역 수자인 로이센트 분양 [집슐랭]
+				</li>
+
+				<li class="js_con">BS한양이 다음 달 인천 ‘인하대역 수자인 로이센트’를 분양한다.BS한양은 인천 미추홀구 용현동 604-7번지 일대에 ‘인하대역 수자인 로이센트’를 공급한다고 4일 밝혔다. 이 단지는 지하 2층~지상 최고 43층, 전용 84~101㎡, 6개 동 총 1199가구 규모로 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.news1.kr/realestate/general/5868095')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[뉴스1]</span>
+				BS한양 인하대역 수자인 로이센트 분양…용현학익 대장주 기대
+				</li>
+
+				<li class="js_con">(서울=뉴스1) 윤주현 기자 = BS한양은 인천 미추홀구 용현학익 도시개발지구 내 '인하대역 수자인 로이센트'를 9월 분양할 예정이라고 4일 밝혔다. 인하대역 수자인 로이센트는 인천 미추홀구 용현동 604-7번지 일원, 용현학익 2-2블록 인하대역1구역 도시개발사업을 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+	  	</tbody>
+	</table>
+	</div>
+
+        </form>
+</div>
+
+
+<!-- 페이지 -->
+<nav class="pg_wrap"><span class="pg"><a href="board.php-8.html?bo_table=news&amp;page=1" class="pg_page pg_start">처음</a>
+<a href="board.php-8.html?bo_table=news&amp;page=1" class="pg_page">1<span class="sound_only">페이지</span></a>
+<a href="board.php-2.html?bo_table=news&amp;page=2" class="pg_page">2<span class="sound_only">페이지</span></a>
+<a href="board.php-3.html?bo_table=news&amp;page=3" class="pg_page">3<span class="sound_only">페이지</span></a>
+<span class="sound_only">열린</span><strong class="pg_current">4</strong><span class="sound_only">페이지</span>
+</span></nav>
+<!-- 게시판 검색 시작 { -->
+<fieldset id="bo_sch">
+    <legend>게시물 검색</legend>
+
+    <form name="fsearch" method="get">
+    <input type="hidden" name="bo_table" value="news">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sop" value="and">
+    <label for="sfl" class="sound_only">검색대상</label>
+    <select name="sfl" id="sfl">
+        <option value="wr_subject">제목</option>
+        <option value="wr_content">내용</option>
+        <option value="wr_link2">언론사명</option>
+    </select>
+    <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+    <input type="text" name="stx" value="" required="" id="stx" class="frm_input required" size="15" maxlength="20">
+    <input type="submit" value="검색" class="btn_submit">
+    </form>
+</fieldset>
+<!-- } 게시판 검색 끝 -->
+
+<!-- } 게시판 목록 끝 -->
+<script type="text/javascript">
+  window.onload = function() {
+    var height  = $('#bo_list').height()+100;
+    window.parent.postMessage({ childData : height }, '*');
+  };
+</script>
+
+    
+    <div id="aside">
+        
+<!-- 로그인 전 아웃로그인 시작 { -->
+<section id="ol_before" class="ol">
+	<div id="ol_be_cate">
+    	<h2><span class="sound_only">회원</span>로그인</h2>
+    	<a href="register.php.html" class="join">회원가입</a>
+    </div>
+    <form name="foutlogin" action="/board/bbs/login_check.php" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
+    <fieldset>
+        <div class="ol_wr">
+            <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fboard.php%3Fbo_table%3Dnews%26page%3D4">
+            <label for="ol_id" id="ol_idlabel" class="sound_only">회원아이디<strong>필수</strong></label>
+            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+            <label for="ol_pw" id="ol_pwlabel" class="sound_only">비밀번호<strong>필수</strong></label>
+            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20" placeholder="비밀번호">
+            <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
+        </div>
+        <div class="ol_auto_wr"> 
+            <div id="ol_auto" class="chk_box">
+                <input type="checkbox" name="auto_login" value="1" id="auto_login" class="selec_chk">
+                <label for="auto_login" id="auto_login_label"><span></span>자동로그인</label>
+            </div>
+            <div id="ol_svc">
+                <a href="password_lost.php.html">ID/PW 찾기</a>
+            </div>
+        </div>
+        
+    </fieldset>
+    </form>
+</section>
+
+<script>
+jQuery(function($) {
+
+    var $omi = $('#ol_id'),
+        $omp = $('#ol_pw'),
+        $omi_label = $('#ol_idlabel'),
+        $omp_label = $('#ol_pwlabel');
+
+    $omi_label.addClass('ol_idlabel');
+    $omp_label.addClass('ol_pwlabel');
+
+    $("#auto_login").click(function(){
+        if ($(this).is(":checked")) {
+            if(!confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?"))
+                return false;
+        }
+    });
+});
+
+function fhead_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+</script>
+<!-- } 로그인 전 아웃로그인 끝 -->
+            </div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+
+
+</body>
+</html>
+
+<!-- 사용스킨 : news_add -->

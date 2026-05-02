@@ -1,0 +1,577 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>언론보도 1 페이지 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/board/news_add/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "news";
+var g5_sca       = "";
+var g5_editor    = "smarteditor2";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+
+
+<!-- 게시판 목록 시작 { -->
+<div id="bo_list" style="width:100%">
+
+    <!-- 게시판 카테고리 시작 { -->
+        <!-- } 게시판 카테고리 끝 -->
+
+    <!-- 게시판 페이지 정보 및 버튼 시작 { -->
+    <div class="bo_fx">
+        <div id="bo_list_total">
+            총 <span style="color:#f10000">57</span>건
+            (<span style="color:#f10000">1</span>/4페이지)
+        </div>
+
+            </div>
+    <!-- } 게시판 페이지 정보 및 버튼 끝 -->
+
+    <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post">
+    <input type="hidden" name="bo_table" value="news">
+    <input type="hidden" name="sfl" value="">
+    <input type="hidden" name="stx" value="">
+    <input type="hidden" name="spt" value="">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sst" value="wr_num, wr_reply">
+    <input type="hidden" name="sod" value="">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="sw" value="">
+
+	<div class="tbl_head01 tbl_wrap">
+	<table>
+	<caption>언론보도 목록</caption>
+		<tbody class="bo_tr">
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/016/0002626979?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[헤럴드경제]</span>
+				수도권 공급 감소 본격화... 인천은 올해 14% 감소 예상
+				</li>
+
+				<li class="js_con">수도권 아파트 시장에 공급 감소 압박이 본격화되면서 향후 입주 물량 부족에 따른 신축 아파트의 희소성이 높아지고 있다. 특히 인천은 입주 물량과 전세 물량이 동시에 줄어들며 신축 단지를 중심으로 실수요자들의 움직임이 관측된다.KB부동산 자료에 따르면 올해 수도권 입주 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.ikld.kr/news/articleView.html?idxno=332060')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[국토일보]</span>
+				인천 개발축 원도심으로 이동… 행정·문화·교통·주거 등 개발호재 집중
+				</li>
+
+				<li class="js_con">송도·청라·검단 등 신도시 중심으로 확장됐던 인천의 개발 흐름이 최근 다시 원도심으로 이동하고 있다. 기존 인프라를 바탕으로 행정, 문화, 교통, 주거 전반에 걸친 개발이 동시에 추진되면서, 원도심이 새로운 주거 중심지로 재편되고 있다는 분석이 나온다.실제 인천에서는 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.dt.co.kr/article/12045241?ref=naver')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[디지털타임스]</span>
+				공급·전세 ‘이중 압박’인천… 신축 역세권 단지 향한 실수요 발길 이어져
+				</li>
+
+				<li class="js_con">2026년 수도권 주택시장이 공급 절벽과 전세난이라는 ‘이중 압박’ 속에 본격적인 국면을 맞고 있다. 입주물량이 대폭 감소하면서 실수요자 중심의 신축 단지 선호 현상이 뚜렷해지고, 즉시 거주 가능한 역세권 단지를 확보하려는 경쟁이 가열되는 양상이다.직방에 따르면, 20…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.rcast.co.kr/news/articleView.html?idxno=30052#google_vignette')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[리얼캐스트]</span>
+				분양가 고공행진 속 확정분양가 주목... '인하대역 수자인 로이센트' 합리적 선점 기회로 부상
+				</li>
+
+				<li class="js_con">최근 원자재와 건설 인건비 상승으로 신규 아파트 분양가가 가파르게 오르면서, 이미 분양가가 확정된 신축 단지가 실수요자와 투자자에게 주목받고 있다. 인천 미추홀구의 ‘인하대역 수자인 로이센트’가 대표적 사례다.지난 10년 사이 짜장면 등 외식 물가뿐만 아니라, 대표적 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.rcast.co.kr/news/articleView.html?idxno=30027')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[리얼캐스트]</span>
+				인천 동서 잇는 용현서창선 본궤도… ‘인하대역 수자인 로이센트’ 주목 커져
+				</li>
+
+				<li class="js_con">인천 원도심과 신도시를 잇는 핵심 철도망인 ‘용현서창선’ 사업이 본궤도에 오르면서, 인하대역 일대 주거 단지에 대한 관심이 빠르게 높아지고 있다.&nbsp;용현서창선 사업은 최근 인천시의회가 용현서창선 사전 타당성 조사 용역비를 포함한 예산안을 확정하면서, 사업 추진에…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/050/0000101386?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[한경비즈니스]</span>
+				수도권 서남부 광역철도 기대감에 '인하대역 수자인 로이센트' 이목
+				</li>
+
+				<li class="js_con">그동안 지지부진했던 인천 서남부권 철도 사업이 새로운 전기를 맞았다. 기존 제2경인선의 교통 부담을 완화할 대안으로 떠오른 수도권 서남부 광역철도가 사업성을 보완해 민자적격성 조사를 다시 시작하면서다. 이번 사업안은 서울 목동과 신림을 동시에 연결하는 ‘이중 축’ 구조…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.ikld.kr/news/articleView.html?idxno=328125')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[국토일보]</span>
+				실거주 중심으로 바뀐 주거선택 기준… 인천 인하대역 일대 주목
+				</li>
+
+				<li class="js_con">주거 선택의 기준이 바뀌고 있다. 특히 부동산 시장이 실수요 중심으로 재편되면서, 실제 거주 과정에서 매일 체감하게 되는 환경과 생활의 안정성이 중요한 판단 요소로 부각되는 모습이다.실제 최근 실거주 수요자들 사이에서는 ▲상시적인 소음·분진 노출 가능성 ▲대형 도로 및…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://biz.heraldcorp.com/article/10658003?ref=naver')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[헤럴드경제]</span>
+				“1차 계약금 1,000만 원” 인하대역 수자인 로이센트, 1월 21일 임의공급 청약 진행
+				</li>
+
+				<li class="js_con">㈜BS한양이 인천시 미추홀구 인하대역 역세권 입지에 선보이는 대단지 ‘인하대역 수자인 로이센트’가 임의 공급 청약을 진행한다.이번 임의공급 물량은 회사 보유분 총 20세대로, 실수요자 선호도가 높은 전용면적 84㎡A·B 타입과 대형 평형인 101㎡ 타입으로 구성됐다. …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.viva100.com/article/20260115500305')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[브릿지경제]</span>
+				GTX-B부터 완성형 도심 인프라까지... ‘인하대역 수자인 로이센트’ 연일 관심
+				</li>
+
+				<li class="js_con">수도권 광역급행철도(GTX)-B 노선에 청학역(가칭) 신설이 확정되면서 인천 원도심 부동산 시장의 지형이 빠르게 재편되고 있다. 교통 인프라 한계로 상대적으로 저평가돼 왔던 연수·미추홀구 일대가 초광역 교통망을 품게 되며, 주거 가치 재평가 국면에 본격 진입했다는 분석…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/029/0003004755?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[디지털타임스]</span>
+				완성된 생활 인프라 vs 단계적 개발지… 실거주 선택의 기준은?
+				</li>
+
+				<li class="js_con">부동산 시장에서 주거지를 선택할 때 ‘미래 가치’와 ‘현재의 생활 편의성’은 늘 함께 비교되는 요소다. 대규모 개발지의 경우 체계적인 도시 계획과 향후 확장성이라는 장점을 지니는 반면, 기존 도심 내 공급 단지는 이미 형성된 인프라를 즉시 활용할 수 있다는 점에서 실거…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/011/0004577963?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[서울경제]</span>
+				GTX-B 청학역 신설 확정… 인천 원도심 부동산 시장 ‘지각변동’
+				</li>
+
+				<li class="js_con">&nbsp;수도권 광역급행철도(GTX)-B노선에 청학역(가칭) 신설이 확정되면서 인천 원도심 부동산 시장의 판도가 빠르게 달라지고 있다. 교통 인프라 한계로 상대적으로 저평가돼 왔던 연수·미추홀구 일대가&nbsp;GTX라는 초광역 교통망을 품게 되며, 주거 가치 재편 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/029/0003001302?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[디지털타임스]</span>
+				행정·문화 이어 GTX-B까지… 미추홀구 일대 개발 수혜 중심에 선 ‘인하대역 수자인 로이센트’
+				</li>
+
+				<li class="js_con">인하대역 중심으로 교통 개발 순항… 신설 확정된&nbsp;GTX-B노선 청학역 수혜 전망신청사(2029년 준공 예정)·문화예술 복합공간 등 도시 개발 속도인하대역 수자인 로이센트 투시도인천광역시 미추홀구가 행정·문화·교통 개발이 동시에 속도를 내며 도시 가치 재편의 중…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://www.viva100.com/article/20251222500662')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[브릿지경제]</span>
+				MZ세대 순유입 이어지는 인천 부동산…원도심 역세권 ‘인하대역 수자인 로이센트’ 눈길
+				</li>
+
+				<li class="js_con">- 팬데믹 이후 MZ세대 인구 이동 분석… 인천, 순유입 8,500% 급증하며 전국 최고 증가율
+- MZ세대 유입 확대에 부동산 시장도 반등… 인천 집값, 11개월 만에 하락세 멈춰인하대역 수자인 로이센트 투시도.코로나19 팬데믹을 기점으로 국내 젊은 층의 주거 트렌…</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/016/0002573837?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[헤럴드경제]</span>
+				집값 오르고, MZ세대 유입도 증가… 인천 부동산 회복세에 ‘인하대역 수자인 로이센트’ 관심 확대
+				</li>
+
+				<li class="js_con">하기- 인천 부동산, 1년여 이어진 하락세 멈추고 상승 전환, 최근 4년 간&nbsp;MZ세대 유입도 늘어- 가격·거래 모두 상승한 미추홀구, 인천 회복의 중심으로 부상인천 부동산 시장이 마침내 반등의 기지개를 켜고 있다. 11개월간 이어진 조정 흐름이 멈추며 집값이 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+		<tr style="cursor:pointer">
+		    
+                  <td onclick="window.open('https://n.news.naver.com/mnews/article/011/0004566053?sid=101')">
+
+      
+    
+
+
+			<div class="text_area">
+			<ul>
+				<li class="js_tit">
+
+                <span style="color:#006">[서울경제]</span>
+				"여기서 전국, 수도권 어디든 간다" 6개 노선 수혜권 인하대역 일대, 전국구 교통축 형성
+				</li>
+
+				<li class="js_con">인천 미추홀구 인하대역 일대가 ‘전국 어디든 빠르게 연결되는 광역 교통 중심지’로 재편되고 있다. 총 6개의 도시철도·광역철도 노선이 직·간접적으로 집중되면서, 인천 서부권의 교통 지도가 사실상 다시 그려지고 있다는 평가다. 특히 수인분당선 인하대역을 중심으로 전국구 …</li>
+
+
+			</ul>
+			</div>
+
+		</td>
+	</tr>
+	  	</tbody>
+	</table>
+	</div>
+
+        </form>
+</div>
+
+
+<!-- 페이지 -->
+<nav class="pg_wrap"><span class="pg"><span class="sound_only">열린</span><strong class="pg_current">1</strong><span class="sound_only">페이지</span>
+<a href="board.php-2.html?bo_table=news&amp;page=2" class="pg_page">2<span class="sound_only">페이지</span></a>
+<a href="board.php-3.html?bo_table=news&amp;page=3" class="pg_page">3<span class="sound_only">페이지</span></a>
+<a href="board.php-4.html?bo_table=news&amp;page=4" class="pg_page">4<span class="sound_only">페이지</span></a>
+<a href="board.php-4.html?bo_table=news&amp;page=4" class="pg_page pg_end">맨끝</a>
+</span></nav>
+<!-- 게시판 검색 시작 { -->
+<fieldset id="bo_sch">
+    <legend>게시물 검색</legend>
+
+    <form name="fsearch" method="get">
+    <input type="hidden" name="bo_table" value="news">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sop" value="and">
+    <label for="sfl" class="sound_only">검색대상</label>
+    <select name="sfl" id="sfl">
+        <option value="wr_subject">제목</option>
+        <option value="wr_content">내용</option>
+        <option value="wr_link2">언론사명</option>
+    </select>
+    <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+    <input type="text" name="stx" value="" required="" id="stx" class="frm_input required" size="15" maxlength="20">
+    <input type="submit" value="검색" class="btn_submit">
+    </form>
+</fieldset>
+<!-- } 게시판 검색 끝 -->
+
+<!-- } 게시판 목록 끝 -->
+<script type="text/javascript">
+  window.onload = function() {
+    var height  = $('#bo_list').height()+100;
+    window.parent.postMessage({ childData : height }, '*');
+  };
+</script>
+
+    
+    <div id="aside">
+        
+<!-- 로그인 전 아웃로그인 시작 { -->
+<section id="ol_before" class="ol">
+	<div id="ol_be_cate">
+    	<h2><span class="sound_only">회원</span>로그인</h2>
+    	<a href="register.php.html" class="join">회원가입</a>
+    </div>
+    <form name="foutlogin" action="/board/bbs/login_check.php" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
+    <fieldset>
+        <div class="ol_wr">
+            <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fboard.php%3Fbo_table%3Dnews">
+            <label for="ol_id" id="ol_idlabel" class="sound_only">회원아이디<strong>필수</strong></label>
+            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+            <label for="ol_pw" id="ol_pwlabel" class="sound_only">비밀번호<strong>필수</strong></label>
+            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20" placeholder="비밀번호">
+            <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
+        </div>
+        <div class="ol_auto_wr"> 
+            <div id="ol_auto" class="chk_box">
+                <input type="checkbox" name="auto_login" value="1" id="auto_login" class="selec_chk">
+                <label for="auto_login" id="auto_login_label"><span></span>자동로그인</label>
+            </div>
+            <div id="ol_svc">
+                <a href="password_lost.php.html">ID/PW 찾기</a>
+            </div>
+        </div>
+        
+    </fieldset>
+    </form>
+</section>
+
+<script>
+jQuery(function($) {
+
+    var $omi = $('#ol_id'),
+        $omp = $('#ol_pw'),
+        $omi_label = $('#ol_idlabel'),
+        $omp_label = $('#ol_pwlabel');
+
+    $omi_label.addClass('ol_idlabel');
+    $omp_label.addClass('ol_pwlabel');
+
+    $("#auto_login").click(function(){
+        if ($(this).is(":checked")) {
+            if(!confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?"))
+                return false;
+        }
+    });
+});
+
+function fhead_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+</script>
+<!-- } 로그인 전 아웃로그인 끝 -->
+            </div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+
+
+</body>
+</html>
+
+<!-- 사용스킨 : news_add -->

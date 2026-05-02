@@ -1,0 +1,589 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "book4";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+</script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+
+<link rel="stylesheet" href="../css/default-1.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/common-1.js"></script>
+<script src="../js/DScrypto-1.js"></script>
+<script src="../js/certify.js"></script>
+<style>
+	nput[type="number"]::-webkit-outer-spin-button,
+	input[type="number"]::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+  body{padding: 12px}
+	.wrap_res{
+		width:320px;
+		margin:0px auto 0px;
+		border:1px solid #ddd;
+		background-color: #fff;
+		padding:30px 0;
+		font-size:14px;
+		border-top: 2px solid #1b2545;
+		display:none;
+
+	}
+
+	.res_con{
+		position:relative;
+		width:280px;
+		margin:0px auto;
+		background-color: #fff;
+		font-size:14px;
+		line-height:24px;
+	}
+
+	.res_tit{
+		font-size:15px;
+		font-weight:bold;
+	}
+
+	.res_name{
+
+	}
+
+	.res_table{
+		width:280px;
+		margin:0 auto;
+		border-spacing:0;
+		font-size:13px;
+	}
+	.res_table th{
+		padding:5px;
+		background-color: #ccc;
+		border-bottom:1px solid #fff;
+	}
+	.res_table td{
+		line-height:13px;
+		padding-left:10px;
+		background-color: #eee;
+		border-bottom:1px solid #fff;
+	}
+	.res_cap{
+		font-size:12px;
+		margin-top:20px;
+		line-height: 16px;
+
+	}
+
+	.frm_input{
+	}
+	
+	.frm_input_nm{
+		font-size: 1em;
+		color: #2B2B2B;
+		height: 36px;
+		width: 20em;
+		border: 1px solid #ccc;
+		Vertical-align: middle;
+		border-radius: 0;
+		box-sizing: border-box;
+		text-indent: 10px;
+		line-height: 50px;
+	}		
+	
+	.frm_input_ph{
+		width: 6em;
+		font-size: 1em;
+		color: #2B2B2B;
+		height: 36px;
+		border: 1px solid #ccc;
+		Vertical-align: middle;
+		border-radius: 0;
+		box-sizing: border-box;
+		text-indent: 10px;
+		line-height: 50px;
+		margin-right:1em;
+	}
+
+
+
+	.txtinput_con{
+		width:100%;
+		margin:10px auto;
+		padding:20px 0px 10px 0px;
+
+
+	}
+
+	.txtinput_con label{
+		margin-right:5px;
+		font-weight: bold;
+		min-width: 45px;
+		display: inline-block;
+	}
+
+	.txtinput_con table{
+		width:100%;
+		margin:0 auto;
+
+	}
+
+	.txtinput_con table td:first-child{
+		width:40%;
+		text-align: center;
+	}
+
+
+	.frm_input{
+		width:8em;
+	}
+
+
+	.btn_con{
+
+		text-align: center;
+    padding-bottom: 30px;
+	}
+
+	.btn_con input{
+		display: inline-block;
+		padding:15px 25px;
+		border: 1px solid #ccc;
+		border-radius: 30px;
+		background-color:#fff;
+		font-weight:bold;
+		cursor: pointer;
+	}
+
+	.conf_cap{
+		text-align: center;
+		margin:20px 0px;
+	}
+
+
+	.name_con{
+		display:inline-block;
+		float:left;
+		padding:20px;
+	}
+
+	.tel_con{
+		display:inline-block;
+		padding:20px;
+	}
+
+	.input_con{
+		/*width:100%;
+		margin:0 auto;*/
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	    table.info_table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid #000;
+        border-bottom: 1px solid #e9e9e9;
+    }
+    table.info_table th,
+    table.info_table td {
+        border-top: 1px solid #e9e9e9;
+        padding: 10px;
+    }
+    table.info_table th {
+        background: #f5f8f9;
+        width: 4%;
+        text-align: left;
+        vertical-align: middle;
+    }
+    table.info_table input[type="text"],
+    table.info_table input[type="number"] {
+
+    }
+    .tel_mi {
+        display: inline-block;
+        margin: 0 4px;
+		vertical-align: middle;
+		line-height: 1;
+    }
+
+  .btnWrap .btn_submit button{
+    width: 100%;
+    height: inherit;
+    padding: 15px 21px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    font-family: 'noto_sans_krbold', sans-serif;
+    font-weight: 600;
+  }
+
+	/*.btn_con input[type="number"]{*/
+	.btn_con input{
+		appearance: none;
+		border-radius: 30px;
+		-webkit-appearance: none;
+		-webkit-border-radius: 30px;
+		-moz-appearance 0;
+		-moz-border-radius; 30px;
+		-moz-appearance: none;
+		color: #000;
+	}
+
+
+	@media screen and (min-width: 769px) {
+
+  	.input_con{
+		/*width:50%; margin:0 auto;*/
+		justify-content: center;
+		display: flex;
+		}
+	}
+
+	@media screen and (max-width:440px){
+		body {padding: 0;}
+		.name_con {float: none; width: 100%; dislay:block;}
+		.frm_input {width: 84%;  margin: 0; display: inline-block; float: left;}
+		.txtinput_con {width: 90%;}
+		.txtinput_con label { font-weight: bold;  width: 12%;  display: inline-block;  margin-right: 0;  float: left;  height: 24px;  line-height: 24px;  vertical-align: middle;}
+		.name_con {padding: 0; margin-bottom: 12px;}
+		.tel_con{padding: 0;}
+		#wr_7, #wr_8, #wr_9 {width: 26.5%; display: inline-block; float: left;}
+		.tel_mi { float: left; display: inline-block; width: 2%; text-align: center;  line-height: 26px;}
+		.conf_cap { word-break: keep-all; width: 90%; margin: 0 auto 20px;}
+
+		.wrap_res {width: 100%; box-sizing: border-box;}
+		.btn_con {overflow: hidden; width: 90%; margin: 0 auto;}
+		.btn_con input {float: left; width: 48%;}
+		.btn_con input:first-child {margin-right: 2%;}
+
+	}
+
+}
+
+
+
+
+</style>
+<body>
+
+  <section id="fregisterform_wnnnnn" style="">
+    <form id="fregisterform" name="fregisterform" action="" onsubmit="return fregisterform_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off">
+  <input type="hidden" name="w" value="">
+  <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fbook_conf.php%3Fbo_table%3Dbook4">
+  <input type="hidden" name="agree" value="">
+  <input type="hidden" name="agree2" value="">
+  <input type="hidden" name="cert_type" value="">
+  <input type="hidden" name="cert_no" value="">
+
+  <div class="conf_wrap">
+  	<div class="txtinput_con">
+  		<div class="input_con">
+        <div class="" id="fregisterform_w">
+
+        </div>
+        <div class="" id="bo_w">
+
+        </div>
+        <div class="btnWrap" style="display:none">
+      		<div class="btn_submit">
+                  		</div>
+      	</div>
+			<table class="info_table">
+				<tr>
+					<th><label for="wr_name">이름<strong class="sound_only">필수</strong></label></th>
+					<td>
+						<input type="text" name="wr_name" id="wr_name" value="" required="" class="frm_input_nm required" size="10" maxlength="20">
+					</td>
+				</tr>
+
+				<tr style="display:none;">
+					<th><label for="wr_age">생년월일<strong class="sound_only">필수</strong></label></th>
+					<td>
+						<input type="text" name="wr_age" id="wr_age" value="" class="frm_input" size="10" maxlength="20" placeholder="ex)901010">
+					</td>
+				</tr>
+
+				<tr>
+					<th><label for="wr_7">연락처<strong class="sound_only">필수</strong></label></th>
+					<td>
+						<input type="number" pattern="\d*" name="wr_7" id="wr_7" value="" class="frm_input_ph " maxlength="3" required="" oninput="maxLengthCheck(this)">
+						<input type="number" pattern="\d*" name="wr_8" id="wr_8" value="" class="frm_input_ph " maxlength="4" required="" oninput="maxLengthCheck(this)">
+						<input type="number" pattern="\d*" name="wr_9" id="wr_9" value="" class="frm_input_ph " maxlength="4" required="" oninput="maxLengthCheck(this)">
+						<input type="hidden" name="wr_1" id="wr_1" value="">
+					</td>
+				</tr>
+			</table>
+
+			<script>
+				function maxLengthCheck(object){
+					if (object.value.length > object.maxLength){
+						object.value = object.value.slice(0, object.maxLength);
+					}
+				}
+			</script>
+
+
+        <!-- 생년월일
+        <div class="tel_con">
+  				<label for="wr_7">생년월일<strong class="sound_only">필수</strong></label>
+          <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" required name="wr_3" id="wr_3"  value="" class="frm_input " maxlength="6">
+  			</div>
+        -->
+
+      </div>
+  	</div><!--txtinput_con-->
+  	<div class="conf_cap">※ 예약을 변경하시려는 고객께서는 기존 예약을 취소하신 후 다시 신청해 주시기 바랍니다.</div>
+  	<div class="btn_con">
+          <input type="button" value="확인하기" id="btn_comf" accesskey="s" class="btn_comf" onclick="book_comf();">
+          <input type="button" value="취소하기" id="btn_cancel" accesskey="s" class="btn_cancel" onclick="book_cancel();">
+  	</div><!--btn_con-->
+  		<div class="wrap_res">
+          <div class="res_con">
+  		<div class="res_tit">예약내용 확인</div><br>
+  	  <p><span class="res_name"><b id="wr_nameR"></b>님 <br> 아래 내역으로 예약되어 있습니다.</span></p><br>
+    	<table class="res_table">
+    		<tr style="display: none">
+    			<th>생년월일</th>
+    			<td><span id="wr_agetxt"></span></td>
+    		</tr>
+			<tr>
+    			<th>날짜</th>
+    			<td><span id="wr_5R"></span></td>
+    		</tr>
+    		<tr>
+    			<th>시간</th>
+    			<td><span id="wr_6R"></span></td>
+    		</tr>
+    		<!--<tr>
+    			<th>인원</th>
+    			<td><span id="wr_link1_hitR"></span></td>
+    		</tr>-->
+    	</table>
+  		<div class="res_cap">※ 예약을 변경하시려는 고객께서는 기존 예약을 취소하신 후 다시 신청해 주시기 바랍니다.</div>
+  	</div><!--wrap_res-->
+  	</div>
+  </div><!--conf wrap-->
+  </form></section></body>
+
+
+
+
+  	
+  </form>
+  
+  <script>
+  var params="";
+  $(function() {
+      $("#reg_zip_find").css("display", "inline-block");
+      var pageTypeParam = "pageType=register";
+  	
+  		certify_win_open("", ""+params);
+      return;
+
+  });
+  </script>
+  <script type="text/javascript">
+  // submit 최종 폼체크
+  function fregisterform_submit(f)
+  {
+  	document.getElementById("btn_submit").disabled = "disabled";
+  	return true;
+  }
+
+  function goTop(){
+  	var position= $("#guest_ifr",parent.document).offset();
+  	if($("header",parent.document).outerHeight()){
+  		var positon2 = $("header",parent.document).outerHeight();
+  	}else{
+  		var positon2 = 300;
+  	}
+  	if(position){
+  		$('html, body', window.parent.document).animate({scrollTop:position.top - positon2}, 'slow');
+  		//console.log('인증 맨위로');
+  	}
+  }
+  </script>
+
+
+
+
+<script>
+	function del_conf(){
+		$('#wr_nameR').text("");
+	  $('#wr_5R').text("");
+		//$('#wr_link1_hitR').text("");
+		$('#wr_6R').text("");
+		$('.wrap_res').hide();
+	}
+
+function book_comf() {
+	del_conf();
+  $('#wr_name').val($('#wr_name').val().replace(/\s/g, "").toUpperCase());
+  var wr_name = $('#wr_name').val();
+  wr_name = wr_name.trim();
+  var wr_age = $('#wr_age').val();
+
+  //console.log("전화번호 ",$('#wr_1').val(),$('#wr_1').val().length)
+
+  //$("input[name=wr_1]").attr("readonly", false);
+  if($('#wr_1').val() && $('#wr_1').val().length > 0 ){
+    var wr_1 = $('#wr_1').val();
+    wr_1 = wr_1.replace(/\-/g,'');
+    $('#wr_1').val(wr_1);
+  }else{
+  $('#wr_1').val('');
+  $('#wr_1').hide();
+//  $('#wr_7_hide').show();
+    var wr_1 = $('#wr_7').val() + $('#wr_8').val() + $('#wr_9').val();
+  }
+
+   //console.log("전화번호2 ",wr_1,wr_1.length)
+
+  var wr_3 = $('#wr_3').val();
+  $.ajax({
+    url: g5_bbs_url + "/ajax.book_confirm.php?bo_table=book4",
+    type: "POST",
+    data: {
+      "wr_name": wr_name,
+	  "wr_age":wr_age,
+      "wr_1": wr_1,
+      "wr_3": wr_3
+    },
+    dataType: "text",
+    success: function (data) {
+      if(data !=  'null'){
+        var result = JSON.parse(data);
+		//console.log(result);
+        $('.wrap_res').show();
+        $('#wr_nameR').text(DSdecrypt(result['wr_name']));
+        $('#wr_5R').text(result['wr_5']);
+        $('#wr_6R').text(result['wr_6']);
+        //$('#wr_link1_hitR').text(result['wr_4']);
+        var target = $("#guest_ifr", window.parent.document);
+        target.css("height",'750px');  
+			
+
+			$('#wr_agetxt').text(DSdecrypt(result.wr_content));
+
+//		console.log(DSdecrypt(result.wr_content));
+
+      }else{
+
+        alert("예약정보를 확인할 수 없습니다. 예약 후 이용하여 주십시오.");
+      }
+    },
+    error:function(request,status,error){
+      alert("알수없는 오류 잠시후 다시 시도해주세요.");
+    }
+  });
+}
+
+function book_cancel() {
+  del_conf();
+  $('#wr_name').val($('#wr_name').val().replace(/\s/gi, ""));
+  var wr_name = $('#wr_name').val();
+  wr_name = wr_name.trim();
+  var wr_age = $('#wr_age').val();
+
+  if($('#wr_1').val() && $('#wr_1').val().length > 0){
+    var wr_1 = $('#wr_1').val();
+    wr_1 = wr_1.replace(/\-/g,'');
+    $('#wr_1').val(wr_1);
+  }else{
+    var wr_1 = $('#wr_7').val() + $('#wr_8').val() + $('#wr_9').val();
+  }
+
+  var wr_3 = $('#wr_3').val();
+
+  // 본인확인 체크
+  /*
+  if(!$('input[name=cert_no]').val() || !$('#wr_1').val()) {
+      alert("본인확인을 해주셔야 합니다.");
+      $('#wr_7_hide').hide();
+      $('#wr_1').show();
+      $('.win_sa_cert').trigger("click");
+      $("input[name=wr_name]").attr("readonly", true);
+      $("input[name=wr_1]").attr("readonly", true);
+      return false;
+  }
+  */
+
+  var result = confirm('신청한 예약을 취소 하시겠습니까?');
+  //ajax.book_cancle2.php는 예약한사람을 취소자로 변경해서 다시예약못하게하는기능
+  if (result) {
+    $.ajax({
+      url: g5_bbs_url + "/ajax.book_cancel.php?bo_table=book4",
+      type: "POST",
+      data: {
+        "wr_name": wr_name,
+       "wr_age": wr_age,
+        "wr_1": wr_1,
+        "wr_3": wr_3
+      },
+      dataType: "text",
+      success: function (data) {
+        //console.log(data);
+        alert(data);
+      },
+      error:function(request,status,error){
+        alert("알수없는 오류 잠시후 다시 시도해주세요.");
+      }
+    });
+  }
+}
+
+$("#wr_7").on("keyup",function(){
+  this.value=this.value.replace(/[^0-9]/g,'');
+  if(this.value.length == 3){
+    $("#wr_8").focus();
+   }
+ });
+ $("#wr_8").on("keyup",function(){
+   this.value=this.value.replace(/[^0-9]/g,'');
+   if(this.value.length == 4){
+     $("#wr_9").focus();
+    }
+});
+
+
+</script>
+</body></html>

@@ -1,0 +1,231 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>회원가입약관 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/member/basic/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+
+<!-- 회원가입약관 동의 시작 { -->
+<div class="register">
+
+    <form name="fregister" id="fregister" action="/board/bbs/register_form.php" onsubmit="return fregister_submit(this);" method="POST" autocomplete="off">
+
+    <p><i class="fa fa-check-circle" aria-hidden="true"></i> 회원가입약관 및 개인정보 수집 및 이용의 내용에 동의하셔야 회원가입 하실 수 있습니다.</p>
+    
+        <section id="fregister_term">
+        <h2>회원가입약관</h2>
+        <textarea readonly="">해당 홈페이지에 맞는 회원가입약관을 입력합니다.</textarea>
+        <fieldset class="fregister_agree">
+            <input type="checkbox" name="agree" value="1" id="agree11" class="selec_chk">
+            <label for="agree11"><span></span><b class="sound_only">회원가입약관의 내용에 동의합니다.</b></label>
+        </fieldset>
+    </section>
+
+    <section id="fregister_private">
+        <h2>개인정보 수집 및 이용</h2>
+        <div>
+            <table>
+                <caption>개인정보 수집 및 이용</caption>
+                <thead>
+                <tr>
+                    <th>목적</th>
+                    <th>항목</th>
+                    <th>보유기간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>이용자 식별 및 본인여부 확인</td>
+                    <td>아이디, 이름, 비밀번호</td>
+                    <td>회원 탈퇴 시까지</td>
+                </tr>
+                <tr>
+                    <td>고객서비스 이용에 관한 통지,<br>CS대응을 위한 이용자 식별</td>
+                    <td>연락처 (이메일, 휴대전화번호)</td>
+                    <td>회원 탈퇴 시까지</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <fieldset class="fregister_agree">
+            <input type="checkbox" name="agree2" value="1" id="agree21" class="selec_chk">
+            <label for="agree21"><span></span><b class="sound_only">개인정보 수집 및 이용의 내용에 동의합니다.</b></label>
+       </fieldset>
+    </section>
+	
+	<div id="fregister_chkall" class="chk_all fregister_agree">
+        <input type="checkbox" name="chk_all" id="chk_all" class="selec_chk">
+        <label for="chk_all"><span></span>회원가입 약관에 모두 동의합니다</label>
+    </div>
+	    
+    <div class="btn_confirm">
+    	<a href="../../index.htm" class="btn_close">취소</a>
+        <button type="submit" class="btn_submit">회원가입</button>
+    </div>
+
+    </form>
+
+    <script>
+    function fregister_submit(f)
+    {
+        if (!f.agree.checked) {
+            alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+            f.agree.focus();
+            return false;
+        }
+
+        if (!f.agree2.checked) {
+            alert("개인정보 수집 및 이용의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+            f.agree2.focus();
+            return false;
+        }
+
+        return true;
+    }
+    
+    jQuery(function($){
+        // 모두선택
+        $("input[name=chk_all]").click(function() {
+            if ($(this).prop('checked')) {
+                $("input[name^=agree]").prop('checked', true);
+            } else {
+                $("input[name^=agree]").prop("checked", false);
+            }
+        });
+    });
+
+    </script>
+</div>
+<!-- } 회원가입 약관 동의 끝 -->
+
+    
+    <div id="aside">
+        
+<!-- 로그인 전 아웃로그인 시작 { -->
+<section id="ol_before" class="ol">
+	<div id="ol_be_cate">
+    	<h2><span class="sound_only">회원</span>로그인</h2>
+    	<a href="register.php.html" class="join">회원가입</a>
+    </div>
+    <form name="foutlogin" action="/board/bbs/login_check.php" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
+    <fieldset>
+        <div class="ol_wr">
+            <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fregister.php">
+            <label for="ol_id" id="ol_idlabel" class="sound_only">회원아이디<strong>필수</strong></label>
+            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+            <label for="ol_pw" id="ol_pwlabel" class="sound_only">비밀번호<strong>필수</strong></label>
+            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20" placeholder="비밀번호">
+            <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
+        </div>
+        <div class="ol_auto_wr"> 
+            <div id="ol_auto" class="chk_box">
+                <input type="checkbox" name="auto_login" value="1" id="auto_login" class="selec_chk">
+                <label for="auto_login" id="auto_login_label"><span></span>자동로그인</label>
+            </div>
+            <div id="ol_svc">
+                <a href="password_lost.php.html">ID/PW 찾기</a>
+            </div>
+        </div>
+        
+    </fieldset>
+    </form>
+</section>
+
+<script>
+jQuery(function($) {
+
+    var $omi = $('#ol_id'),
+        $omp = $('#ol_pw'),
+        $omi_label = $('#ol_idlabel'),
+        $omp_label = $('#ol_pwlabel');
+
+    $omi_label.addClass('ol_idlabel');
+    $omp_label.addClass('ol_pwlabel');
+
+    $("#auto_login").click(function(){
+        if ($(this).is(":checked")) {
+            if(!confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?"))
+                return false;
+        }
+    });
+});
+
+function fhead_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+</script>
+<!-- } 로그인 전 아웃로그인 끝 -->
+            </div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,731 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>중도금 방문예약 글쓰기 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/board/book/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "book2";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+<!-- skin : book --><script>
+  var data_bo_1 = "\"2026-03-11__09:30__5__//2026-03-11__10:00__4__//2026-03-11__10:30__5__//2026-03-11__11:00__5__//2026-03-11__11:30__4__//2026-03-11__13:00__6__//2026-03-11__13:30__8__//2026-03-11__14:00__8__//2026-03-11__14:30__7__//2026-03-11__15:00__7__//2026-03-11__15:30__7__//2026-03-11__16:00__6__//2026-03-12__09:30__7__//2026-03-12__10:00__7__//2026-03-12__10:30__7__//2026-03-12__11:00__7__//2026-03-12__11:30__7__//2026-03-12__13:00__7__//2026-03-12__13:30__7__//2026-03-12__14:00__6__//2026-03-12__14:30__6__//2026-03-12__15:00__6__//2026-03-12__15:30__7__//2026-03-12__16:00__7__//2026-03-13__09:30__7__//2026-03-13__10:00__7__//2026-03-13__10:30__7__//2026-03-13__11:00__7__//2026-03-13__11:30__7__//2026-03-13__13:00__7__//2026-03-13__13:30__7__//2026-03-13__14:00__7__//2026-03-13__14:30__7__//2026-03-13__15:00__7__//2026-03-13__15:30__6__//2026-03-13__16:00__5__//2026-03-14__09:30__8__//2026-03-14__10:00__8__//2026-03-14__10:30__10__//2026-03-14__11:00__8__//2026-03-14__11:30__8__//2026-03-14__13:00__8__//2026-03-14__13:30__10__//2026-03-14__14:00__10__//2026-03-14__14:30__10__//2026-03-14__15:00__10__//2026-03-14__15:30__10__//2026-03-14__16:00__8__//2026-03-15__09:30__8__//2026-03-15__10:00__8__//2026-03-15__10:30__10__//2026-03-15__11:00__8__//2026-03-15__11:30__8__//2026-03-15__13:00__8__//2026-03-15__13:30__10__//2026-03-15__14:00__10__//2026-03-15__14:30__10__//2026-03-15__15:00__10__//2026-03-15__15:30__10__//2026-03-15__16:00__8__\"";
+  var data_bo_2 = '1';
+  var data_bo_3 = '0';
+  var data_bo_6 = '2026-03-07T10:00__2026-03-15T15:00____';
+  var data_bo_7 = '{"2023-09-11":{"10:00":"3","10:30":"2","14:30":"3","14:00":"3","13:30":"2"},"2025-11-14":{"10:00":"0","14:00":"0","11:00":"0","15:00":"0","17:00":"0","13:00":"0","16:00":"0"},"2025-11-18":{"16:00":"0","14:00":"0"},"2025-11-20":{"14:00":"0"},"2025-11-15":{"10:00":"0","14:00":"0","16:00":"0","11:00":"0","13:00":"0","15:00":"0","17:00":"0"},"2025-11-17":{"17:00":"0","14:00":"0","11:00":"0","13:00":"0","10:00":"0","16:00":"0","15:00":"0"},"2025-11-16":{"17:00":"0","16:00":"0","11:00":"0","14:00":"0","13:00":"0","15:00":"0","10:00":"0"},"2026-03-07":{"09:30":"0","10:00":"0"},"2026-03-06":{"10:00":"0","09:30":"0","10:30":"0"},"2026-03-08":{"16:00":"0"},"2026-03-11":{"11:00":"4","13:30":"5","09:30":"4","10:00":"4","11:30":"2","13:00":"6","16:00":"5","14:00":"8","10:30":"5","14:30":"3","15:00":"4","15:30":"2"},"2026-03-14":{"10:00":"7","13:00":"8","11:00":"8","10:30":"10","16:00":"8","14:00":"10","11:30":"8","15:00":"10","14:30":"10","15:30":"10","09:30":"8","13:30":"10"},"2026-03-13":{"09:30":"7","11:30":"7","10:30":"7","13:30":"7","16:00":"5","11:00":"7","13:00":"7","14:00":"7","10:00":"7","15:00":"7","15:30":"5","14:30":"7"},"2026-03-12":{"14:30":"3","11:00":"5","10:30":"7","09:30":"6","16:00":"6","15:30":"5","10:00":"7","14:00":"0","11:30":"4","15:00":"5","13:00":"2","13:30":"1"},"2026-03-15":{"14:00":"10","13:00":"8","15:00":"10","09:30":"8","16:00":"7","11:00":"8","13:30":"10","10:00":"8","14:30":"10","15:30":"4","10:30":"10","11:30":"8"}}';
+
+  var bo_7 = {"2026-03-11":20,"2026-03-12":30,"2026-03-13":1,"2026-03-14":1,"2026-03-15":7};
+
+  if(data_bo_7){
+    data_bo_7 = JSON.parse(data_bo_7);
+  }
+
+  let today = new Date();
+  if(data_bo_6){
+    var data_bo_6arr  = data_bo_6.split('__');
+    //시작시간
+    if(data_bo_6arr[0]){
+      var s_startDate = new Date(data_bo_6arr[0]);
+      if(today.getTime()<s_startDate.getTime()){
+        if(data_bo_6arr[2]){
+          alert(data_bo_6arr[2]); //시작문구
+        }else{
+          alert('예약기간이 아닙니다.');
+        }
+        if(document.referrer){ history.go(-1); } else { location.href='/'; }
+      }
+    }
+
+    //마감시간
+    if(data_bo_6arr[1]){
+      var s_startDate = new Date(data_bo_6arr[1]);
+      if(today.getTime()>s_startDate.getTime()){
+        if(data_bo_6arr[3]){
+          alert(data_bo_6arr[3]); //마감문구
+        }else{
+          alert('예약기간이 종료되었습니다.');
+        }
+		if(document.referrer){ history.go(-1); } else { location.href='/'; }
+      }
+    }
+  }
+  var data_sms5 = new Array();
+    data_sms5 = {"gr_device":"both","gr_subject":"\ucee4\ubba4\ub2c8\ud2f0","gr_id":"community","gr_admin":"","gr_use_access":"0","gr_order":"0","gr_1_subj":"","gr_2_subj":"","gr_3_subj":"","gr_4_subj":"","gr_5_subj":"","gr_6_subj":"","gr_7_subj":"","gr_8_subj":"","gr_9_subj":"","gr_10_subj":"","gr_1":"","gr_2":"","gr_3":"","gr_4":"","gr_5":"","gr_6":"","gr_7":"","gr_8":"","gr_9":"","gr_10":""};
+    //데이터없을때 예외처리해줘야함
+
+  data_bo_1 = JSON.parse(data_bo_1);
+  var strArray = data_bo_1.split('//');
+  var strArray2 = new Array();
+  var strArrayDate = new Array();
+  for(i=0;i<strArray.length;i++){
+    var html = "";
+    strArray2[i] = strArray[i].split('__');
+    strArrayDate.push(strArray2[i][0]);
+  }
+
+  (function (factory) {
+      if (typeof define === "function" && define.amd) { // AMD. Register as an anonymous module.
+          define(["../widgets/datepicker"], factory);
+      } else { // Browser globals
+          factory(jQuery.datepicker);
+      }
+  }(function (datepicker) {
+      //가능한날 배열로 넣어줌
+      if(!strArrayDate){
+        return;
+      }
+      var availableDates = strArrayDate;
+      function available(date) {
+          var thismonth = date.getMonth() + 1;
+          var thisday = date.getDate();
+          if (thismonth < 10) {
+              thismonth = "0" + thismonth;
+          }
+          if (thisday < 10) {
+              thisday = "0" + thisday;
+          }
+          ymd = date.getFullYear() + "-" + thismonth + "-" + thisday;
+          if ($.inArray(ymd, availableDates) >= 0) {
+
+          /* //해당날짜 강조부분
+              var a = new Date(2021, 11, 25); // 월-1 해야함
+              var b = new Date(2021, 11, 31); //
+              return [true, a <= date && date <= b ? "my-class" : ""];
+          */
+              return [true, "", ""];
+          } else {
+              return [false, "", ""];
+          }
+      }
+      datepicker.regional.ko = {
+          closeText: "닫기",
+          prevText: "이전달",
+          nextText: "다음달",
+          currentText: "오늘",
+          monthNames: [
+              "1월",
+              "2월",
+              "3월",
+              "4월",
+              "5월",
+              "6월",
+              "7월",
+              "8월",
+              "9월",
+              "10월",
+              "11월",
+              "12월"
+          ],
+          monthNamesShort: [
+              "1월",
+              "2월",
+              "3월",
+              "4월",
+              "5월",
+              "6월",
+              "7월",
+              "8월",
+              "9월",
+              "10월",
+              "11월",
+              "12월"
+          ],
+          dayNames: [
+              "일요일",
+              "월요일",
+              "화요일",
+              "수요일",
+              "목요일",
+              "금요일",
+              "토요일"
+          ],
+          dayNamesShort: [
+              "일",
+              "월",
+              "화",
+              "수",
+              "목",
+              "금",
+              "토"
+          ],
+          dayNamesMin: [
+              "일",
+              "월",
+              "화",
+              "수",
+              "목",
+              "금",
+              "토"
+          ],
+          weekHeader: "주",
+          dateFormat: "yy-mm-dd",
+          defaultDate: 0,
+          setDate: new Date(),
+          isRTL: false,
+          beforeShowDay: available,
+          showMonthAfterYear: true,
+          minDate: 0,
+          yearSuffix: "년"
+  		//minDate 0은 당일예약 가능 1은 불가
+      };
+      datepicker.setDefaults(datepicker.regional.ko);
+      return datepicker.regional.ko;
+  }));
+</script>
+<style media="screen">
+  .my-class a{border-radius: 0!important}
+</style>
+<!-- 게시물 작성/수정 시작 { -->
+<section id="bo_w">
+  <form name="fwrite" id="fwrite" action="/board/bbs/write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" style="width:100%">
+    <input type="hidden" name="uid" value="2026042910402223">
+    <input type="hidden" name="w" value="">
+    <input type="hidden" name="bo_table" value="book2">
+    <input type="hidden" name="wr_id" value="0">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sfl" value="">
+    <input type="hidden" name="stx" value="">
+    <input type="hidden" name="spt" value="">
+    <input type="hidden" name="sst" value="">
+    <input type="hidden" name="sod" value="">
+    <input type="hidden" name="page" value="">
+  	<div class="select_con">
+      <div class="select_box clearfix">
+    		<div class="date_con">
+    			<div class="date_title">
+    				<span class="tit_span">예약일자 선택</span>
+    				<div class="ex_list">
+    					<span class="ex_able">●</span> 선택가능 일자
+    				</div>
+    			</div>
+    			<div type="text" id="calender"></div><!-- 혹은 <div> -->
+    			<script>
+
+            var peopleHtml='';
+            var peopleArr = new Array();
+            var writeArr = new Array();
+    				var c_date;
+            var click_now_val;
+            var dateCount = 0;
+            var dateCount2 = 0;
+            var dateCount3 = 0;
+            var dateCountText;
+
+            var todayval = new Date();
+            var year = todayval.getFullYear(); // 년도
+            var month = todayval.getMonth() + 1;  // 월
+            var date = todayval.getDate();  // 날짜
+            var hours = todayval.getHours();
+            var minute = todayval.getMinutes();
+            var n_time = hours*60+minute;
+			var today_enable_cnt = 0; //하루 예약가능한 수
+
+            if (month < 10) { month = "0" + month; }
+            if (date < 10) { date = "0" + date; }
+
+            var today_val = year + '-' + month + '-' + date;
+
+    				$('#calender').datepicker({
+    					onSelect: function(dateText, inst) {
+    						$("input[name='wr_5']").val(dateText);
+    						$('#line_date').remove();
+    						$('#sel_date').append("<div id='line_date'><span id='info_date'>"+dateText+"</span>을 선택하셨습니다.</div>");
+    						$('#line_time').remove();
+    						$("input[name='wr_6']").val("");
+                $("input[name='wr_10']").val("");
+
+                var click_year = inst.currentYear; // 년도
+    						var click_month = inst.currentMonth + 1;  // 월
+    						var click_date = inst.currentDay;  // 날짜
+    						if (click_month < 10) { click_month = "0" + click_month; }
+    						if (click_date < 10) { click_date = "0" + click_date; }
+                var click_today_val = click_year+'-'+click_month+'-'+click_date;
+                dateCountText = dateText;
+
+                if(click_today_val==click_now_val){
+                  return 0;
+                }else{
+                  $('#calender').datepicker('option', 'disabled', true);
+                  peopleHtml='';
+                  peopleArr = [];
+                  writeArr = [];
+                  $('#time_list').html('');
+                  dateCount = 0;
+                  dateCount2 = 0;
+                  dateCount3 = 0;
+
+                  click_now_val = click_today_val;
+                  //해당 날짜에 몇게 항목있는지 체크하려고
+                  for(j=0;j<strArray2.length;j++){
+                    if(strArray2[j][0]==dateText){
+                      dateCount2++;
+                      //클릭한날짜에 입력된게 제한수보다 크면 dateCount3++
+                      if(data_bo_7[click_now_val]){
+                        if(data_bo_7[click_now_val][strArray2[j][1]]){
+                          if(data_bo_7[click_now_val][strArray2[j][1]] >= strArray2[j][2]){
+                            dateCount3++;
+                          }
+                        }
+                      }//data_bo_7[click_now_val]
+                    }
+                  }//for끝
+
+                  //if(dateCount2 <= dateCount3){
+				  if(bo_7[click_now_val] < 1){ /* 위 IF문 로직은 트래픽을 줄이기 위한걸로 보이나, 오류가 있어서 새로 디버깅하였음. seong jun*/
+                    $('#time_list').html('해당요일은 마감입니다.');
+                    $('#calender').datepicker('option', 'disabled', false);
+                  }else{
+                    $('#time_list').html('로딩중 입니다.');
+					today_enable_cnt = 0;
+                    $.ajax({
+                			cache : false,
+                			url : "./ajax.book_s.countALL.php?bo_table=book2", // 요기에
+                			type : 'POST',
+                			data : {people_DATE:click_now_val},
+                			success : function(data) {
+                				data = JSON.parse(data);
+								writeArr  = data;
+								for(i=0;i<strArray2.length;i++){
+								  if(strArray2[i][0]==dateText){
+									//console.log(strArray2[i][0]+"ㅎㅎ"+strArray2[i][1]+"ㅎㅎ"+strArray2[i][2]);
+									peopleCount(strArray2[i][0],strArray2[i][1],strArray2[i][2],strArray2[i][3]);
+								  }
+								}
+								if(today_enable_cnt < 1){
+									$('#time_list').html('해당요일은 마감입니다.');
+								}
+								$('#calender').datepicker('option', 'disabled', false);
+                			},
+                			error : function(xhr, status) {
+                			},
+                		}); // $.ajax */
+                  }
+                }
+              }
+    				});
+            //첫번째 날짜가 달력에 바로뜨게, 넘어가면 현제날짜로
+            if(strArrayDate[0]){
+              strArrayDate.sort();
+              var edt = new Date(strArrayDate[0]);
+              var dateDiff = Math.ceil((edt.getTime()-today.getTime())/(1000*3600*24));
+              if(dateDiff>=0){
+                $('#calender').datepicker('setDate', dateDiff + 'D'); // 캘린더,달력날짜 몇일뒤로
+              }
+            }
+            //$('#calender').datepicker('setDate', '+1M'); //1달뒤가 처음부터보이게
+    				$(".ui-state-active").css('background-color','#ddd');
+
+    				function add_cl(){
+      				$("#time_list .ab_li").click(function(){
+      					var time_val = $(this).find(".select_time").text();
+                var round_val = $(this).find(".select_round").text();
+      					$("#time_list .ab_li").removeClass("active_li");
+      					$(this).addClass("active_li");
+
+      					$("input[name='wr_6']").val(time_val);
+                $("input[name='wr_10']").val(round_val);
+      					$('#line_time').remove();
+      					$('#sel_time').append("<div id='line_time'><span id='info_time'>"+time_val+"</span>을 선택하셨습니다");
+      				});
+    				}
+
+            function peopleCount(people_DATE,people_TIME,people_LIMIT,people_COMMENT){
+              peopleHtml =  '';
+
+              var countLimit = 0;
+              for (var k = 0; k < writeArr.length; k++) {
+                if(writeArr[k]['wr_5']==people_DATE && writeArr[k]['wr_6']==people_TIME){
+                  //console.log(writeArr[j]['wr_id']+writeArr[j]['wr_10']);
+                  //팀별로
+                  countLimit++;
+
+                  //인원수별로
+                  //countLimit  += parseInt(writeArr[k]['wr_4']);
+                  //console.log(countLimit);
+                }
+              }
+
+              var people_TIMEarr = people_TIME.split(':');
+              var people_TIMEresult = parseInt(people_TIMEarr[0])*60+parseInt(people_TIMEarr[1]);
+              if(parseInt(people_LIMIT)-parseInt(countLimit)>0){
+                //예약가능
+                peopleArr.push([people_TIME,1,people_TIMEresult,parseInt(people_LIMIT)-parseInt(countLimit),people_COMMENT]);
+              }else{
+                //예약마감
+                peopleArr.push([people_TIME,0,people_TIMEresult,parseInt(people_LIMIT)-parseInt(countLimit),people_COMMENT]);
+              }
+              for(j=0;j<peopleArr.length;j++){
+                //정렬
+                peopleArr.sort();
+                //회차설정부분
+
+                //console.log(peopleArr);
+                var textJ;
+                var indexJ =j+1;
+                if(j<9){
+                  textJ='[0'+indexJ+"회차]";
+                }else{
+                  textJ='['+indexJ+"회차]";
+                }
+
+                if(peopleArr[j][4]){
+                  textJ = peopleArr[j][4];
+                }
+
+                //console.log(textJ);
+                //지난시간 마감 체크되어있구 현재날짜와 같고 현재시간보다 작아지면 마감으로 표시
+                //else 는 그냥 제한수에 맞춰 마감
+                if(data_bo_2==1 && today_val == people_DATE && parseInt(n_time)>parseInt(peopleArr[j][2])){
+                  peopleHtml+="<li class='nab_li'><span class='select_round'>"+textJ+"</span> <span>"+peopleArr[j][0]+"</span>"+" 예약마감</li>";
+                }else{
+					//data_bo_3=1;
+					//console.log("data_bo_3",data_bo_3)
+					//console.log("peopleArr[j][1]",peopleArr[j][1],peopleArr[j])
+                  if(peopleArr[j][1]==1){
+                    if(data_bo_3==1){
+                      peopleHtml+="<li class='ab_li'><span class='select_round'>"+textJ+"</span> <span class='select_time'>"+peopleArr[j][0]+"</span>"+"<span class='remain_span'>("+peopleArr[j][3]+"팀 예약가능)</span></li>";
+                    }else{
+                      peopleHtml+="<li class='ab_li'><span class='select_round'>"+textJ+"</span> <span class='select_time'>"+peopleArr[j][0]+"</span>"+"<span class='remain_span'>(예약가능)</span></li>";
+                    }
+					
+					today_enable_cnt ++;
+
+                  }else{
+                    peopleHtml+="<li class='nab_li'><span class='select_round'>"+textJ+"</span> <span>"+peopleArr[j][0]+"</span>"+" 예약마감</li>";
+                  }
+                }
+              }
+
+			  $('#time_list').html(peopleHtml);
+              
+			  dateCount++;
+
+              //ajax여러번 실행안되게 방지하는곳
+              //if(dateCount==dateCount2){
+                //$('#calender').datepicker('option', 'disabled', false);
+              //}
+              add_cl();
+
+              }
+
+    			</script>
+    		<div id="sel_date"><div id='line_date'></div></div>
+    			<div id="date_input"><input style="display:none;" type="text" name="wr_5" value="" id="wr_5" class="frm_input" maxlength="20"></div>
+    		</div><!--date_con-->
+    		<div class="time_con">
+    			<div class="time_title"><span class="tit_span">예약시간 선택</span></div>
+    				<div class="time_list_con">
+    					<ul id="time_list">
+    						<li></li>
+    					</ul>
+    				</div>
+    				<div id="sel_time"><div id='line_time'></div></div>
+    			<div id="time_input"><input style="display:none;" type="text" name="wr_6" value="" id="wr_6" class="frm_input" maxlength="25"></div>
+          <input style="display:none;" type="text" name="wr_10" value="" id="wr_10" class="frm_input" maxlength="25">
+    		</div><!--time_con-->
+      </div>
+        <!--<div class="num_con">
+      <div class="num_sel">
+        <label for="wr_4">인원선택<strong class="sound_only">필수</strong></label>
+    			<br><br>
+          <div class="num_box">
+    				<span id="box_num1" class="box_num" style="cursor:pointer" onclick="radio_change(1)">본인</span>
+    				<span id="box_num2" class="box_num" style="cursor:pointer" onclick="radio_change(2)">동반1명</span>
+    			</div><!--num_box-->
+          <!--<input type="hidden" name="wr_4" id="wr_4" value="0">
+    	</div><!--num_sel-->
+    <!--</div><!--num_con-->
+      <!--<input type="hidden" name="wr_4" id="wr_4" value="1">-->
+    </div><!--select_con-->
+
+  <script>
+    function radio_change(status){
+      $('.box_num').css({backgroundColor: "#fff", color:"#ccc"})
+      if(status==1){
+        $('#box_num1').css({backgroundColor: "#ee6e14", color:"#fff"})
+        $('#wr_4').val(1);
+      }else if(status==2){
+        $('#box_num2').css({backgroundColor: "#ee6e14", color:"#fff"})
+        $('#wr_4').val(2);
+      }else{
+        $('.box_num').css({backgroundColor: "#fff", color:"#ccc"})
+        $('#wr_4').val('');
+      }
+    }
+  </script>
+
+
+	<div class="agree_tit">개인정보 수집 동의</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+			<td colspan="4">
+				<textarea style="width:98%" rows="10" readonly="" class="style1">
+개인정보 수집 및 이용목적
+
+ 1. 수집하는 개인정보 항목
+ 회사는 사전방문 예약 등을 통하여 아래와 같은 개인정보를 수집하고 있습니다.
+ - 수집항목 : 이름, 연락처
+ - 수집방법 : 홈페이지 방문 예약
+
+ 2. 개인정보의 수집 및 이용목적
+ 회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.
+ - 중도금대출 신청 및 추가선택품목 계약 예약 및 안내
+ - 중도금대출 및 추가선택품목 안내 등 분양관련 안내에 활용
+
+ 3.개인정보 수집 주체
+  - 아이월드㈜, ㈜BS한양
+
+ 4. 개인정보의 보유 및 이용기간
+ 회사는 개인정보수집 및 이용목적이 달성된 후에는 예외 없이 해당정보를 지체없이 파기합니다.
+
+ 5. 개인정보 수집 동의를 거부할 권리
+ 귀하께서는 개인정보 수집/이용을 거절하실 수 있으며, 거절하실 경우 당첨자 서류접수 예약 및 분양관련 안내 등의 정보 제공 서비스를 받으실 수 없습니다.
+				</textarea>
+      </td>
+		 </tr>
+		 <tr>
+       <td height="30" colspan="4" align="right" class="style2"><input type="checkbox" value="동의함" name="i" id="agree" checked=""><label for="agree"><span>동의함 (동의하셔야만 예약이 가능합니다.)</span></label></td>
+		 </tr>
+	 </table>
+
+	<br>
+    <div class="tbl_frm01 tbl_wrap">
+      <table>
+        <tbody>
+        <tr>
+            <th scope="row"><label for="wr_name">이름<strong class="sound_only">필수</strong></label></th>
+            <td><input type="text" name="wr_name" value="" id="wr_name" required="" class="frm_input required" size="10" maxlength="20"></td>
+        </tr>
+
+		<tr>
+            <th scope="row"><label for="wr_7">생년월일(8자리)<strong class="sound_only">필수</strong></label></th>
+            <td><input type="text" name="wr_7" value="" id="wr_7" required="" class="frm_input required" size="10" maxlength="8"></td>
+        </tr>
+
+                <tr style='display:none;'>
+            <th scope="row"><label for="wr_password">비밀번호<strong class="sound_only">필수</strong></label></th>
+            <td><input type="password" name="wr_password" id="wr_password" value='1111' class="frm_input" maxlength="20"></td>
+        </tr>
+        		    <tr>
+          <th scope="row"><label for="wr_password">연락처<strong class="sound_only">필수</strong></label></th>
+          <td>
+  				  <input type="number" pattern="\d*" id="wr_1_1" value="" class="frm_input required" maxlength="3" oninput="maxLengthCheck(this)" size="6" required="">-
+  				  <input type="number" pattern="\d*" id="wr_1_2" value="" class="frm_input required" maxlength="4" oninput="maxLengthCheck(this)" size="6" required="">-
+  				  <input type="number" pattern="\d*" id="wr_1_3" value="" class="frm_input required" maxlength="4" oninput="maxLengthCheck(this)" size="6" required="">
+				    <input style="display:none;" type="text" name="wr_1" id="wr_1" value="" maxlength="11">
+			    </td>
+        </tr>
+                        
+        <tr style='display:none;'>
+            <th scope="row"><label for="wr_subject">제목<strong class="sound_only">필수</strong></label></th>
+            <td>
+                <div id="autosave_wrapper">
+                    <input type="text" name="wr_subject" value="방문예약" id="wr_subject" required="" class="frm_input required" size="50" maxlength="255">
+                </div>
+            </td>
+        </tr>
+        <tr style='display:none;'>
+            <th scope="row"><label for="wr_content">내용<strong class="sound_only">필수</strong></label></th>
+            <td class="wr_content">
+               <div id="autosave_wrapper">
+                    <input type="text" name="wr_content" value="내용입니다." id="wr_content" required="" class="frm_input required" size="50" maxlength="255">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+	<div class="book_cap">※ 예약을 변경하시려는 고객께서는 기존 예약을 취소하신 후 다시 신청해 주시기 바랍니다. </div>
+    <div class="btn_confirm" style="padding-bottom:50px">
+      <input type="submit" value="예약하기" id="btn_submit " accesskey="s" class="btn_submit btn_01">
+    </div>
+</form>
+
+<script>
+
+        function html_auto_br(obj)
+    {
+        if (obj.checked) {
+            result = confirm("자동 줄바꿈을 하시겠습니까?\n\n자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다.");
+            if (result)
+                obj.value = "html2";
+            else
+                obj.value = "html1";
+        }
+        else
+            obj.value = "";
+    }
+
+    function fwrite_submit(f)
+    {
+		f.wr_name.value = f.wr_name.value.replace(/\s/g, "").toUpperCase();
+
+  		var book_date = f.wr_5.value
+  		if(book_date==""){
+  		alert("방문일자를 선택해 주세요.");
+  		return false;
+  		}
+
+  		var book_time = f.wr_6.value
+  		if(book_time==""){
+  		alert("방문시간을 선택해 주세요.");
+  		return false;
+  		}
+		
+  		var wr_7 = f.wr_7.value
+  		if(wr_7==""){
+  		alert("생년월일 입력해 주세요.");
+		f.wr_7.focus();
+  		return false;
+  		}
+
+		const birth = document.getElementById('wr_7').value.trim();
+
+		if (birth.length !== 8) {
+			alert('생년월일은 8자리로 입력해주세요. (예: 19901010)');
+			document.getElementById('wr_7').focus();
+			return false; // 유효하지 않음
+		}
+
+		// 숫자만 입력되었는지 확인
+		if (!/^\d{8}$/.test(birth)) {
+			alert('생년월일은 숫자만 입력해주세요.');
+			document.getElementById('wr_7').focus();
+			return false;
+		}		
+
+        		/*var book_date = f.wr_4.value
+  		if(book_date==0){
+  		alert("방문인원을 선택해 주세요.");
+  		return false;
+  		}*/
+      
+  		var chk1=document.getElementById("agree");
+  		if(chk1.checked==true){
+  			//console.log('체크됨');
+  		}else{
+  			alert('개인정보 수집·이용에 동의하셔야 예약이 가능합니다');
+  			chk1.focus();
+        return false;
+  		}
+
+      var cont_val = f.wr_1_1.value+f.wr_1_2.value+f.wr_1_3.value;
+      $("input[name='wr_1']").val(cont_val);
+
+			$('#wr_1').val($('#wr_1').val().replace(/\-/gi, ""));
+
+
+        GA_event('방문예약');
+        var wr_content_editor = document.getElementById('wr_content');
+if (!wr_content_editor.value) { alert("내용을 입력해 주십시오."); wr_content_editor.focus(); return false; }
+
+        var subject = "";
+        var content = "";
+        $.ajax({
+            url: g5_bbs_url+"/ajax.filter.php",
+            type: "POST",
+            data: {
+                "subject": f.wr_subject.value,
+                "content": f.wr_content.value
+            },
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function(data, textStatus) {
+                subject = data.subject;
+                content = data.content;
+            }
+        });
+
+        if (subject) {
+            alert("제목에 금지단어('"+subject+"')가 포함되어있습니다");
+            f.wr_subject.focus();
+            return false;
+        }
+
+        if (content) {
+            alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
+            if (typeof(ed_wr_content) != "undefined")
+                ed_wr_content.returnFalse();
+            else
+                f.wr_content.focus();
+            return false;
+        }
+
+        if (document.getElementById("char_count")) {
+            if (char_min > 0 || char_max > 0) {
+                var cnt = parseInt(check_byte("wr_content", "char_count"));
+                if (char_min > 0 && char_min > cnt) {
+                    alert("내용은 "+char_min+"글자 이상 쓰셔야 합니다.");
+                    return false;
+                }
+                else if (char_max > 0 && char_max < cnt) {
+                    alert("내용은 "+char_max+"글자 이하로 쓰셔야 합니다.");
+                    return false;
+                }
+            }
+        }
+
+        
+
+    }
+
+    // 바르게 입력했으면 문구 띄워주는곳
+
+    $("#wr_1_1").on("keyup",function(){
+      this.value=this.value.replace(/[^0-9]/g,'');
+      if(this.value.length == 3){
+        $("#wr_1_2").focus();
+       }
+     });
+     $("#wr_1_2").on("keyup",function(){
+       this.value=this.value.replace(/[^0-9]/g,'');
+       if(this.value.length == 4){
+         $("#wr_1_3").focus();
+        }
+    });
+    //게시판 크기알려주고 자동으로 맨위로 올라가게하는거
+
+</script>
+</section>
+<style></style></body></html>

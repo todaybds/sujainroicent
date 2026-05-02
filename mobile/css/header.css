@@ -1,0 +1,255 @@
+header {
+    width: 100%;
+    padding: 0 30px;
+    /* background: linear-gradient(to top left, #004976 50%, white 50%); */
+    /* background-image: url("../img/header_bg.png"); */
+    background: transparent;
+    background-size: 110%;
+    background-position: center;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    gap: 8px;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+header.scrolled {
+    background-color: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* 스크롤 시 또는 서브페이지: 흰 로고를 PNG 마스크로 다시 칠해 브랜드 블루로 변환 */
+header.scrolled h1,
+header.is-sub h1 {
+    background-image: none;
+    background-color: #004976;
+    -webkit-mask-image: url("../img/logo.png");
+            mask-image: url("../img/logo.png");
+    -webkit-mask-size: contain;
+            mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+            mask-position: center;
+}
+
+/* 메뉴가 열리면 메뉴의 진한 파란 배경 위에서 보이도록 헤더/로고 원복 */
+header.menu-open {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+header.menu-open h1 {
+    background-image: url("../img/logo.png");
+    background-color: transparent;
+    -webkit-mask-image: none;
+            mask-image: none;
+}
+
+header .popup_quick {
+    background-image: url("../img/popup_img.jpg");
+    width: 69px;
+    height: 34px;
+    border-radius: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+header .calendar {
+    width: 36px;
+    height: auto;
+    aspect-ratio: 64/64;
+    background-image: url("../img/header_ico3.jpg");
+    border-radius: 100%;
+    background-size: contain;
+}
+
+header .call {
+    width: 36px;
+    height: auto;
+    aspect-ratio: 64/64;
+    background-image: url("../img/header_ico2.jpg");
+    border-radius: 100%;
+    background-size: contain;
+    border: 1px solid rgba(0, 73, 118, 0.3);
+    box-sizing: border-box;
+}
+
+header h1 {
+    width: 190px;
+    height: auto;
+    aspect-ratio: 164/67;
+    background-image: url("../img/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: auto;
+}
+
+header h1 a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+header .menu_btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 100%;
+    position: relative;
+    background-image: url("../img/header_ico.jpg");
+    cursor: pointer;
+    background-size: contain;
+    border: none;
+    background-color: transparent;
+    z-index: 200;
+
+}
+
+.menu_btn span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    transition: 0.3s;
+}
+
+.menu_btn span:nth-child(1) {
+    top: 20px;
+}
+
+.menu_btn span:nth-child(2) {
+    bottom: 19px;
+}
+
+.menu_btn.active {
+    aspect-ratio: 39/29;
+    background-image: none;
+    top: 0px;
+    right: 0px;
+}
+
+.menu_btn.active span {
+    background-color: #fff;
+}
+
+.menu_btn.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 18px;
+}
+
+.menu_btn.active span:nth-child(2) {
+    transform: rotate(-45deg);
+    bottom: 19px;
+}
+
+
+
+/* ---- */
+header nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    z-index: 150;
+    background-color: var(--main-blue);
+    width: 100vw;
+    max-width: 768px;
+    min-height: 100vh;
+    height: 100%;
+    transition: ease 3s;
+    overflow-y: scroll;
+}
+
+header nav.on {
+    left: 0;
+}
+
+header nav h1 {
+    width: 100%;
+    aspect-ratio: 164 / 67;
+    height: 65px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    background-image: url("../img/logo_ho.png");
+    background-size: 140px;
+    background-position: center;
+    opacity: 1;
+    position: fixed;
+    z-index: 101;
+    background-color: var(--main-blue);
+    top: 0;
+}
+
+.gnb {
+    position: absolute;
+    top: 65px;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    /* 모바일: 세로 정렬 */
+    gap: 10px;
+}
+
+.gnb>li {
+    position: relative;
+}
+
+
+
+.gnb>li>a,
+.gnb>li>span {
+    width: 100%;
+    display: block;
+    padding: 16px 22px;
+    font-size: 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.sub {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sub li a {
+    display: block;
+    padding: 14px 8px;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+
+
+
+@media screen and (max-width: 486px) {
+    header {
+        height: 65px;
+        padding: 0 18px;
+    }
+
+    header h1 {
+        width: 130px;
+    }
+
+    header nav h1 {
+        height: 65px;
+        background-size: 140px;
+    }
+
+    header nav ul li a {
+        font-size: 16px;
+        padding-left: 30px;
+    }
+
+}

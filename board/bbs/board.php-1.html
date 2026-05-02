@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>공지사항 1 페이지 | 그누보드5</title>
+<link rel="stylesheet" href="../css/default.css?ver=220621">
+<link rel="stylesheet" href="../js/jquery-ui.css?ver=220621">
+<link rel="stylesheet" href="../js/font-awesome/css/font-awesome.min.css?ver=220621">
+<link rel="stylesheet" href="../skin/board/notice_file/style.css?ver=220621">
+<link rel="stylesheet" href="../skin/outlogin/basic/style.css?ver=220621">
+<!--[if lte IE 8]>
+<script src="/board/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "/board";
+var g5_bbs_url   = "/board/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "notice";
+var g5_sca       = "";
+var g5_editor    = "smarteditor2";
+var g5_cookie_domain = "";
+</script>
+<script src="../js/jquery-1.12.4.min.js?ver=220621"></script>
+<script src="../js/jquery-migrate-1.4.1.min.js?ver=220621"></script>
+<script src="../js/jquery.menu.js?ver=220621"></script>
+<script src="../js/wrest.js?ver=220621"></script>
+<script src="../js/placeholders.min.js?ver=220621"></script>
+<script src="../js/jquery-ui.min.js?ver=220621"></script>
+<script src="../js/DScrypto.js?ver=220621"></script>
+<script src="../js/common.js?ver=220621"></script>
+</head>
+<body>
+    
+<script>
+window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "setHeight") {
+        var iframes = document.querySelectorAll("iframe");
+        iframes.forEach(function(iframe) {
+            iframe.style.height = event.data.height + "px";
+        });
+    }
+});
+</script>
+<!-- 콘텐츠 시작 { -->
+
+
+
+<!-- 게시판 목록 시작 { -->
+<div id="bo_list" style="width:100%;">
+
+    <!-- 게시판 카테고리 시작 { -->
+        <!-- } 게시판 카테고리 끝 -->
+
+    <!-- 게시판 페이지 정보 및 버튼 시작 { -->
+    <div class="bo_fx">
+        <div id="bo_list_total">
+            총 <span style="color:#f10000">1</span>건
+            (<span style="color:#f10000">1</span>/1페이지)
+        </div>
+
+            </div>
+    <!-- } 게시판 페이지 정보 및 버튼 끝 -->
+
+    <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post">
+    <input type="hidden" name="bo_table" value="notice">
+    <input type="hidden" name="sfl" value="">
+    <input type="hidden" name="stx" value="">
+    <input type="hidden" name="spt" value="">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sst" value="wr_num, wr_reply">
+    <input type="hidden" name="sod" value="">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="sw" value="">
+
+    <div class="tbl_head01 tbl_wrap">
+        <table>
+        <caption>공지사항 목록</caption>
+        <thead>
+                <tr>
+            <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+            <th scope="col">첨부</th>
+            <th scope="col">작성자</th>
+            <th scope="col"><a href="board.php-5.html?bo_table=notice&amp;sop=and&amp;sst=wr_datetime&amp;sod=desc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">작성일</a></th>
+            <th scope="col"><a href="board.php-6.html?bo_table=notice&amp;sop=and&amp;sst=wr_hit&amp;sod=desc&amp;sfl=&amp;stx=&amp;sca=&amp;page=1">조회</a></th>
+                                </tr>
+        </thead>
+                <tbody>
+                <tr class="">
+            <td class="td_num">
+            1            </td>
+                        <td class="td_subject">
+                
+                <a href="board.php-7.html?bo_table=notice&amp;wr_id=1">
+                    이동통신 상호협의 결과서                                        <i class="fa fa-heart" aria-hidden="true"></i>                                     </a>
+
+
+            </td>
+                          <td class="td_num"></td>
+              <td class="td_name sv_use" style="text-align: center;">관리자</td>
+              <td class="td_date">10-30</td>
+              <td class="td_num">220</td>
+                                                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+        </form>
+</div>
+
+
+<!-- 페이지 -->
+
+<!-- 게시판 검색 시작 { -->
+<fieldset id="bo_sch">
+    <legend>게시물 검색</legend>
+
+    <form name="fsearch" method="get">
+    <input type="hidden" name="bo_table" value="notice">
+    <input type="hidden" name="sca" value="">
+    <input type="hidden" name="sop" value="and">
+    <label for="sfl" class="sound_only">검색대상</label>
+    <select name="sfl" id="sfl" class="serch_select">
+        <option value="wr_subject">제목</option>
+        <option value="wr_content">내용</option>
+    </select>
+    <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+    <input type="text" name="stx" value="" required="" id="stx" class="frm_input required" size="15" maxlength="20">
+    <input type="submit" value="검색" class="btn_submit">
+    </form>
+</fieldset>
+<!-- } 게시판 검색 끝 -->
+
+<!-- } 게시판 목록 끝 -->
+
+    
+    <div id="aside">
+        
+<!-- 로그인 전 아웃로그인 시작 { -->
+<section id="ol_before" class="ol">
+	<div id="ol_be_cate">
+    	<h2><span class="sound_only">회원</span>로그인</h2>
+    	<a href="register.php.html" class="join">회원가입</a>
+    </div>
+    <form name="foutlogin" action="/board/bbs/login_check.php" onsubmit="return fhead_submit(this);" method="post" autocomplete="off">
+    <fieldset>
+        <div class="ol_wr">
+            <input type="hidden" name="url" value="%2Fboard%2Fbbs%2Fboard.php%3Fbo_table%3Dnotice">
+            <label for="ol_id" id="ol_idlabel" class="sound_only">회원아이디<strong>필수</strong></label>
+            <input type="text" id="ol_id" name="mb_id" required="" maxlength="20" placeholder="아이디">
+            <label for="ol_pw" id="ol_pwlabel" class="sound_only">비밀번호<strong>필수</strong></label>
+            <input type="password" name="mb_password" id="ol_pw" required="" maxlength="20" placeholder="비밀번호">
+            <input type="submit" id="ol_submit" value="로그인" class="btn_b02">
+        </div>
+        <div class="ol_auto_wr"> 
+            <div id="ol_auto" class="chk_box">
+                <input type="checkbox" name="auto_login" value="1" id="auto_login" class="selec_chk">
+                <label for="auto_login" id="auto_login_label"><span></span>자동로그인</label>
+            </div>
+            <div id="ol_svc">
+                <a href="password_lost.php.html">ID/PW 찾기</a>
+            </div>
+        </div>
+        
+    </fieldset>
+    </form>
+</section>
+
+<script>
+jQuery(function($) {
+
+    var $omi = $('#ol_id'),
+        $omp = $('#ol_pw'),
+        $omi_label = $('#ol_idlabel'),
+        $omp_label = $('#ol_pwlabel');
+
+    $omi_label.addClass('ol_idlabel');
+    $omp_label.addClass('ol_pwlabel');
+
+    $("#auto_login").click(function(){
+        if ($(this).is(":checked")) {
+            if(!confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?"))
+                return false;
+        }
+    });
+});
+
+function fhead_submit(f)
+{
+    if( $( document.body ).triggerHandler( 'outlogin1', [f, 'foutlogin'] ) !== false ){
+        return true;
+    }
+    return false;
+}
+</script>
+<!-- } 로그인 전 아웃로그인 끝 -->
+            </div>
+
+
+
+<!-- } 콘텐츠 끝 -->
+
+<hr>
+
+<!-- 하단 시작 { -->
+
+
+<!-- } 하단 끝 -->
+
+<script>
+$(function() {
+    // 폰트 리사이즈 쿠키있으면 실행
+    font_resize("container", get_cookie("ck_font_resize_rmv_class"), get_cookie("ck_font_resize_add_class"));
+});
+</script>
+
+
+
+
+
+</body>
+</html>
+
+<!-- 사용스킨 : notice_file -->
