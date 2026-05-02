@@ -536,7 +536,7 @@
           // 광고 추적 ID 받으면 활성화 (현재는 안전 호출)
           try{if(window.wcs){var c={};c.type='lead';wcs.trans(c);}}catch(e){}
           try{if(typeof gtag!=='undefined')gtag('event','generate_lead',{currency:'KRW',value:0});}catch(e){}
-          try{if(typeof fbq!=='undefined'){var eid=Date.now()+'_'+Math.random().toString(36).substr(2,9);fbq('track','Lead',{value:0,currency:'KRW'},{eventID:eid});}}catch(e){}
+          try{if(typeof fbq!=='undefined'){var _ph=phone.replace(/[^0-9]/g,'');var _fn=name;fbq('init','1988984025053531',{ph:_ph,fn:_fn});var eid=Date.now()+'_'+Math.random().toString(36).substr(2,9);fbq('track','Lead',{value:0,currency:'KRW'},{eventID:eid});}}catch(e){}
           try{if(typeof kakaoPixel==='function'){/* kakaoPixel('PIXEL_ID').completeRegistration(); */}}catch(e){}
 
           // 성공 모달 표시 + 폼 리셋
