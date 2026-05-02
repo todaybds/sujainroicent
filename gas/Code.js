@@ -171,7 +171,19 @@ function doPost(e) {
   try {
     var p = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName("콜") || ss.getSheets()[0];
+    var sheet = ss.getSheetByName("콜");
+
+    // 자동 셋업: 콜 시트가 없으면 헤더 만들고, 트리거가 없으면 등록
+    if (!sheet) {
+      setupCallSheet_(ss);
+      sheet = ss.getSheetByName("콜");
+    }
+    var hasTrigger = ScriptApp.getProjectTriggers().some(function(t){
+      return t.getHandlerFunction() === 'onLeadUpdated';
+    });
+    if (!hasTrigger) {
+      try { ScriptApp.newTrigger("onLeadUpdated").timeBased().everyMinutes(5).create(); } catch(te) {}
+    }
 
     // 시트에 행 추가
     var row = [
