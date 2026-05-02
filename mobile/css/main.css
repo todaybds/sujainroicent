@@ -845,9 +845,9 @@ align-items: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 58px;
-  font-size: 16px;
+  gap: 7px;
+  height: 46px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.02em;
   z-index: 9998;
@@ -857,8 +857,8 @@ align-items: center;
   -webkit-tap-highlight-color: transparent;
 }
 .m_cta_bar .m_cta_icon {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   flex-shrink: 0;
   color: #fff;
 }
@@ -877,5 +877,5 @@ align-items: center;
 
 /* top 버튼이 하단 고정 바와 겹치지 않도록 위로 올림 */
 .top_bt {
-  bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+  bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
 }
