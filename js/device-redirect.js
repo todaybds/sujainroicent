@@ -13,7 +13,7 @@
   // Filenames that exist on both PC and mobile (excluding index, handled separately)
   var paired = [
     'brand.html', 'community.html', 'complex.html', 'contract.html',
-    'customer.html', 'document_capital.html',
+    'document_capital.html',
 
     'interior.html', 'item_list.html', 'location.html',
     'magam.html', 'magam-1.html', 'magam-2.html', 'magam-3.html',
