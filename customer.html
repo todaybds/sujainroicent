@@ -301,6 +301,41 @@
       </section>
 
       <style>
+        /* 모바일에서 휴대폰 입력 칸 한 줄 강제 + 안내 텍스트 자연 줄바꿈 */
+        @media (max-width: 768px) {
+          #fwrite .wrap_none {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            gap: 4px;
+          }
+          #fwrite .wrap_none input.hp_fixed {
+            flex: 0 0 48px;
+            width: 48px !important;
+            margin-left: 0 !important;
+            text-align: center;
+            text-indent: 0 !important;
+          }
+          #fwrite .wrap_none input[type="text"]:not(.hp_fixed) {
+            flex: 1 1 0;
+            width: auto !important;
+            min-width: 0;
+            margin-left: 0 !important;
+            text-indent: 6px !important;
+          }
+          #fwrite .wrap_none em {
+            flex: 0 0 auto;
+            margin: 0 2px;
+          }
+          #fwrite .visit_resv input[type="text"]#resvDisplay {
+            width: 100% !important;
+            margin-left: 0 !important;
+          }
+          .oribox ul li {
+            word-break: keep-all;
+            line-height: 1.5;
+          }
+        }
         .success-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;}
         .success-modal-box{background:#fff;border-radius:12px;padding:40px 32px;text-align:center;max-width:340px;width:90%;font-family:"Pretendard","Noto Sans",sans-serif;}
         .success-icon{width:60px;height:60px;background:#004976;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
