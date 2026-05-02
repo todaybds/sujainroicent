@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /board/adm/
+Disallow: /board/data/
+Disallow: /_bak_
+
+Sitemap: https://sujainroicent.com/sitemap.xml

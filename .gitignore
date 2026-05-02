@@ -33,3 +33,5 @@ yarn-debug.log*
 
 # Claude 메모리 (선택 — GitHub에 같이 올릴지 결정)
 # .claude/
+
+.vercel
