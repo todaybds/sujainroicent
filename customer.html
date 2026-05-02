@@ -252,12 +252,10 @@
         .info_notice ul li::before{content: "·"; position: absolute; left: 0; top: 0; color: #999;}
 
         .btn_area{margin-top: 30px;}
-        .btn_area ul{display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; padding: 0; list-style: none;}
-        .btn_area ul li button{width: 160px; height: 48px; font-size: 15px; font-weight: 600; border: 1px solid #353535; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-family: inherit;}
-        .btn_area ul li.black button{background: #004976; color: #fff; border-color: #004976;}
-        .btn_area ul li.black button:hover{background: #003658;}
-        .btn_area ul li.white button{background: #fff; color: #353535;}
-        .btn_area ul li.white button:hover{background: #f5f5f5;}
+        .btn_area ul{display: block; margin: 0; padding: 0; list-style: none;}
+        .btn_area ul li{width: 100%;}
+        .btn_area ul li button{display: block; width: 100%; max-width: 360px; height: 52px; margin: 0 auto; font-size: 16px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-family: inherit; text-align: center !important; padding: 0; line-height: 52px; background: #004976; color: #fff;}
+        .btn_area ul li button:hover{background: #003658;}
 
         /* 모바일: 너무 좁아도 휴대폰 한 줄 유지 */
         @media (max-width: 768px) {
@@ -278,7 +276,7 @@
           .agree ul li span{font-size: 13px;}
           .info_notice{padding: 14px 16px;}
           .info_notice ul li{font-size: 12px;}
-          .btn_area ul li button{width: 130px; height: 44px; font-size: 14px;}
+          .btn_area ul li button{height: 48px; font-size: 15px;}
         }
         @media (max-width: 380px) {
           .bo_tbl table tr td input[type="text"]{font-size: 13px; padding: 0 8px;}
@@ -362,8 +360,7 @@
 
         <div class="btn_area">
           <ul>
-            <li class="black"><button type="submit" id="btn_submit">등록하기</button></li>
-            <li class="white"><button type="button" onclick="location.reload()">다시쓰기</button></li>
+            <li><button type="submit" id="btn_submit">등록하기</button></li>
           </ul>
         </div>
       </form>

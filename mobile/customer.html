@@ -379,10 +379,10 @@
         #fwrite_m .info_notice ul li::before{content:"·";position:absolute;left:0;top:0;color:#999;}
 
         #fwrite_m .btn_area{margin-top:20px;}
-        #fwrite_m .btn_area ul{display:flex;align-items:center;justify-content:center;gap:8px;margin:0;padding:0;list-style:none;}
-        #fwrite_m .btn_area ul li button{width:140px;height:46px;font-size:15px;font-weight:600;border:1px solid #353535;border-radius:6px;cursor:pointer;font-family:inherit;}
-        #fwrite_m .btn_area ul li.black button{background:#004976;color:#fff;border-color:#004976;}
-        #fwrite_m .btn_area ul li.white button{background:#fff;color:#353535;}
+        #fwrite_m .btn_area ul{display:block;margin:0;padding:0;list-style:none;}
+        #fwrite_m .btn_area ul li{width:100%;}
+        #fwrite_m .btn_area ul li button{display:block;width:100%;height:52px;font-size:16px;font-weight:600;border:none;border-radius:6px;cursor:pointer;font-family:inherit;text-align:center !important;padding:0;background:#004976;color:#fff;line-height:52px;}
+        #fwrite_m .btn_area ul li button:hover{background:#003658;}
 
         #fwrite_m .visit_resv_wrap{display:flex;align-items:center;width:100%;}
         #fwrite_m #resvDisplay{cursor:pointer;flex:1 1 auto;}
@@ -482,8 +482,7 @@
 
         <div class="btn_area">
           <ul>
-            <li class="black"><button type="submit" id="btn_submit">등록하기</button></li>
-            <li class="white"><button type="button" onclick="location.reload()">다시쓰기</button></li>
+            <li><button type="submit" id="btn_submit">등록하기</button></li>
           </ul>
         </div>
       </form>
