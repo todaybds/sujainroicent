@@ -339,7 +339,7 @@
 </div>        </div>
     </div>
   <div class="sub_bottom">
-    <div style="padding: 20px 16px;">
+    <div style="padding: 20px 16px 60px;">
 
       <style>
         /* 모바일 customer 폼 (운정 스타일 inline) */
@@ -432,9 +432,9 @@
                   <div class="wrap_none">
                     <select name="hp1" id="hp1"><option value="010">010</option></select>
                     <em>-</em>
-                    <input type="text" name="hp2" id="hp2" maxlength="4" inputmode="numeric" placeholder="0000" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4);if(this.value.length===4)document.getElementById('hp3').focus();">
+                    <input type="text" name="hp2" id="hp2" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4);if(this.value.length===4)document.getElementById('hp3').focus();">
                     <em>-</em>
-                    <input type="text" name="hp3" id="hp3" maxlength="4" inputmode="numeric" placeholder="0000" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
+                    <input type="text" name="hp3" id="hp3" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
                   </div>
                 </td>
               </tr>
