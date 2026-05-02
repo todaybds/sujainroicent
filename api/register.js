@@ -64,8 +64,6 @@ export default async function handler(req, res) {
       if (rcData.success && rcData.score < 0.3) suspectFlag = '⚠️ reCAPTCHA 저점수: ' + rcData.score;
       if (!rcData.success) suspectFlag = '⚠️ reCAPTCHA 검증실패';
     } catch (e) {}
-  } else if (!body.recaptcha_token) {
-    suspectFlag = '⚠️ reCAPTCHA 토큰없음';
   }
 
   const clientIP = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
