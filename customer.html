@@ -28,7 +28,6 @@
 
   <link rel="stylesheet" href="css/common-7.css?ver=2026042951">
   <link rel="stylesheet" href="css/style-7.css?ver=2026042951">
-  <link rel="stylesheet" href="board/skin/board/guest_add/style.css?ver=220621">
   <!-- SWIPER -->
   <link rel="stylesheet" href="npm/swiper%4011/swiper-bundle.min.css">
   <script src="js/jquery-3.6.0.min.js"></script>
@@ -216,89 +215,158 @@
 <script src="js/smenu-breadcrumb.js"></script>  <section class="sub_section">
     <div class="rel_wrap">
 
-      <section id="bo_w">
-        <form name="fwrite" id="fwrite" onsubmit="return handleRegSubmit(this);" autocomplete="off" style="width:100%">
-          <input type="text" name="hp_check" id="hp_check" style="display:none" tabindex="-1" autocomplete="off">
-          <div class="customer_box">
-            <div class="guest_table">
-              <table>
-                <colgroup>
-                  <col class="col1">
-                  <col>
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <th><label class="gutt_title">이름 <span class="req">*</span></label></th>
-                    <td>
-                      <div>
-                        <input type="text" id="wr_name" name="wr_name" class="user_name" value="" maxlength="20" placeholder="이름을 입력해 주세요">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th><label class="gutt_title">휴대폰 <span class="req">*</span></label></th>
-                    <td>
-                      <div class="wrap_none">
-                        <input type="text" id="hp1_display" value="010" readonly class="hp_fixed">
-                        <input type="hidden" name="hp1" id="hp1" value="010">
-                        <em>-</em>
-                        <input type="text" name="hp2" id="hp2" value="" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4);if(this.value.length===4)document.getElementById('hp3').focus();">
-                        <em>-</em>
-                        <input type="text" name="hp3" id="hp3" value="" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th><label class="gutt_title">관심타입 <span class="opt">(선택)</span></label></th>
-                    <td>
-                      <div class="unit_chk">
-                        <span><input type="checkbox" name="wr_5[]" id="wr_5_1" value="84㎡"><label for="wr_5_1">84㎡</label></span>
-                        <span><input type="checkbox" name="wr_5[]" id="wr_5_2" value="101㎡"><label for="wr_5_2">101㎡</label></span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th><label class="gutt_title">방문예약 <span class="opt">(선택)</span></label></th>
-                    <td>
-                      <div class="visit_resv">
-                        <input type="text" id="resvDisplay" readonly onclick="openResvModalParent()" value="" placeholder="날짜와 시간을 선택해 주세요" style="cursor:pointer;padding-right:32px;">
-                        <button type="button" id="resvClear" onclick="clearResvLocal()" style="display:none;margin-left:-30px;background:none;border:none;font-size:14px;color:#999;cursor:pointer;padding:4px;flex-shrink:0;">✕</button>
-                        <input type="hidden" id="visitDate">
-                        <input type="hidden" id="visitTime">
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+      <style>
+        /* 운정 아이파크 폼 디자인 채택 — vw 기반 비례 sizing */
+        .bo_tbl{margin: 30px 0;}
+        .bo_tbl table{border-top: 1px solid #333; width: 100%; table-layout: fixed; border-collapse: collapse;}
+        .bo_tbl table .col1{width: 20%;}
+        .bo_tbl table tr th{padding: 18px 0 18px 24px; border-bottom: 1px solid #e5e5e5; font-size: 15px; font-weight: 500; color: #333; text-align: left; vertical-align: middle; background: transparent;}
+        .bo_tbl table tr td{padding: 12px 0; border-bottom: 1px solid #e5e5e5; vertical-align: middle;}
+        .bo_tbl table tr td > div{display: flex; gap: 6px; align-items: center; flex-wrap: nowrap;}
+        .bo_tbl table tr td input[type="text"]{padding: 0 14px; border: 1px solid #ddd; outline: none; flex: 1 1 auto; min-width: 0; max-width: 360px; height: 42px; background-color: #fff; font-size: 14px; color: #222; box-sizing: border-box; border-radius: 4px; line-height: normal; margin: 0;}
+        .bo_tbl table tr td #wr_name{max-width: 100%;}
+        .bo_tbl table tr td #hp2,
+        .bo_tbl table tr td #hp3{flex: 1 1 0; max-width: 110px;}
+        .bo_tbl table tr td select{padding: 0 12px; border: 1px solid #ddd; outline: none; flex: 0 0 70px; width: 70px; height: 42px; background: #fff; font-size: 14px; color: #222; -webkit-appearance: none; -moz-appearance: none; appearance: none; border-radius: 4px; cursor: pointer;}
+        .bo_tbl table tr td em{margin: 0 4px; font-size: 14px; color: #999; font-style: normal;}
+        .bo_tbl table tr td input:focus,
+        .bo_tbl table tr td select:focus{border-color: #004976; background: #fff;}
+        .bo_tbl .unit_chk{display: flex; flex-wrap: wrap; gap: 8px 18px;}
+        .bo_tbl .unit_chk span{display: flex; align-items: center; gap: 4px;}
+        .bo_tbl .unit_chk input[type="checkbox"]{width: 16px; height: 16px; accent-color: #004976; margin: 0; cursor: pointer;}
+        .bo_tbl .unit_chk label{font-size: 14px; color: #333; cursor: pointer; margin: 0;}
 
-            <div class="agree_box">
-              <div class="agree_row">
-                <p class="agree_text"><span class="req">(필수)</span> 개인정보의 수집 및 이용에 관한 동의에 동의하십니까?
-                  <button type="button" class="agree_view_btn" onclick="document.getElementById('customerPrivacyModal').style.display='flex';document.body.style.overflow='hidden';">보기</button>
-                </p>
-                <ul class="agree_radios">
-                  <li><label><input type="radio" name="radio1" id="U_checkAgreement2_1" value="Y"><span>동의</span></label></li>
-                  <li><label><input type="radio" name="radio1" id="U_checkAgreement2_2" value="N"><span>동의하지 않음</span></label></li>
-                </ul>
-              </div>
-            </div>
+        .agree{margin-top: 20px;}
+        .agree > div{display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; background-color: #f7f8fa; border-radius: 6px; flex-wrap: wrap; gap: 10px;}
+        .agree p{font-size: 14px; line-height: 1.4; color: #333; margin: 0;}
+        .agree p span{font-size: 12px; color: #c30028;}
+        .agree p button{margin-left: 8px; padding: 4px 12px; font-size: 12px; border: 1px solid #999; border-radius: 4px; background: #fff; color: #555; cursor: pointer; vertical-align: middle;}
+        .agree ul{display: flex; gap: 18px; margin: 0; padding: 0; list-style: none;}
+        .agree ul li label{display: flex; align-items: center; cursor: pointer; gap: 6px;}
+        .agree ul li input[type="radio"]{width: 16px; height: 16px; accent-color: #004976; margin: 0;}
+        .agree ul li span{font-size: 14px; color: #333;}
 
-            <div class="oribox">
-              <ul>
-                <li>고객님의 개인정보는 개인정보보호법 및 정보통신망법에 따라 안전하게 보관되며 분양 완료 후 자동 파기됩니다.</li>
-                <li>고객님의 소중한 정보는 분양 이외의 목적으로 사용되지 않습니다.</li>
-                <li>관심고객으로 등록된 고객님의 정보는 분양정보를 안내하는데 사용합니다.</li>
-              </ul>
-            </div>
+        .info_notice{margin-top: 20px; padding: 18px 22px; background: #fafafa; border-left: 3px solid #004976; border-radius: 4px;}
+        .info_notice ul{margin: 0; padding: 0; list-style: none;}
+        .info_notice ul li{position: relative; padding-left: 14px; font-size: 13px; color: #666; line-height: 1.6; word-break: keep-all;}
+        .info_notice ul li::before{content: "·"; position: absolute; left: 0; top: 0; color: #999;}
 
-            <div class="btnWrap">
-              <div class="btn_submit"><input type="submit" value="등록하기" id="btn_submit"></div>
-              <div class="btn_cancel"><input type="button" value="취소하기" onclick="location.reload()"></div>
-            </div>
+        .btn_area{margin-top: 30px;}
+        .btn_area ul{display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; padding: 0; list-style: none;}
+        .btn_area ul li button{width: 160px; height: 48px; font-size: 15px; font-weight: 600; border: 1px solid #353535; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-family: inherit;}
+        .btn_area ul li.black button{background: #004976; color: #fff; border-color: #004976;}
+        .btn_area ul li.black button:hover{background: #003658;}
+        .btn_area ul li.white button{background: #fff; color: #353535;}
+        .btn_area ul li.white button:hover{background: #f5f5f5;}
+
+        /* 모바일: 너무 좁아도 휴대폰 한 줄 유지 */
+        @media (max-width: 768px) {
+          .bo_tbl{margin: 20px 0;}
+          .bo_tbl table .col1{width: 30%;}
+          .bo_tbl table tr th{padding: 14px 0 14px 12px; font-size: 13px;}
+          .bo_tbl table tr td{padding: 10px 8px 10px 0;}
+          .bo_tbl table tr td input[type="text"]{height: 38px; font-size: 14px; padding: 0 10px;}
+          .bo_tbl table tr td select{height: 38px; flex: 0 0 56px; width: 56px; padding: 0 6px; font-size: 13px;}
+          .bo_tbl table tr td #hp2,
+          .bo_tbl table tr td #hp3{max-width: none;}
+          .bo_tbl table tr td em{margin: 0 2px; font-size: 12px;}
+          .bo_tbl .unit_chk{gap: 8px 14px;}
+          .bo_tbl .unit_chk label{font-size: 13px;}
+          .agree > div{padding: 14px 16px;}
+          .agree p{font-size: 13px;}
+          .agree ul{gap: 14px;}
+          .agree ul li span{font-size: 13px;}
+          .info_notice{padding: 14px 16px;}
+          .info_notice ul li{font-size: 12px;}
+          .btn_area ul li button{width: 130px; height: 44px; font-size: 14px;}
+        }
+        @media (max-width: 380px) {
+          .bo_tbl table tr td input[type="text"]{font-size: 13px; padding: 0 8px;}
+          .bo_tbl table tr td select{flex: 0 0 50px; width: 50px;}
+        }
+      </style>
+
+      <form name="fwrite" id="fwrite" onsubmit="return handleRegSubmit(this);" autocomplete="off" style="max-width:760px;margin:0 auto;font-family:'Pretendard','Noto Sans',sans-serif;">
+        <input type="text" name="hp_check" id="hp_check" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="bo_tbl">
+          <table>
+            <colgroup>
+              <col class="col1">
+              <col>
+            </colgroup>
+            <tbody>
+              <tr>
+                <th>이름 <span style="color:#c30028;font-size:12px;">*</span></th>
+                <td>
+                  <div>
+                    <input type="text" name="wr_name" id="wr_name" maxlength="20" placeholder="이름을 입력해 주세요">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>휴대폰 <span style="color:#c30028;font-size:12px;">*</span></th>
+                <td>
+                  <div class="wrap_none">
+                    <select name="hp1" id="hp1"><option value="010">010</option></select>
+                    <em>-</em>
+                    <input type="text" name="hp2" id="hp2" maxlength="4" inputmode="numeric" placeholder="0000" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4);if(this.value.length===4)document.getElementById('hp3').focus();">
+                    <em>-</em>
+                    <input type="text" name="hp3" id="hp3" maxlength="4" inputmode="numeric" placeholder="0000" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>관심타입 <span style="color:#999;font-size:11px;font-weight:400;">(선택)</span></th>
+                <td>
+                  <div class="unit_chk">
+                    <span><input type="checkbox" name="wr_5[]" id="wr_5_1" value="84㎡"><label for="wr_5_1">84㎡</label></span>
+                    <span><input type="checkbox" name="wr_5[]" id="wr_5_2" value="101㎡"><label for="wr_5_2">101㎡</label></span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>방문예약 <span style="color:#999;font-size:11px;font-weight:400;">(선택)</span></th>
+                <td>
+                  <div>
+                    <input type="text" id="resvDisplay" readonly onclick="openResvModalParent()" value="" placeholder="날짜와 시간을 선택해 주세요" style="cursor:pointer;padding-right:32px;">
+                    <button type="button" id="resvClear" onclick="clearResvLocal()" style="display:none;margin-left:-30px;background:none;border:none;font-size:14px;color:#999;cursor:pointer;padding:4px;flex-shrink:0;">✕</button>
+                    <input type="hidden" id="visitDate">
+                    <input type="hidden" id="visitTime">
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="agree">
+          <div>
+            <p><span>(필수)</span> 개인정보의 수집 및 이용에 관한 동의에 동의하십니까?
+              <button type="button" onclick="document.getElementById('customerPrivacyModal').style.display='flex';document.body.style.overflow='hidden';">보기</button>
+            </p>
+            <ul>
+              <li><label><input type="radio" name="radio1" id="U_checkAgreement2_1" value="Y"><span>동의</span></label></li>
+              <li><label><input type="radio" name="radio1" id="U_checkAgreement2_2" value="N"><span>동의하지 않음</span></label></li>
+            </ul>
           </div>
-        </form>
-      </section>
+        </div>
+
+        <div class="info_notice">
+          <ul>
+            <li>고객님의 개인정보는 개인정보보호법 및 정보통신망법에 따라 안전하게 보관되며 분양 완료 후 자동 파기됩니다.</li>
+            <li>고객님의 소중한 정보는 분양 이외의 목적으로 사용되지 않습니다.</li>
+            <li>관심고객으로 등록된 고객님의 정보는 분양정보를 안내하는데 사용합니다.</li>
+          </ul>
+        </div>
+
+        <div class="btn_area">
+          <ul>
+            <li class="black"><button type="submit" id="btn_submit">등록하기</button></li>
+            <li class="white"><button type="button" onclick="location.reload()">다시쓰기</button></li>
+          </ul>
+        </div>
+      </form>
 
       <style>
         /* 모바일에서 휴대폰 입력 칸 한 줄 강제 + 안내 텍스트 자연 줄바꿈 */
