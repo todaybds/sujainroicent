@@ -82,8 +82,38 @@ window.addEventListener('DOMContentLoaded', () => {
     }, index * 400); // 각 이미지마다 ms 간격으로 등장
   });
 
-    
+
   });
 
 
-  
+/* ============================================================ */
+/* 모바일 하단 고정 CTA 바 (관심고객등록 / 방문예약)             */
+/* customer.html 에서는 표시하지 않음                            */
+/* ============================================================ */
+(function () {
+  var path = (location.pathname || '').toLowerCase();
+  if (path.indexOf('customer.html') !== -1) return;
+
+  function inject() {
+    if (document.querySelector('.m_cta_bar')) return;
+    var a = document.createElement('a');
+    a.href = 'customer.html';
+    a.className = 'm_cta_bar';
+    a.setAttribute('aria-label', '관심고객등록 방문예약');
+    a.innerHTML =
+      '<svg class="m_cta_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>' +
+        '<circle cx="9" cy="7" r="4"/>' +
+        '<line x1="19" y1="8" x2="19" y2="14"/>' +
+        '<line x1="22" y1="11" x2="16" y2="11"/>' +
+      '</svg>' +
+      '<span class="m_cta_text">관심고객등록 <em>(방문예약)</em></span>';
+    document.body.appendChild(a);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inject);
+  } else {
+    inject();
+  }
+})();
