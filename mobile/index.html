@@ -452,11 +452,41 @@
 <div class="position_wrap">
   <div class="fix_box_yt">
     <ul>
-      <li> <a href="https://www.youtube.com/watch?v=O8RrIcmzlYw" target="_blank" alt="브랜드필름"></a></li>
-      <li> <a href="https://youtu.be/VPnkWam35fU?si=JJM_UWhZ9EPFTAz5" target="_blank" alt="입지홍보영상"></a></li>
-      <li> <a href="https://youtu.be/X09UcknS5PM" target="_blank" alt="20주년영상"></a></li>
+      <li> <a href="javascript:void(0)" data-yt="O8RrIcmzlYw" class="yt-modal-trigger" alt="브랜드필름"></a></li>
+      <li> <a href="javascript:void(0)" data-yt="VPnkWam35fU" class="yt-modal-trigger" alt="입지홍보영상"></a></li>
+      <li> <a href="javascript:void(0)" data-yt="X09UcknS5PM" class="yt-modal-trigger" alt="20주년영상"></a></li>
     </ul>
   </div>
+
+  <!-- 2026-05-05: YouTube 내부 팝업 모달 (모바일) -->
+  <div id="ytModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;align-items:center;justify-content:center;">
+    <div style="position:relative;width:94vw;aspect-ratio:16/9;">
+      <button type="button" id="ytModalClose" aria-label="닫기" style="position:absolute;top:-44px;right:0;background:transparent;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;">✕</button>
+      <iframe id="ytModalFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen playsinline style="width:100%;height:100%;border-radius:8px;"></iframe>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var modal = document.getElementById('ytModal');
+    var frame = document.getElementById('ytModalFrame');
+    function open(id){
+      frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function close(){
+      frame.src = '';
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.yt-modal-trigger').forEach(function(a){
+      a.addEventListener('click', function(e){ e.preventDefault(); open(a.getAttribute('data-yt')); });
+    });
+    document.getElementById('ytModalClose').addEventListener('click', close);
+    modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && modal.style.display === 'flex') close(); });
+  })();
+  </script>
   <div class="fix_box_event">
     <!-- <img src="img/event_01.png" alt="" class="main_event" onclick="location.href='event_open.html'">
     <img src="img/event_02.png" alt="" class="main_event" onclick="location.href='event_open2.html'">
