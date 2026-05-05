@@ -1,9 +1,46 @@
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 const SPREADSHEET_ID = "1bYZ7gm7kDMB5zPdg88Hw8l078-zY7KYC9KBzdG8gBeg";
 const NOTIFY_EMAIL = "skrl1347@gmail.com";
 const DISPLAY_NAME = "인하대역 수자인 로이센트";
 const SITE_DOMAIN = "sujainroicent.com";
+
+const sha256Hex = (s) => crypto.createHash('sha256').update(String(s).toLowerCase().trim()).digest('hex');
+
+async function sendMetaCAPI(p, req) {
+  const PIXEL = process.env.META_PIXEL_ID;
+  const TOKEN = process.env.META_ACCESS_TOKEN;
+  if (!PIXEL || !TOKEN) return { skipped: true };
+  const phoneDigits = String(p.phone || '').replace(/\D/g, '');
+  const userData = {
+    client_ip_address: p.ip_address || '',
+    client_user_agent: req.headers['user-agent'] || ''
+  };
+  if (phoneDigits) userData.ph = [sha256Hex(phoneDigits)];
+  if (p.name)      userData.fn = [sha256Hex(p.name)];
+  if (p.fbp)       userData.fbp = p.fbp;
+  if (p.fbc)       userData.fbc = p.fbc;
+  const payload = {
+    data: [{
+      event_name: 'Lead',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: p.event_id || `lead_${Date.now()}`,
+      action_source: 'website',
+      event_source_url: p.page_url || `https://${SITE_DOMAIN}`,
+      user_data: userData,
+      custom_data: { content_name: '관심고객등록_완료', currency: 'KRW', value: 0 }
+    }]
+  };
+  try {
+    const r = await fetch(`https://graph.facebook.com/v19.0/${PIXEL}/events?access_token=${TOKEN}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    return { ok: r.ok, status: r.status };
+  } catch (e) { return { error: e.message }; }
+}
 
 function formatDateWithDay(dt) {
   if (!dt) return "";
@@ -117,7 +154,15 @@ export default async function handler(req, res) {
       try { await sendEmailFallback(payload); } catch (e) { errors.push('email: ' + e.message); }
     }
 
-    return res.status(200).json({ success: true, gas: gasOk, errors });
+    const capiPayload = {
+      ...payload,
+      fbp: body.fbp || '', fbc: body.fbc || '',
+      event_id: body.event_id || '', page_url: body.page_url || ''
+    };
+    const capi = await sendMetaCAPI(capiPayload, req);
+    if (capi && capi.error) errors.push('capi: ' + capi.error);
+
+    return res.status(200).json({ success: true, gas: gasOk, capi, errors });
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ error: "서버 오류" });
