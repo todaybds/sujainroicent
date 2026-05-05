@@ -48,7 +48,27 @@ var G = 'https://script.google.com/macros/s/AKfycbwEENIblM0NCX7uQn-zVOY1IcwNj7ab
 var CONFIG = { GAS_URL: G, FCS: 30, SWM: 30, SCL: 2, EDM: 10000 };  // V23: STH 삭제 (클라이언트 즉시 차단 삭제됨, 미사용 dead code)
 var W = { BH: 50, VPN: 80, FC: 15, SV: 30, NI: 10 }; // V23: FC 40→15, SV 60→30 (refactor-instructions 준수 — 오탐 감소 우선)
 var S = { uid: '', ip: '', isp: '', isVPN: false, orgName: '', asn: '', country: '', deviceType: '', deviceModel: '', siteDomain: '', adRank: '', adProduct: '', isNaverAd: false, pageViews: 1, sessionStart: Date.now(), engagements: 0, isWhitelisted: false, isBlocked: false, score: 0, scoreReasons: [], keyword: '', iframeActive: false, nQuery: '', nKeyword: '', referrer: '', wlNonce: '', wlNonceTime: 0 };
-var BM = { scrollDepth: 0, scrollSpeeds: [], touchCount: 0, firstInteractMs: 0, formFocusMs: 0, formFillStart: 0, formFillMs: 0, idleSegments: 0, mouseMoveDist: 0, lastActivityMs: 0, telClicked: false };
+// V85.19 (2026-04-26): sessionStorage 기반 wlNonce 영속화 — 페이지 새로고침/이동 시 closure 휘발 보완
+//   배경: VISIT 응답 도착 전 폼 제출 또는 같은 세션 새 페이지 로드 시 S.wlNonce 빈 채로 시작 → 폼 제출 가드 발동
+//   초기화 시점에 25분 이내 캐시된 nonce 복원 (서버 30분 TTL - 5분 여유)
+try {
+    var _nafCachedNonce = sessionStorage.getItem('naf_wlNonce') || '';
+    var _nafCachedNonceTime = parseInt(sessionStorage.getItem('naf_wlNonceTime') || '0', 10);
+    if (_nafCachedNonce && _nafCachedNonceTime && Date.now() - _nafCachedNonceTime < 1500000) {
+        S.wlNonce = _nafCachedNonce;
+        S.wlNonceTime = _nafCachedNonceTime;
+    }
+} catch (e) {}
+var BM = { scrollDepth: 0, scrollSpeeds: [], touchCount: 0, firstInteractMs: 0, formFocusMs: 0, formFillStart: 0, formFillMs: 0, idleSegments: 0, mouseMoveDist: 0, lastActivityMs: 0, telClicked: false, mousePts: [], clickTs: [], mouseStraightLen: 0, patchSeq: [], visitedPaths: {} };
+// V77: 4x6 화면 패치 그리드 (eBay MMBT 방식, 디바이스 무관)
+function _patchIndex(x, y) {
+    try {
+        var w = Math.max(window.innerWidth || 1, 1), h = Math.max(window.innerHeight || 1, 1);
+        var ix = Math.min(3, Math.max(0, Math.floor(x / w * 4)));
+        var iy = Math.min(5, Math.max(0, Math.floor(y / h * 6)));
+        return iy * 4 + ix;
+    } catch(e) { return -1; }
+}
 
 // ── UID 생성 (결정론적 디바이스 핑거프린트) ──
 // V25 정규 사양: Canvas(300x70 gradient) + WebGL(vendor+renderer+version+shading)
@@ -56,6 +76,10 @@ var BM = { scrollDepth: 0, scrollSpeeds: [], touchCount: 0, firstInteractMs: 0, 
 // + TZ + platform + language + maxTouchPoints + languages
 // ⚠ Wix 구버전(wix_customcode.html)은 다른 핑거프린트를 사용했으므로
 //   마이그레이션 전후 같은 기기에서 다른 UID가 생성될 수 있음 (2026-03 이전 데이터)
+// V55 (2026-04-12): 하이브리드 UID — 기기 해시(앞 8자) + 랜덤(16자)
+// 배경: 실측 방문로그 2,872 UID 중 55건(1.9%) 충돌 확인 (갤럭시 S24 vs S24 Ultra 동일 UID 등)
+//       충돌 UID는 대부분 활동적 사용자 → 진성고객 오탐 집중
+// 효과: 같은 기종끼리 앞 8자 공유(분석 가치 유지), 뒤 16자 랜덤(충돌률 0.0001% 이하)
 async function generateUID() {
     var uid = recoverUIDSync();
     if (!uid) { try { uid = await idbGet('naf_uid') } catch (e) { } }
@@ -64,11 +88,25 @@ async function generateUID() {
     try { var c = document.createElement('canvas'); c.width = 300; c.height = 70; var x = c.getContext('2d'); var g = x.createLinearGradient(0, 0, 300, 70); g.addColorStop(0, '#f0f'); g.addColorStop(1, '#0ff'); x.fillStyle = g; x.fillRect(0, 0, 300, 70); x.fillStyle = 'rgba(0,32,128,.85)'; x.font = 'bold 20px Arial'; x.fillText('DeviceIntegrity', 4, 30); x.font = '12px Georgia'; x.fillText('AntiFraud20', 150, 55); s.push('cv:' + c.toDataURL()) } catch (e) { s.push('cv:e') }
     try { var gl = document.createElement('canvas').getContext('webgl'); if (gl) { var e2 = gl.getExtension('WEBGL_debug_renderer_info'); if (e2) { s.push(gl.getParameter(e2.UNMASKED_VENDOR_WEBGL)); s.push(gl.getParameter(e2.UNMASKED_RENDERER_WEBGL)) } s.push(gl.getParameter(gl.VERSION)); s.push(gl.getParameter(gl.SHADING_LANGUAGE_VERSION)); } } catch (e) { s.push('wgl:e') }
     var a2; try { var A = window.AudioContext || window.webkitAudioContext; a2 = new A(); var o = a2.createOscillator(), n = a2.createAnalyser(), g2 = a2.createGain(); g2.gain.value = 0; o.connect(n); n.connect(g2); g2.connect(a2.destination); o.type = 'sawtooth'; o.start(0); var b = new Float32Array(n.frequencyBinCount); n.getFloatFrequencyData(b); o.stop(); s.push('au:' + Array.from(b.slice(0, 8)).map(function (v) { return v.toFixed(1) }).join(',')) } catch (e) { s.push('au:e') } finally { if (a2) { try { a2.close(); } catch (e2) { } } }
-    // V31: DST 안정화 — getTimezoneOffset()은 DST 전환 시 변경되므로 IANA 타임존명 사용
     var tzName = ''; try { tzName = Intl.DateTimeFormat().resolvedOptions().timeZone || '' } catch(e) { tzName = '' + (new Date().getTimezoneOffset()) }
     s.push(navigator.hardwareConcurrency || 0, navigator.deviceMemory || 0, screen.width + 'x' + screen.height + 'x' + (screen.colorDepth || 0), screen.availWidth + 'x' + screen.availHeight, tzName, navigator.platform || '', navigator.language || '', navigator.maxTouchPoints || 0, navigator.languages ? navigator.languages.join(',') : '');
     var h = await sha256hex(s.join('|'));
-    uid = 'DEV_' + h.substring(0, 24).toUpperCase();
+    // V55: 기기 해시 앞 8자 + 랜덤 16자 (폴백 포함)
+    var fp8 = h.substring(0, 8).toUpperCase();
+    var randHex = '';
+    try {
+        if (crypto && crypto.randomUUID) {
+            randHex = crypto.randomUUID().replace(/-/g, '').substring(0, 16).toUpperCase();
+        } else if (crypto && crypto.getRandomValues) {
+            var arr = new Uint8Array(8); crypto.getRandomValues(arr);
+            randHex = Array.from(arr).map(function(v){return v.toString(16).padStart(2,'0')}).join('').toUpperCase();
+        } else {
+            randHex = (Date.now().toString(16) + Math.random().toString(16).substring(2)).substring(0, 16).toUpperCase();
+        }
+    } catch (e) {
+        randHex = (Date.now().toString(16) + Math.random().toString(16).substring(2)).substring(0, 16).toUpperCase();
+    }
+    uid = 'DEV_' + fp8 + randHex;
     persistUID(uid);
     return uid;
 }
@@ -292,12 +330,28 @@ function collectBehaviorMetrics() {
         window.addEventListener(ev, function (e) {
             // V25: isTrusted 검증 — 합성 이벤트(봇)는 isTrusted=false
             if (e && e.isTrusted === false) { S.score += 100; S.scoreReasons.push('SYNTHETIC_EVENT:' + ev) }
-            BM.touchCount++; if (!BM.firstInteractMs) BM.firstInteractMs = Date.now() - S.sessionStart; BM.lastActivityMs = Date.now()
+            BM.touchCount++; if (!BM.firstInteractMs) BM.firstInteractMs = Date.now() - S.sessionStart; BM.lastActivityMs = Date.now();
+            // V76: 행동 바이오메트릭스 - 클릭/탭 타임스탬프 (최대 10개)
+            BM.clickTs.push(Date.now());
+            if (BM.clickTs.length > 10) BM.clickTs.shift();
         }, { passive: true });
     });
 
     window.addEventListener('mousemove', function (e) {
         if (lastMouseX || lastMouseY) BM.mouseMoveDist += Math.sqrt(Math.pow(e.clientX - lastMouseX, 2) + Math.pow(e.clientY - lastMouseY, 2));
+        // V76: 마우스 경로 샘플링 (최대 30점, 200ms 간격)
+        var _nowMs = Date.now();
+        if (!BM._lastMouseSampleMs || _nowMs - BM._lastMouseSampleMs > 200) {
+            BM.mousePts.push([e.clientX, e.clientY, _nowMs]);
+            if (BM.mousePts.length > 30) BM.mousePts.shift();
+            // V77: 패치 인덱스 시퀀스 추가 (디바이스 무관)
+            var _pi = _patchIndex(e.clientX, e.clientY);
+            if (_pi >= 0 && (BM.patchSeq.length === 0 || BM.patchSeq[BM.patchSeq.length-1] !== _pi)) {
+                BM.patchSeq.push(_pi);
+                if (BM.patchSeq.length > 50) BM.patchSeq.shift();
+            }
+            BM._lastMouseSampleMs = _nowMs;
+        }
         lastMouseX = e.clientX; lastMouseY = e.clientY; BM.lastActivityMs = Date.now();
     }, { passive: true });
 
@@ -343,13 +397,12 @@ function calcBQS() {
 }
 
 // ── 차단 화면 ──
+// V56 (2026-04-12): 관찰 모드 전환 — 차단 화면 완전 비활성화
+// 배경: 4월 99명 진성고객 차단 피해 확인, 광고비 손실은 차단 화면이 아닌 네이버 FIFO로만 방어 가능
+// 모든 방문자 정상 사이트 접근 허용, 데이터는 서버에 계속 수집 (수동 차단 판단용)
 function renderAccessDenied() {
-    var style = document.createElement('style');
-    style.textContent = '#N{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0d0d0d;color:#d0d0d0;font-family:monospace;display:flex;align-items:center;justify-content:center;z-index:2147483647;padding:16px;box-sizing:border-box}#N .b{max-width:680px;width:100%;border:1px solid #2a2a2a;padding:28px;background:#111}#N h1{font-size:20px;color:#f0f0f0;margin:0 0 12px}#N .n{font-size:11px;color:#3a3a3a;line-height:1.8}';
-    document.head.appendChild(style);
-    var el = document.createElement('div'); el.id = 'N';
-    el.innerHTML = '<div class="b"><h1>접근이 제한되었습니다</h1><div class="n">비정상 접속이 감지되었습니다.<br>고객센터로 문의하십시오.</div></div>';
-    document.body.appendChild(el);
+    // V56: no-op — 차단 화면 표시 안 함. 서버 점수/로그는 계속 기록됨.
+    return;
 }
 
 // ── iframe/폼 리스너 ──
@@ -361,8 +414,9 @@ function setupIframeListener() {
         if (allowed.indexOf(e.origin) === -1) return;
         var d = e.data; if (!d) return;
         if (d.type === 'DB_REGISTERED' || d.action === 'GTM_LEAD_COMPLETE' || d.action === 'formSubmitted') {
-            // V32: nonce 없으면 WHITELIST 전송 보류 (서버에서도 거부하지만 불필요한 요청 방지)
-            if (!S.wlNonce) return;
+            // V85.19 (2026-04-26): V32 가드 제거 — 서버 V49에서 nonce 미일치 시 경고 로그만 (실고객 보호 우선).
+            //   VISIT 응답 지연/실패로 S.wlNonce 빈 채여도 빈 값으로 WHITELIST 발사 → 서버에서 검증 완화로 등재 OK.
+            //   배경: 04-22 이후 4사이트 wl_nonce 미수신 케이스에서 폼 제출자 WL 등재 0건 사고.
             S.isWhitelisted = true; S.engagements += 2;
             persistWhitelist(S.uid);
             // V27: 화이트리스트 등록 시 로컬 차단 캐시 제거 (재방문 시 차단 화면 방지)
@@ -443,8 +497,65 @@ function buildPayload() {
         scoreReasons: S.scoreReasons.join('|'), isWhitelisted: S.isWhitelisted, telClicked: BM.telClicked, hiddenDevice: !!S._hiddenDevice,
         orgName: S.orgName || '', asn: S.asn || '', country: S.country || '',
         sessionStart: S.sessionStart, timestamp: new Date().toISOString(),
-        nQuery: S.nQuery, nKeyword: S.nKeyword, referrer: S.referrer || ''
+        nQuery: S.nQuery, nKeyword: S.nKeyword, referrer: S.referrer || '',
+        humanSig: buildHumanSig()
     };
+}
+
+// V76: 행동 바이오메트릭스 서명 생성 (마우스 곡선성 + 클릭 간격 분산)
+function buildHumanSig() {
+    try {
+        var pts = BM.mousePts || [];
+        var curvRatio = 0;
+        if (pts.length >= 3) {
+            var pathLen = 0;
+            for (var i = 1; i < pts.length; i++) {
+                pathLen += Math.sqrt(Math.pow(pts[i][0]-pts[i-1][0],2) + Math.pow(pts[i][1]-pts[i-1][1],2));
+            }
+            var straight = Math.sqrt(Math.pow(pts[pts.length-1][0]-pts[0][0],2) + Math.pow(pts[pts.length-1][1]-pts[0][1],2));
+            curvRatio = straight > 5 ? (pathLen / straight) : 0;  // >1.2 = 사람, ~1.0 = 봇 직선
+        }
+        var cts = BM.clickTs || [];
+        var gaps = [];
+        for (var j = 1; j < cts.length; j++) gaps.push(cts[j] - cts[j-1]);
+        var gapMean = 0, gapStd = 0;
+        if (gaps.length > 0) {
+            gapMean = gaps.reduce(function(a,b){return a+b},0) / gaps.length;
+            var sq = gaps.map(function(g){ return (g-gapMean)*(g-gapMean); });
+            gapStd = Math.sqrt(sq.reduce(function(a,b){return a+b},0) / gaps.length);
+        }
+        // V77: 패치 시퀀스 분석 (eBay MMBT 방식)
+        var pSeq = BM.patchSeq || [];
+        var uniquePatches = {};
+        for (var k = 0; k < pSeq.length; k++) uniquePatches[pSeq[k]] = true;
+        var uniquePatchCount = Object.keys(uniquePatches).length;
+        // V77: 페이지 탐색 엔트로피
+        var paths = BM.visitedPaths || {};
+        var pathKeys = Object.keys(paths);
+        var uniquePathCount = pathKeys.length;
+        var totalPV = 0;
+        for (var pk = 0; pk < pathKeys.length; pk++) totalPV += paths[pathKeys[pk]];
+        var pathEntropy = 0;
+        if (totalPV > 0) {
+            for (var pk2 = 0; pk2 < pathKeys.length; pk2++) {
+                var p = paths[pathKeys[pk2]] / totalPV;
+                if (p > 0) pathEntropy -= p * Math.log(p) / Math.log(2);
+            }
+        }
+        return {
+            curvRatio: +curvRatio.toFixed(2),
+            mousePts: pts.length,
+            clicks: cts.length,
+            gapStd: Math.round(gapStd),
+            touches: BM.touchCount || 0,
+            scrollSamples: (BM.scrollSpeeds || []).length,
+            mouseDist: Math.round(BM.mouseMoveDist || 0),
+            patchSeqLen: pSeq.length,
+            uniquePatches: uniquePatchCount,
+            uniquePaths: uniquePathCount,
+            pathEntropy: +pathEntropy.toFixed(2)
+        };
+    } catch(e) { return { err: 1 }; }
 }
 // V26: 재시도 메커니즘 — VISIT/BLOCK 등 중요 액션 유실 방지
 function sendToServer(x, _retry) {
@@ -458,7 +569,11 @@ function sendToServer(x, _retry) {
     .then(function(d) {
         if (d && d.error === 'rate_limit' && retries < 2) { setTimeout(function() { sendToServer(x, retries + 1) }, 2000 * (retries + 1)); }
         // V30: VISIT 응답에서 wl_nonce 추출 (WHITELIST 검증용)
-        if (d && d.wl_nonce) { S.wlNonce = d.wl_nonce; S.wlNonceTime = Date.now(); }
+        if (d && d.wl_nonce) {
+            S.wlNonce = d.wl_nonce; S.wlNonceTime = Date.now();
+            // V85.19: sessionStorage에 저장 — 같은 세션 새 페이지 로드 시 복원
+            try { sessionStorage.setItem('naf_wlNonce', d.wl_nonce); sessionStorage.setItem('naf_wlNonceTime', String(S.wlNonceTime)); } catch (e) {}
+        }
         // V29: PAGEVIEW/VISIT 응답에서 차단 감지 시 즉시 차단 화면 표시
         if (d && d.blocked && !S.isWhitelisted && !S.isBlocked) {
             S.isBlocked = true; persistBlock(S.uid); renderAccessDenied();
@@ -568,7 +683,7 @@ async function initAntifraud() {
 
     // VISIT dedup (sessionStorage — 탭 닫으면 자동 삭제)
     var vk = 'naf_vt_' + S.uid + '_' + S.sessionStart;
-    if (!sessionStorage.getItem(vk) && S.uid) { sessionStorage.setItem(vk, '1'); sendToServer({ action: 'VISIT' }) }
+    if (!sessionStorage.getItem(vk) && S.uid) { sessionStorage.setItem(vk, '1'); try { BM.visitedPaths[location.pathname || '/'] = (BM.visitedPaths[location.pathname || '/']||0) + 1; } catch(e) {} sendToServer({ action: 'VISIT' }) }
     setupSPAListener();
 
     // V21: NO_INTERACTION — 점수 누적만 유지, 차단 삭제
@@ -587,7 +702,7 @@ async function initAntifraud() {
 function setupSPAListener() {
     if (window._nafSPA) return; window._nafSPA = 1;
     var lu = location.href;
-    function on() { if (location.href === lu) return; lu = location.href; S.pageViews++; try { localStorage.setItem('naf_pv_' + S.uid, String(S.pageViews)) } catch (e) { } sendToServer({ action: 'PAGEVIEW' }) }
+    function on() { if (location.href === lu) return; lu = location.href; S.pageViews++; try { localStorage.setItem('naf_pv_' + S.uid, String(S.pageViews)) } catch (e) { } try { BM.visitedPaths[location.pathname || '/'] = (BM.visitedPaths[location.pathname || '/']||0) + 1; } catch(e) {} sendToServer({ action: 'PAGEVIEW' }) }
     var _p = history.pushState, _r = history.replaceState;
     history.pushState = function () { _p.apply(this, arguments); on() };
     history.replaceState = function () { _r.apply(this, arguments); on() };
