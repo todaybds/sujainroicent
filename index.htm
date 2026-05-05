@@ -1450,16 +1450,46 @@
         </a>
       </div> -->
     <div class="visual_video_wrap">
-      <a href="https://www.youtube.com/watch?v=O8RrIcmzlYw" target="_blank">
+      <a href="javascript:void(0)" data-yt="O8RrIcmzlYw" class="yt-modal-trigger">
         <img src="image/intro_img_new_2/intro_video_03.png" alt="">
       </a>
-      <a href="https://youtu.be/VPnkWam35fU?si=WmnXDVaB7WwjgKQ5" target="_blank">
+      <a href="javascript:void(0)" data-yt="VPnkWam35fU" class="yt-modal-trigger">
         <img src="image/intro_img_new_2/intro_video_01.png" alt="">
       </a>
-      <a href="https://www.youtube.com/watch?v=X09UcknS5PM" target="_blank">
+      <a href="javascript:void(0)" data-yt="X09UcknS5PM" class="yt-modal-trigger">
         <img src="image/intro_img_new_2/intro_video_02.png" alt="">
       </a>
     </div>
+
+    <!-- 2026-05-05: YouTube 내부 팝업 모달 -->
+    <div id="ytModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;align-items:center;justify-content:center;">
+      <div style="position:relative;width:min(90vw,960px);aspect-ratio:16/9;">
+        <button type="button" id="ytModalClose" aria-label="닫기" style="position:absolute;top:-44px;right:0;background:transparent;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;">✕</button>
+        <iframe id="ytModalFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border-radius:8px;"></iframe>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var modal = document.getElementById('ytModal');
+      var frame = document.getElementById('ytModalFrame');
+      function open(id){
+        frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      function close(){
+        frame.src = '';
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.yt-modal-trigger').forEach(function(a){
+        a.addEventListener('click', function(e){ e.preventDefault(); open(a.getAttribute('data-yt')); });
+      });
+      document.getElementById('ytModalClose').addEventListener('click', close);
+      modal.addEventListener('click', function(e){ if (e.target === modal) close(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && modal.style.display === 'flex') close(); });
+    })();
+    </script>
     <div class="main_visual_bg_wrap">
     </div>
     <div class="main_visual_title_wrap">
