@@ -1746,23 +1746,340 @@
       </div>
     </div>
   </section>
-  <section class="section sec06">
-    <div class="main_contact">
-      <div class="sec03_map_flex_wrap">
-        <div class="sec06_left_wrap">
-          <div class="sec06_title">
-            <img loading="lazy" src="image/open/sec06_title.png" alt="CONTACT US">
+  <section class="section sec06 fp-auto-height">
+    <div class="main_contact" style="padding: 70px 20px 60px;">
+      <div class="contact_form_wrap" style="max-width:680px;margin:0 auto;">
+        <div class="sec06_title" style="text-align:center;margin-bottom:14px;">
+          <img loading="lazy" src="image/open/sec06_title.png" alt="CONTACT US" style="max-width:260px;height:auto;">
+        </div>
+        <p class="sec06_txt" style="text-align:center;margin:0 0 28px;font-size:15px;color:#555;font-family:'Pretendard','Noto Sans',sans-serif;">관심고객 등록 시 분양 정보와 방문 안내를 빠르게 받아보실 수 있습니다.</p>
+
+        <style>
+          /* PC 메인 인라인 폼 (운정/모바일 패턴 동일) */
+          #fwrite_p{max-width:100%;margin:0 auto;font-family:'Pretendard','Noto Sans',sans-serif;}
+          #fwrite_p .bo_tbl{margin:10px 0;}
+          #fwrite_p .bo_tbl table{border-top:1px solid #333;width:100%;table-layout:fixed;border-collapse:collapse;}
+          #fwrite_p .bo_tbl table .col1{width:24%;}
+          #fwrite_p .bo_tbl table tr th{padding:18px 0 18px 16px;border-bottom:1px solid #e5e5e5;font-size:15px;font-weight:500;color:#222;text-align:left;vertical-align:middle;background:transparent;line-height:1.4;}
+          #fwrite_p .bo_tbl table tr td{padding:14px 12px 14px 0;border-bottom:1px solid #e5e5e5;vertical-align:middle;}
+          #fwrite_p .bo_tbl table tr td > div{display:flex;gap:6px;align-items:center;flex-wrap:nowrap;}
+          #fwrite_p .bo_tbl table tr td input[type="text"]{padding:0 14px;border:1px solid #ddd;outline:none;flex:1 1 auto;min-width:0;height:46px;background-color:#fff;font-size:15px;color:#222;box-sizing:border-box;border-radius:4px;line-height:normal;margin:0;font-family:inherit;}
+          #fwrite_p .bo_tbl table tr td #wr_name{width:100%;}
+          #fwrite_p .bo_tbl table tr td #hp2,
+          #fwrite_p .bo_tbl table tr td #hp3{flex:1 1 0;text-align:center;text-indent:0;padding:0 8px;}
+          #fwrite_p .bo_tbl table tr td select{padding:0 8px;border:1px solid #ddd;outline:none;flex:0 0 70px;width:70px;height:46px;background:#fff;font-size:15px;color:#222;-webkit-appearance:none;-moz-appearance:none;appearance:none;border-radius:4px;cursor:pointer;font-family:inherit;text-align:center;}
+          #fwrite_p .bo_tbl table tr td em{margin:0 4px;font-size:13px;color:#999;font-style:normal;flex:0 0 auto;}
+          #fwrite_p .bo_tbl table tr td input:focus,
+          #fwrite_p .bo_tbl table tr td select:focus{border-color:#004976;}
+          #fwrite_p .unit_chk{display:flex;flex-wrap:wrap;gap:8px 22px;}
+          #fwrite_p .unit_chk span{display:flex;align-items:center;gap:6px;}
+          #fwrite_p .unit_chk input[type="checkbox"]{width:17px;height:17px;accent-color:#004976;margin:0;cursor:pointer;}
+          #fwrite_p .unit_chk label{font-size:15px;color:#333;cursor:pointer;margin:0;}
+
+          #fwrite_p .agree{margin-top:18px;}
+          #fwrite_p .agree > div{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background-color:#f7f8fa;border-radius:6px;flex-wrap:wrap;gap:10px;}
+          #fwrite_p .agree p{font-size:14px;line-height:1.4;color:#333;margin:0;}
+          #fwrite_p .agree p span{font-size:12px;color:#c30028;}
+          #fwrite_p .agree p button{margin-left:8px;padding:4px 12px;font-size:12px;border:1px solid #999;border-radius:4px;background:#fff;color:#555;cursor:pointer;vertical-align:middle;font-family:inherit;}
+          #fwrite_p .agree ul{display:flex;gap:18px;margin:0;padding:0;list-style:none;}
+          #fwrite_p .agree ul li label{display:flex;align-items:center;cursor:pointer;gap:6px;}
+          #fwrite_p .agree ul li input[type="radio"]{width:17px;height:17px;accent-color:#004976;margin:0;}
+          #fwrite_p .agree ul li span{font-size:14px;color:#333;}
+
+          #fwrite_p .info_notice{margin-top:18px;padding:14px 18px;background:#fafafa;border-left:3px solid #004976;border-radius:4px;}
+          #fwrite_p .info_notice ul{margin:0;padding:0;list-style:none;}
+          #fwrite_p .info_notice ul li{position:relative;padding-left:14px;font-size:13px;color:#666;line-height:1.7;word-break:keep-all;}
+          #fwrite_p .info_notice ul li::before{content:"·";position:absolute;left:0;top:0;color:#999;}
+
+          #fwrite_p .btn_area{margin-top:24px;}
+          #fwrite_p .btn_area ul{display:block;margin:0;padding:0;list-style:none;}
+          #fwrite_p .btn_area ul li{width:100%;}
+          #fwrite_p .btn_area ul li button{display:block;width:100%;height:60px;font-size:18px;font-weight:600;border:none;border-radius:6px;cursor:pointer;font-family:inherit;text-align:center !important;padding:0;background:#004976;color:#fff;line-height:60px;}
+          #fwrite_p .btn_area ul li button:hover{background:#003658;}
+
+          #fwrite_p .visit_resv_wrap{display:flex;align-items:center;width:100%;}
+          #fwrite_p #resvDisplay{cursor:pointer;flex:1 1 auto;}
+
+          /* 성공 모달 */
+          #fwrite_p_wrap .success-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99999;align-items:center;justify-content:center;}
+          #fwrite_p_wrap .success-modal-box{background:#fff;border-radius:12px;padding:40px 30px;text-align:center;max-width:360px;width:90%;font-family:'Pretendard','Noto Sans',sans-serif;}
+          #fwrite_p_wrap .success-icon{width:60px;height:60px;background:#004976;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+          #fwrite_p_wrap .success-icon svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+          #fwrite_p_wrap .success-title{font-size:19px;font-weight:700;color:#222;margin-bottom:10px;}
+          #fwrite_p_wrap .success-desc{font-size:14px;color:#666;line-height:1.6;margin-bottom:22px;}
+          #fwrite_p_wrap .success-close-btn{background:#004976;color:#fff;border:none;border-radius:6px;padding:12px 28px;font-size:15px;cursor:pointer;}
+
+          /* 방문예약 모달 */
+          #fwrite_p_wrap .resv-modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99999;align-items:center;justify-content:center;font-family:'Pretendard','Noto Sans',sans-serif;}
+          #fwrite_p_wrap .resv-modal-box{background:#fff;border-radius:14px;max-width:380px;width:90%;max-height:85vh;overflow-y:auto;}
+          #fwrite_p_wrap .resv-modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #eee;}
+          #fwrite_p_wrap .resv-modal-title{font-size:15px;font-weight:600;color:#333;}
+          #fwrite_p_wrap .resv-modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:#999;}
+          #fwrite_p_wrap .resv-modal-body{padding:10px 16px 18px;}
+          #fwrite_p_wrap .calendar-area .flatpickr-calendar{box-shadow:none!important;background:transparent!important;max-width:100%!important;}
+          #fwrite_p_wrap .flatpickr-day.selected,#fwrite_p_wrap .flatpickr-day.startRange,#fwrite_p_wrap .flatpickr-day.endRange{background:#004976!important;border-color:#004976!important;}
+          #fwrite_p_wrap .flatpickr-day.today:not(.selected){border-color:#004976!important;color:#004976!important;}
+          #fwrite_p_wrap .time-msg{text-align:center;padding:26px 0;color:#999;font-size:13px;}
+          #fwrite_p_wrap .time-date-label{display:block;font-size:14px;font-weight:600;color:#004976;margin:10px 0;}
+          #fwrite_p_wrap .time-slot-title{font-size:12px;color:#999;margin-bottom:6px;}
+          #fwrite_p_wrap .time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+          #fwrite_p_wrap .time-btn{background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:10px 0;font-size:13px;color:#333;cursor:pointer;text-align:center;font-family:inherit;}
+          #fwrite_p_wrap .time-btn.active{background:#004976;color:#fff;border-color:#004976;font-weight:600;}
+          #fwrite_p_wrap .time-btn.disabled{background:#f5f5f5;color:#ccc;cursor:not-allowed;pointer-events:none;}
+        </style>
+
+        <div id="fwrite_p_wrap">
+          <form name="fwrite_p" id="fwrite_p" onsubmit="return handleRegSubmitP(this);" autocomplete="off">
+            <input type="text" name="hp_check" id="hp_check_p" style="display:none" tabindex="-1" autocomplete="off">
+
+            <div class="bo_tbl">
+              <table>
+                <colgroup><col class="col1"><col></colgroup>
+                <tbody>
+                  <tr>
+                    <th>이름 <span style="color:#c30028;font-size:12px;">*</span></th>
+                    <td><div><input type="text" name="wr_name" id="wr_name_p" maxlength="20" placeholder="이름을 입력해 주세요"></div></td>
+                  </tr>
+                  <tr>
+                    <th>휴대폰 <span style="color:#c30028;font-size:12px;">*</span></th>
+                    <td>
+                      <div class="wrap_none">
+                        <select name="hp1" id="hp1_p"><option value="010">010</option></select>
+                        <em>-</em>
+                        <input type="text" name="hp2" id="hp2_p" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4);if(this.value.length===4)document.getElementById('hp3_p').focus();">
+                        <em>-</em>
+                        <input type="text" name="hp3" id="hp3_p" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>관심타입 <span style="color:#999;font-size:11px;font-weight:400;">(선택)</span></th>
+                    <td>
+                      <div class="unit_chk">
+                        <span><input type="checkbox" name="wr_5_p[]" id="wr_5_p_1" value="84㎡"><label for="wr_5_p_1">84㎡</label></span>
+                        <span><input type="checkbox" name="wr_5_p[]" id="wr_5_p_2" value="101㎡"><label for="wr_5_p_2">101㎡</label></span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>방문예약 <span style="color:#999;font-size:11px;font-weight:400;">(선택)</span></th>
+                    <td>
+                      <div class="visit_resv_wrap">
+                        <input type="text" id="resvDisplay_p" readonly onclick="openResvModalP()" value="" placeholder="날짜와 시간을 선택해 주세요">
+                        <button type="button" id="resvClear_p" onclick="clearResvP()" style="display:none;margin-left:-30px;background:none;border:none;font-size:14px;color:#999;cursor:pointer;padding:4px;">✕</button>
+                        <input type="hidden" id="visitDate_p">
+                        <input type="hidden" id="visitTime_p">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="agree">
+              <div>
+                <p><span>(필수)</span> 개인정보 수집 및 이용 동의 <button type="button" onclick="document.getElementById('customerPrivacyModalP').style.display='flex';">보기</button></p>
+                <ul>
+                  <li><label><input type="radio" name="radio1_p" id="U_checkAgreement2_1_p" value="Y"><span>동의</span></label></li>
+                  <li><label><input type="radio" name="radio1_p" id="U_checkAgreement2_2_p" value="N"><span>거부</span></label></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="info_notice">
+              <ul>
+                <li>고객님의 개인정보는 개인정보보호법 및 정보통신망법에 따라 안전하게 보관되며 분양 완료 후 자동 파기됩니다.</li>
+                <li>고객님의 소중한 정보는 분양 이외의 목적으로 사용되지 않습니다.</li>
+                <li>관심고객으로 등록된 고객님의 정보는 분양정보를 안내하는데 사용합니다.</li>
+              </ul>
+            </div>
+
+            <div class="btn_area">
+              <ul>
+                <li><button type="submit" id="btn_submit_p">등록하기</button></li>
+              </ul>
+            </div>
+          </form>
+
+          <div id="successModalP" class="success-modal-overlay" onclick="if(event.target===this)closeSuccessModalP()">
+            <div class="success-modal-box">
+              <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+              <div class="success-title">등록이 완료되었습니다</div>
+              <div class="success-desc">담당자가 빠른 시일 내에 연락드리겠습니다.</div>
+              <button type="button" class="success-close-btn" onclick="closeSuccessModalP()">확인</button>
+            </div>
           </div>
-          <p class="sec06_txt">빛나는 용현학익의 최중심에서 누리는 압도적인 자부심</p>
-          <div class="sec06_btn_wrap">
-            <a href="https://naver.me/FnV4MCOz" target="_blank"><img loading="lazy" src="image/open/sec06_btn_naver.png" alt=""></a>
-            <a href="https://kko.kakao.com/EgF4X3p1nK" target="_blank"><img loading="lazy" src="image/open/sec06_btn_kakao.png" alt=""></a>
+
+          <div class="resv-modal-overlay" id="resvModalP" onclick="if(event.target===this)closeResvModalP()">
+            <div class="resv-modal-box">
+              <div class="resv-modal-header">
+                <span class="resv-modal-title">날짜와 시간을 선택해 주세요</span>
+                <button type="button" class="resv-modal-close" onclick="closeResvModalP()">✕</button>
+              </div>
+              <div class="resv-modal-body">
+                <div class="calendar-area"><div id="inline_calendar_p"></div></div>
+                <div id="time_msg_default_p"><div class="time-msg">날짜를 먼저 선택해주세요.</div></div>
+                <div id="time_select_box_p" style="display:none;">
+                  <span class="time-date-label" id="dateDisplayP"></span>
+                  <div class="time-slot-title">오전</div>
+                  <div class="time-grid" id="timeGridAMP"></div>
+                  <div class="time-slot-title">오후</div>
+                  <div class="time-grid" id="timeGridPMP"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="customerPrivacyModalP" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;font-family:'Pretendard','Noto Sans',sans-serif;">
+            <div style="background:#fff;border-radius:8px;max-width:560px;width:90%;max-height:85vh;overflow-y:auto;padding:36px 28px;position:relative;">
+              <button type="button" onclick="document.getElementById('customerPrivacyModalP').style.display='none';" style="position:absolute;top:14px;right:18px;background:none;border:none;font-size:24px;color:#888;cursor:pointer;">✕</button>
+              <h2 style="margin:0 0 18px;font-size:20px;font-weight:700;color:#222;">개인정보 수집 및 이용에 관한 안내</h2>
+              <div style="font-size:14px;color:#444;line-height:1.7;">
+                <p>홈페이지에서 고객들의 원활한 서비스 이용을 위해 필요한 최소한의 범위로 개인정보를 수집합니다.</p>
+                <h3 style="margin:18px 0 8px;font-size:15px;color:#222;">1. 수집항목</h3>
+                <p>이름, 휴대전화번호, 서비스 이용기록, 접속 로그, 쿠키, 접속 IP 정보 등</p>
+                <h3 style="margin:18px 0 8px;font-size:15px;color:#222;">2. 이용목적</h3>
+                <p>고지사항 전달, 분양정보 안내, 이벤트 정보 등의 안내</p>
+                <h3 style="margin:18px 0 8px;font-size:15px;color:#222;">3. 보유기간</h3>
+                <p>분양완료시까지 보관 후 파기</p>
+                <h3 style="margin:18px 0 8px;font-size:15px;color:#222;">4. 동의 거부권</h3>
+                <p>동의를 거부할 수 있으며, 거부 시 관심고객 등록이 불가합니다.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="sec06_right_wrap">
-          <img loading="lazy" src="image/open/sec06_map.png">
-          <p>견본주택 및 현장 I 인천광역시 미추홀구 용현동 604-7번지 일원</p>
-        </div>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+        <script src="/js/utm.js"></script>
+        <script>
+          (function(){
+            function getUTMP(param){
+              var u=new URLSearchParams(location.search);
+              var v=u.get(param)||localStorage.getItem(param)||localStorage.getItem("first_"+param)||"";
+              if(!v){var m=document.cookie.match(new RegExp('(?:^|; )first_'+param+'=([^;]*)'));if(m)v=decodeURIComponent(m[1]);}
+              if(!v&&param==="utm_source")v="direct";
+              if(!v&&param==="utm_medium")v="none";
+              return v;
+            }
+            var _isSubmittingP=false,_submitSuccessP=false;
+            var deviceTypeP=/Mobi|Android/i.test(navigator.userAgent)?"Mobile":"Desktop";
+
+            window.closeSuccessModalP=function(){document.getElementById('successModalP').style.display='none';};
+            window.closeResvModalP=function(){$('#resvModalP').fadeOut(200);};
+            window.openResvModalP=function(){$('#resvModalP').css('display','flex').hide().fadeIn(200);if(window.fpResvP)window.fpResvP.redraw();var d=document.getElementById('visitDate_p');if(!d||!d.value){$('#time_select_box_p').hide();$('#time_msg_default_p').show();}};
+            window.clearResvP=function(){
+              document.getElementById('visitDate_p').value='';
+              document.getElementById('visitTime_p').value='';
+              document.getElementById('resvDisplay_p').value='';
+              document.getElementById('resvClear_p').style.display='none';
+              if(window.fpResvP)window.fpResvP.clear();
+              $('#time_select_box_p').hide();$('#time_msg_default_p').show();
+              $('#fwrite_p_wrap .time-btn').removeClass('active disabled');
+              window._resvSelectedDateP='';
+            };
+
+            $(document).ready(function(){
+              function fmt(h,m){var dh=h>12?h-12:h;var ms=m===0?'00':'30';var v=(h<10?'0':'')+h+':'+ms;return{val:v,label:dh+':'+ms,period:h<12?'오전':'오후'};}
+              var $am=$('#timeGridAMP'),$pm=$('#timeGridPMP');
+              for(var h=10;h<=18;h++){[0,30].forEach(function(m){if(h===18&&m===30)return;var t=fmt(h,m);var btn='<button type="button" class="time-btn" data-value="'+t.val+'" data-label="'+t.period+' '+t.label+'">'+t.label+'</button>';if(h<12)$am.append(btn);else $pm.append(btn);});}
+              if(typeof flatpickr==='undefined')return;
+              var today=new Date();var maxD=new Date();maxD.setMonth(today.getMonth()+1);
+              window.fpResvP=flatpickr('#inline_calendar_p',{inline:true,locale:'ko',minDate:'today',maxDate:maxD,dateFormat:'Y-m-d',disableMobile:true,
+                onChange:function(sel,ds){
+                  document.getElementById('visitDate_p').value=ds;
+                  $('#time_msg_default_p').hide();$('#time_select_box_p').fadeIn();
+                  var days=['일','월','화','수','목','금','토'];$('#dateDisplayP').html('<span style="color:#004976">'+ds+' ('+days[sel[0].getDay()]+')</span>');
+                  $('#fwrite_p_wrap .time-btn').removeClass('active disabled');document.getElementById('visitTime_p').value='';
+                  if(sel[0].toDateString()===new Date().toDateString()){var now=new Date(),cm=now.getHours()*60+now.getMinutes();$('#fwrite_p_wrap .time-btn').each(function(){var p=$(this).data('value').split(':');if(parseInt(p[0])*60+parseInt(p[1])<=cm)$(this).addClass('disabled');});}
+                  window._resvSelectedDateP=ds;
+                }
+              });
+              $(document).on('click','#fwrite_p_wrap .time-btn:not(.disabled)',function(){
+                var sd=window._resvSelectedDateP||'';
+                if(!sd){alert('날짜를 먼저 선택해주세요.');return;}
+                $('#fwrite_p_wrap .time-btn').removeClass('active');$(this).addClass('active');
+                var tv=$(this).data('value'),tl=$(this).data('label');
+                var d=new Date(sd),days=['일','월','화','수','목','금','토'];
+                document.getElementById('visitTime_p').value=tv;
+                document.getElementById('resvDisplay_p').value=sd+' ('+days[d.getDay()]+') '+tl;
+                document.getElementById('resvClear_p').style.display='inline-block';
+                setTimeout(window.closeResvModalP,150);
+              });
+            });
+
+            window.handleRegSubmitP=function(form){
+              if(_submitSuccessP){alert("이미 등록이 완료되었습니다.\n담당자가 빠른 시일 내에 연락드리겠습니다.");return false;}
+              if(_isSubmittingP)return false;
+              _isSubmittingP=true;
+              var btn=document.getElementById('btn_submit_p');
+              btn.disabled=true;
+
+              var name=$.trim($('#wr_name_p').val());
+              var hp2=$.trim($('#hp2_p').val());
+              var hp3=$.trim($('#hp3_p').val());
+
+              if(name.length<2){alert("이름을 정확히 입력해주세요 (2글자 이상).");$('#wr_name_p').focus();_isSubmittingP=false;btn.disabled=false;return false;}
+              if(hp2.length!==4||hp3.length!==4){alert("연락처를 정확히 입력해주세요 (010-1234-5678).");$('#hp2_p').focus();_isSubmittingP=false;btn.disabled=false;return false;}
+              if(!document.getElementById("U_checkAgreement2_1_p").checked){alert("개인정보 수집·이용에 동의하셔야 등록이 가능합니다.");_isSubmittingP=false;btn.disabled=false;return false;}
+
+              var phone='010-'+hp2+'-'+hp3;
+              var vDate=document.getElementById('visitDate_p').value;
+              var vTime=document.getElementById('visitTime_p').value;
+              if(vDate&&!vTime){
+                if(!confirm("방문 시간을 선택하지 않으셨습니다. 예약 없이 정보만 등록하시겠습니까?")){window.openResvModalP();_isSubmittingP=false;btn.disabled=false;return false;}
+                vDate="";
+              }
+
+              var interest=[];
+              $('input[name="wr_5_p[]"]:checked').each(function(){interest.push($(this).val());});
+
+              var regKey=name+'|'+phone+'|'+(vDate||'');
+              var lastKey=localStorage.getItem('last_reg_key');
+              var lastTime=parseInt(localStorage.getItem('last_reg_time')||'0');
+              if(lastKey===regKey&&(Date.now()-lastTime)<300000){alert("이미 등록이 완료되었습니다.\n담당자가 빠른 시일 내에 연락드리겠습니다.");_isSubmittingP=false;btn.disabled=false;return false;}
+              localStorage.setItem('last_reg_key',regKey);
+              localStorage.setItem('last_reg_time',String(Date.now()));
+
+              var idemKey=(typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).substr(2,9);
+              var _eid=Date.now()+'_'+Math.random().toString(36).substr(2,9);
+              function _ck(n){var m=document.cookie.match('(^|;)\\s*'+n+'=([^;]+)');return m?m[2]:'';}
+              var _fbp=_ck('_fbp'),_fbc=_ck('_fbc');
+
+              var postData={
+                name:name,phone:phone,
+                visitDate:vDate,visitTime:vTime,privacyAgree:"동의",
+                interestType:interest.join(', '),
+                hp_check:document.getElementById('hp_check_p').value,idempotency_key:idemKey,
+                site_domain:location.hostname,
+                utm_source:getUTMP("utm_source"),utm_medium:getUTMP("utm_medium"),
+                utm_campaign:getUTMP("utm_campaign"),utm_term:getUTMP("utm_term"),
+                utm_content:getUTMP("utm_content"),device:deviceTypeP,
+                event_id:_eid,fbp:_fbp,fbc:_fbc,page_url:location.href
+              };
+
+              try{window.postMessage({type:'DB_REGISTERED',action:'formSubmitted'},'*');}catch(e){}
+              try{if(window.wcs){var c={};c.type='lead';wcs.trans(c);}}catch(e){}
+              try{if(typeof gtag!=='undefined')gtag('event','generate_lead',{currency:'KRW',value:0});}catch(e){}
+              try{if(typeof fbq!=='undefined'){var _ph=phone.replace(/[^0-9]/g,'');var _fn=name;fbq('init','1988984025053531',{ph:_ph,fn:_fn});fbq('track','Lead',{value:0,currency:'KRW'},{eventID:_eid});}}catch(e){}
+
+              _submitSuccessP=true;
+              document.getElementById('successModalP').style.display='flex';
+              try{
+                form.reset();
+                $('input[name="radio1_p"]').prop('checked',false);
+                $('input[name="wr_5_p[]"]').prop('checked',false);
+                window.clearResvP();
+              }catch(e){}
+              _isSubmittingP=false;btn.disabled=false;
+
+              fetch("/api/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(postData)}).catch(function(){});
+
+              return false;
+            };
+          })();
+        </script>
       </div>
     </div>
   </section>
