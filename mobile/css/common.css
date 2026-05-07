@@ -125,10 +125,10 @@ background-color: #000;
   box-sizing: border-box;
 }
 
-/* SUMMARY 사업개요 섹션 (LOCATION 위) — trivn 패턴 참고 */
+/* SUMMARY 사업개요 섹션 (LOCATION 위) */
 .sec_summary {
   background: #fff;
-  padding: 80px 24px 70px;
+  padding: 60px 24px 60px;
   font-family: 'Pretendard','Noto Sans',sans-serif;
 }
 .sec_summary .sm_inner {
@@ -136,30 +136,22 @@ background-color: #000;
   margin: 0 auto;
 }
 .sec_summary .sm_eyebrow {
-  font-family: 'Pretendard','Noto Sans',sans-serif;
-  font-size: clamp(40px, 13vw, 60px);
-  font-weight: 800;
-  color: #1a2c4a;
-  letter-spacing: -0.04em;
+  font-family: 'NanumMyeongjo','Nanum Myeongjo','Times New Roman',serif;
+  font-size: clamp(26px, 7.5vw, 36px);
+  font-weight: 400;
+  color: #00486e;
+  letter-spacing: 0.18em;
   line-height: 1;
   margin: 0 0 14px;
   text-align: center;
 }
 .sec_summary .sm_subtitle {
-  font-size: clamp(12px, 3.5vw, 14px);
-  color: #555;
+  font-size: clamp(11px, 3.2vw, 13px);
+  color: #666;
   text-align: center;
-  margin: 0 0 18px;
+  margin: 0 0 36px;
   letter-spacing: -0.02em;
   font-weight: 500;
-}
-.sec_summary .sm_script {
-  font-family: 'Allura', cursive;
-  font-size: clamp(28px, 8vw, 38px);
-  color: #999;
-  text-align: center;
-  margin: 0 0 50px;
-  line-height: 1;
 }
 .sec_summary .sm_list {
   list-style: none;
@@ -168,20 +160,20 @@ background-color: #000;
 }
 .sec_summary .sm_list li {
   border-top: 1px solid #e5e5e5;
-  padding: 22px 0;
+  padding: 18px 0;
 }
 .sec_summary .sm_list li:last-child {
   border-bottom: 1px solid #e5e5e5;
 }
 .sec_summary .sm_list h3 {
-  font-size: clamp(14px, 3.8vw, 16px);
+  font-size: clamp(13px, 3.5vw, 14.5px);
   font-weight: 700;
   color: #222;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   letter-spacing: -0.02em;
 }
 .sec_summary .sm_list p {
-  font-size: clamp(13px, 3.5vw, 14.5px);
+  font-size: clamp(12px, 3.2vw, 13.5px);
   color: #555;
   margin: 0;
   line-height: 1.55;
