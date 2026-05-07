@@ -576,6 +576,22 @@
   </section> -->
 
   <section class="sec_summary">
+    <script>
+      (function(){
+        var run = function(){
+          var s = document.querySelector('.sec_summary');
+          if (!s) return;
+          if (!window.IntersectionObserver) { s.classList.add('is-active'); return; }
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+              if (e.isIntersecting) { e.target.classList.add('is-active'); io.unobserve(e.target); }
+            });
+          }, { threshold: 0.15 });
+          io.observe(s);
+        };
+        if (document.readyState !== 'loading') run(); else document.addEventListener('DOMContentLoaded', run);
+      })();
+    </script>
     <div class="sm_inner">
       <h2 class="sm_eyebrow">SUMMARY</h2>
       <p class="sm_subtitle">인하대역 수자인 로이센트 사업개요</p>

@@ -162,9 +162,30 @@ background-color: #000;
   border-top: 1px solid #e5e5e5;
   padding: 18px 0;
 }
+.sec_summary .sm_list li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
 .sec_summary .sm_list li:last-child {
   border-bottom: 1px solid #e5e5e5;
 }
+
+/* SUMMARY 섹션 등장 애니메이션 — 자식 stagger */
+.sec_summary .sm_eyebrow,
+.sec_summary .sm_subtitle,
+.sec_summary .sm_list li {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sec_summary.is-active .sm_eyebrow { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+.sec_summary.is-active .sm_subtitle { opacity: 1; transform: translateY(0); transition-delay: 0.20s; }
+.sec_summary.is-active .sm_list li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.40s; }
+.sec_summary.is-active .sm_list li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.50s; }
+.sec_summary.is-active .sm_list li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.60s; }
+.sec_summary.is-active .sm_list li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.70s; }
+.sec_summary.is-active .sm_list li:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.80s; }
+.sec_summary.is-active .sm_list li:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.90s; }
 .sec_summary .sm_list h3 {
   font-size: clamp(13px, 3.5vw, 14.5px);
   font-weight: 700;
