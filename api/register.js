@@ -8,6 +8,23 @@ const SITE_DOMAIN = "sujainroicent.com";
 
 const sha256Hex = (s) => crypto.createHash('sha256').update(String(s).toLowerCase().trim()).digest('hex');
 
+async function insertToSupabase(data) {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  const res = await fetch(`${process.env.SUPABASE_URL}/rest/v1/registrations`, {
+    method: 'POST',
+    headers: {
+      'apikey': key,
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
+  const [row] = await res.json();
+  return row.id;
+}
+
 async function sendMetaCAPI(p, req) {
   const PIXEL = process.env.META_PIXEL_ID;
   const TOKEN = process.env.META_ACCESS_TOKEN;
@@ -111,6 +128,39 @@ export default async function handler(req, res) {
     String(now.getUTCHours()).padStart(2, '0') + ':' +
     String(now.getUTCMinutes()).padStart(2, '0');
 
+  // [DEDUP] 5분 윈도우 + (phone + visit_date + visit_time) 조합
+  // 같은 정보 더블 클릭 차단, 방문날짜/시간 변경 재등록은 통과
+  if (process.env.SUPABASE_URL && (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY)) {
+    try {
+      const dedupSince = new Date(Date.now() + 9*60*60*1000 - 5*60*1000);
+      const sinceStr = dedupSince.getUTCFullYear() + '-' +
+        String(dedupSince.getUTCMonth()+1).padStart(2,'0') + '-' +
+        String(dedupSince.getUTCDate()).padStart(2,'0') + ' ' +
+        String(dedupSince.getUTCHours()).padStart(2,'0') + ':' +
+        String(dedupSince.getUTCMinutes()).padStart(2,'0');
+      const _vDate = body.date || body.visitDate || "";
+      const _vTime = body.time || body.visitTime || "";
+      const dedupKey = (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY);
+      const q = `${process.env.SUPABASE_URL}/rest/v1/registrations`
+        + `?site_domain=eq.${SITE_DOMAIN}`
+        + `&phone=eq.${encodeURIComponent(phone)}`
+        + `&visit_date=eq.${encodeURIComponent(_vDate)}`
+        + `&visit_time=eq.${encodeURIComponent(_vTime)}`
+        + `&reg_datetime=gte.${encodeURIComponent(sinceStr)}`
+        + `&select=id&limit=1`;
+      const dedupRes = await fetch(q, {
+        headers: { apikey: dedupKey, Authorization: `Bearer ${dedupKey}` }
+      });
+      if (dedupRes.ok) {
+        const rows = await dedupRes.json();
+        if (rows && rows.length > 0) {
+          console.log('[dedup] hit', { phone, vDate: _vDate, vTime: _vTime, existingId: rows[0].id });
+          return res.status(200).json({ success: true, id: rows[0].id, deduped: true });
+        }
+      }
+    } catch (e) { console.error('[dedup-check]', e.message); }
+  }
+
   const payload = {
     name: body.name.trim(), phone,
     date: body.date || body.visitDate || "",
@@ -125,7 +175,25 @@ export default async function handler(req, res) {
 
   try {
     let gasOk = false;
+    let regId = null;
     const errors = [];
+
+    // Supabase INSERT (5사이트 표준 — 단일 진실 원천)
+    if (process.env.SUPABASE_URL && (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY)) {
+      try {
+        regId = await insertToSupabase({
+          site_domain: SITE_DOMAIN,
+          reg_datetime: formattedDate,
+          name: payload.name, phone: payload.phone,
+          visit_date: payload.date, visit_time: payload.time,
+          utm_source: payload.utm_source, utm_medium: payload.utm_medium,
+          utm_campaign: payload.utm_campaign, utm_term: payload.utm_term,
+          utm_content: payload.utm_content,
+          ip_address: payload.ip_address, device: payload.device,
+          suspect_flag: suspectFlag
+        });
+      } catch (e) { errors.push('supabase: ' + e.message); console.error('Supabase:', e.message); }
+    }
 
     if (process.env.GAS_FORM_URL) {
       try {
@@ -162,7 +230,7 @@ export default async function handler(req, res) {
     const capi = await sendMetaCAPI(capiPayload, req);
     if (capi && capi.error) errors.push('capi: ' + capi.error);
 
-    return res.status(200).json({ success: true, gas: gasOk, capi, errors });
+    return res.status(200).json({ success: true, id: regId || 'ok', gas: gasOk, capi, errors });
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ error: "서버 오류" });
