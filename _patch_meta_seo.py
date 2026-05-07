@@ -14,10 +14,10 @@ import glob, os, re
 
 SITE = 'https://sujainroicent.com'
 SITE_NAME = '인하대역 수자인 로이센트'
-OG_IMG = 'https://sujainroicent.com/meta/thumb2.png'
-OG_IMG_W = '1920'
-OG_IMG_H = '1000'
-OG_IMG_ALT = '인하대역 수자인 로이센트 조감도'
+OG_IMG = 'https://sujainroicent.com/meta/og_share.jpg'
+OG_IMG_W = '2000'
+OG_IMG_H = '949'
+OG_IMG_ALT = '인하대역 수자인 로이센트 단지 전경'
 
 # PC 루트 = index.htm. 그 외 PC 페이지는 파일명 그대로.
 def pc_url_for(path):
