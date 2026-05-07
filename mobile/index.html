@@ -26,6 +26,12 @@
   <!-- css -->
   <link rel="stylesheet" as="style" crossorigin="" href="../gh/orioncactus/pretendard%40v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
+  <!-- BORAWARE LOG SCRIPT. (head — 가장 먼저 fire) -->
+  <script type="text/javascript">var protect_id = 'j764';</script>
+  <script async type="text/javascript" src="//script.boraware.kr/protect_script_v2.js"></script>
+  <noscript><img src="//script.boraware.kr/protect_nbora.php?protect_id=j764" style="display:none;width:0;height:0;" border="0" /></noscript>
+  <!-- END OF BORAWARE LOG SCRIPT -->
+
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/swiper.min.css">
   <link rel="stylesheet" href="css/slick.css">
@@ -1187,13 +1193,7 @@
   fbq('track', 'PageView');
   </script>
   <!-- End Meta Pixel Code -->
-    <!-- BORAWARE LOG SCRIPT. -->
-  <script type="text/javascript">
-  var protect_id = 'j764';
-  </script>
-  <script async type="text/javascript" src="//script.boraware.kr/protect_script_v2.js"></script>
-  <noscript><img loading="lazy" src="//script.boraware.kr/protect_nbora.php?protect_id=j764" style="display:none;width:0;height:0;" border="0" /></noscript>
-  <!-- END OF BORAWARE LOG SCRIPT -->
+  <!-- BORAWARE moved to <head> for early firing on mobile (인트로 애니메이션 전 이탈 시 누락 방지) -->
   <!-- antifraud -->
   <script src="/js/antifraud.js" async></script>
 
