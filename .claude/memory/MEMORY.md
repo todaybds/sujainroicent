@@ -9,3 +9,4 @@
 - [04_file_map.md](04_file_map.md) — 신규/수정/삭제 파일 + 백업 폴더 매핑 + 복원 명령
 - [05_conventions.md](05_conventions.md) — 작업 시 반드시 지킬 패턴 (백업, 검증, 60개 동기화 등)
 - [06_known_issues.md](06_known_issues.md) — 알려진 한계와 의도적으로 둔 부분
+- [07_launch_status.md](07_launch_status.md) — 라이브 준비 진행상태 (2026-05-05: Phase 1/2/3 모두 완료, 잔여=카카오 채널 URL 1건)
