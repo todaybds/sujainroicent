@@ -101,23 +101,36 @@ background-color: #000;
 }
 
 /* LOCATION 섹션 — box01(회색) 다음 / box02(흰색) 이전 지도 영역 */
+/* sec04 height:100vh/max-height:750px 제약 해제 — 지도 추가로 콘텐츠 늘어남 */
+.sec04 {
+  height: auto !important;
+  max-height: none !important;
+}
 .lo_map_wrap {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   background: #fff;
   line-height: 0;
+  box-sizing: border-box;
 }
 .lo_map_wrap .lo_map_img {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
+  margin: 0;
+  padding: 0;
   transform: scale(1.0);
+  transform-origin: center center;
   transition: transform 8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 .lo_map_wrap.is-active .lo_map_img {
-  transform: scale(1.12);
+  transform: scale(1.06);
 }
 
 
