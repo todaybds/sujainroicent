@@ -102,40 +102,6 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
-.header_reserve_btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 44px;
-  padding: 0 22px;
-  border: 1.5px solid #fff;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-.header_reserve_btn:hover {
-  background-color: #fff;
-  color: #004a76;
-}
-.fp-viewing-0 .header_reserve_btn,
-.fp-viewing-1 .header_reserve_btn,
-.fp-viewing-3 .header_reserve_btn,
-.header_open.white .header_reserve_btn {
-  border-color: #004a76;
-  color: #004a76;
-}
-.fp-viewing-0 .header_reserve_btn:hover,
-.fp-viewing-1 .header_reserve_btn:hover,
-.fp-viewing-3 .header_reserve_btn:hover,
-.header_open.white .header_reserve_btn:hover {
-  background-color: #004a76;
-  color: #fff;
-}
 .header_top_icon img {
   width: 15px;
   height: 15px;
