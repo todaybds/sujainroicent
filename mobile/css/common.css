@@ -106,12 +106,19 @@ background-color: #000;
   height: auto !important;
   max-height: none !important;
 }
+.sec04 .box01 {
+  height: auto !important;
+  padding: 60px 0 !important;
+}
+.sec04 .box02 {
+  padding-top: 40px;
+}
 .lo_map_wrap {
   position: relative;
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 60px 0;
+  padding: 70px 0;
   overflow: hidden;
   background: #fff;
   line-height: 0;
