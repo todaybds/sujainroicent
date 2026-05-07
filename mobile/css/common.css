@@ -100,6 +100,26 @@ background-color: #000;
   to { opacity: 0.92; transform: translateY(0); }
 }
 
+/* LOCATION 섹션 — box01(회색) 다음 / box02(흰색) 이전 지도 영역 */
+.lo_map_wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  line-height: 0;
+}
+.lo_map_wrap .lo_map_img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.0);
+  transition: transform 8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.lo_map_wrap.is-active .lo_map_img {
+  transform: scale(1.12);
+}
+
 
 /* section.sec01 {
   position: relative;

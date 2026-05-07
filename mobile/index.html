@@ -590,6 +590,21 @@
         <p class="lo_main_sub back-to-position up delay-0" style="margin:0;text-align:center;font-family:'Pretendard','Noto Sans',sans-serif;font-size:clamp(8.5px,2.4vw,11px);font-weight:400;color:#333;line-height:1.65;letter-spacing:-0.02em;white-space:nowrap;">인하대역 역세권부터 학교, 공원까지<br>용현학익 최중심에서 압도적인 프리미엄을 선보입니다</p>
       </div>
     </div>
+    <div class="lo_map_wrap">
+      <img loading="lazy" src="img/map_big.jpg" alt="인하대역 수자인 로이센트 입지 지도" class="lo_map_img">
+    </div>
+    <script>
+      (function(){
+        var map = document.querySelector('.lo_map_wrap');
+        if (!map || !window.IntersectionObserver) { if(map) map.classList.add('is-active'); return; }
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if (e.isIntersecting) { e.target.classList.add('is-active'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.2 });
+        io.observe(map);
+      })();
+    </script>
     <div class="box02">
       <div class="slider_box">
         <div class="location_slider">
