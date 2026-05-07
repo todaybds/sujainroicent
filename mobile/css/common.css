@@ -46,7 +46,7 @@ background-color: #000;
 .main_visual_title_box {
   position: relative;
   margin-top: 120px;
-  max-width: 86vw;
+  max-width: 78vw;
 }
 .main_visual_title_box img {
   width: 100%;
@@ -70,26 +70,26 @@ background-color: #000;
 }
 .main_visual_title_box .mv_accent { color: #009ec2; font-weight: inherit; }
 .main_visual_title_box .mv_t01 {
-  font-size: 19px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: -0.4px;
-  margin-bottom: 22px;
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
   white-space: nowrap;
   animation-delay: 0.1s;
 }
 .main_visual_title_box .mv_t02 {
-  font-size: 54px;
+  font-size: 34px;
   font-weight: 700;
-  letter-spacing: -1.5px;
-  line-height: 1.05;
-  margin-bottom: 28px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 20px;
   animation-delay: 0.5s;
 }
 .main_visual_title_box .mv_t03 {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1.65;
-  letter-spacing: -0.3px;
+  line-height: 1.6;
+  letter-spacing: -0.2px;
   opacity: 0;
   animation: mv_fade_in_dim 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
 }
@@ -100,14 +100,14 @@ background-color: #000;
   to { opacity: 0.92; transform: translateY(0); }
 }
 @media (max-width: 400px) {
-  .main_visual_title_box .mv_t01 { font-size: 16px; margin-bottom: 18px; }
-  .main_visual_title_box .mv_t02 { font-size: 44px; letter-spacing: -1.4px; margin-bottom: 22px; }
-  .main_visual_title_box .mv_t03 { font-size: 13px; }
+  .main_visual_title_box .mv_t01 { font-size: 13px; margin-bottom: 14px; }
+  .main_visual_title_box .mv_t02 { font-size: 30px; letter-spacing: -0.8px; margin-bottom: 18px; }
+  .main_visual_title_box .mv_t03 { font-size: 11px; }
 }
 @media (max-width: 360px) {
-  .main_visual_title_box .mv_t01 { font-size: 15px; }
-  .main_visual_title_box .mv_t02 { font-size: 38px; }
-  .main_visual_title_box .mv_t03 { font-size: 12px; }
+  .main_visual_title_box .mv_t01 { font-size: 12px; }
+  .main_visual_title_box .mv_t02 { font-size: 26px; }
+  .main_visual_title_box .mv_t03 { font-size: 10.5px; }
 }
 
 
