@@ -253,6 +253,19 @@
         .info_notice ul li{position: relative; padding-left: 14px; font-size: 13px; color: #666; line-height: 1.6; word-break: keep-all;}
         .info_notice ul li::before{content: "·"; position: absolute; left: 0; top: 0; color: #999;}
 
+        .reg_benefit{max-width: 760px; margin: 0 auto 32px; padding: 24px 28px; background: #fafafa; border-left: 4px solid #004976; border-radius: 4px; font-family: 'Pretendard','Noto Sans',sans-serif;}
+        .reg_benefit .rb_title{font-size: 14px; color: #004976; font-weight: 500; margin: 0 0 6px; letter-spacing: -0.3px;}
+        .reg_benefit .rb_main{font-size: 18px; color: #1a1a1a; font-weight: 600; line-height: 1.5; margin: 0 0 14px; letter-spacing: -0.5px; word-break: keep-all;}
+        .reg_benefit ul{margin: 0; padding: 0; list-style: none;}
+        .reg_benefit ul li{position: relative; padding-left: 14px; font-size: 13px; color: #666; line-height: 1.85; word-break: keep-all;}
+        .reg_benefit ul li::before{content: "·"; position: absolute; left: 0; top: 0; color: #999;}
+        @media (max-width: 640px){
+          .reg_benefit{padding: 18px 20px; margin-bottom: 20px;}
+          .reg_benefit .rb_title{font-size: 13px;}
+          .reg_benefit .rb_main{font-size: 16px;}
+          .reg_benefit ul li{font-size: 12px; line-height: 1.8;}
+        }
+
         .btn_area{margin-top: 30px;}
         .btn_area ul{display: block; margin: 0; padding: 0; list-style: none;}
         .btn_area ul li{width: 100%;}
@@ -286,13 +299,13 @@
         }
       </style>
 
-      <div style="max-width:760px;margin:0 auto 24px;padding:28px 24px;background:linear-gradient(135deg,#004976 0%,#00486e 100%);color:#fff;border-radius:12px;text-align:center;font-family:'Pretendard','Noto Sans',sans-serif;box-shadow:0 4px 16px rgba(0,73,118,0.15);">
-        <p style="font-size:18px;line-height:1.6;margin:0 0 12px;font-weight:600;">관심고객으로 등록하시면</p>
-        <p style="font-size:22px;line-height:1.5;margin:0 0 16px;font-weight:700;letter-spacing:-0.5px;">잔여세대 안내 및 견본주택 방문예약을<br>빠르게 받으실 수 있습니다</p>
-        <ul style="list-style:none;padding:0;margin:16px 0 0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;font-size:14px;line-height:1.5;opacity:0.95;">
-          <li>✓ 분양가·평면도 자료 안내</li>
-          <li>✓ 견본주택 방문 사은품 증정</li>
-          <li>✓ 잔여세대 우선 안내</li>
+      <div class="reg_benefit">
+        <p class="rb_title">관심고객으로 등록하시면</p>
+        <p class="rb_main">잔여세대 안내 및 견본주택 방문예약을 빠르게 받으실 수 있습니다</p>
+        <ul>
+          <li>분양가·평면도 자료 안내</li>
+          <li>견본주택 방문 사은품 증정</li>
+          <li>잔여세대 우선 안내</li>
         </ul>
       </div>
 
