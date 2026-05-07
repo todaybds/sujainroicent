@@ -46,7 +46,7 @@ background-color: #000;
 .main_visual_title_box {
   position: relative;
   margin-top: 120px;
-  max-width: 60vw;
+  max-width: 86vw;
 }
 .main_visual_title_box img {
   width: 100%;
@@ -54,6 +54,43 @@ background-color: #000;
 
 .main_text02 {
   padding: 30px 0;
+}
+
+/* 모바일 메인 비주얼 텍스트 변환 */
+.main_visual_title_box .mv_txt {
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-family: 'Pretendard','Noto Sans',sans-serif;
+  word-break: keep-all;
+  line-height: 1;
+}
+.main_visual_title_box .mv_accent { color: #009ec2; font-weight: inherit; }
+.main_visual_title_box .mv_t01 {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  margin-bottom: 14px;
+  white-space: nowrap;
+}
+.main_visual_title_box .mv_t02 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+.main_visual_title_box .mv_t03 {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.3px;
+  opacity: 0.92;
+}
+@media (max-width: 380px) {
+  .main_visual_title_box .mv_t01 { font-size: 15px; }
+  .main_visual_title_box .mv_t02 { font-size: 32px; }
+  .main_visual_title_box .mv_t03 { font-size: 12px; }
 }
 
 
