@@ -253,17 +253,21 @@
         .info_notice ul li{position: relative; padding-left: 14px; font-size: 13px; color: #666; line-height: 1.6; word-break: keep-all;}
         .info_notice ul li::before{content: "·"; position: absolute; left: 0; top: 0; color: #999;}
 
-        .reg_benefit{max-width: 760px; margin: 0 auto 32px; padding: 24px 28px; background: #fafafa; border-left: 4px solid #004976; border-radius: 4px; font-family: 'Pretendard','Noto Sans',sans-serif;}
-        .reg_benefit .rb_title{font-size: 14px; color: #004976; font-weight: 500; margin: 0 0 6px; letter-spacing: -0.3px;}
-        .reg_benefit .rb_main{font-size: 18px; color: #1a1a1a; font-weight: 600; line-height: 1.5; margin: 0 0 14px; letter-spacing: -0.5px; word-break: keep-all;}
-        .reg_benefit ul{margin: 0; padding: 0; list-style: none;}
-        .reg_benefit ul li{position: relative; padding-left: 14px; font-size: 13px; color: #666; line-height: 1.85; word-break: keep-all;}
-        .reg_benefit ul li::before{content: "·"; position: absolute; left: 0; top: 0; color: #999;}
+        .reg_wrap{max-width: 760px; margin: 0 auto 80px; padding: 0 16px; box-sizing: border-box;}
+        .reg_wrap form{max-width: none !important; margin: 0 !important;}
+        .reg_benefit{box-sizing: border-box; margin: 0 0 36px; padding: 30px 36px; background: #fff; border: 1px solid #e5eaef; border-top: 4px solid #004976; border-radius: 4px; font-family: 'Pretendard','Noto Sans',sans-serif;}
+        .reg_benefit .rb_eyebrow{font-size: 12px; color: #004976; font-weight: 600; letter-spacing: 0.5px; margin: 0 0 10px;}
+        .reg_benefit .rb_main{font-size: 20px; color: #1a1a1a; font-weight: 700; line-height: 1.5; margin: 0 0 20px; letter-spacing: -0.5px; word-break: keep-all;}
+        .reg_benefit ul{margin: 0; padding: 16px 0 0; list-style: none; border-top: 1px solid #f0f3f6;}
+        .reg_benefit ul li{position: relative; padding-left: 18px; font-size: 14px; color: #444; line-height: 1.95; word-break: keep-all;}
+        .reg_benefit ul li::before{content: ""; position: absolute; left: 0; top: 12px; width: 5px; height: 5px; background: #004976; border-radius: 50%;}
         @media (max-width: 640px){
-          .reg_benefit{padding: 18px 20px; margin-bottom: 20px;}
-          .reg_benefit .rb_title{font-size: 13px;}
-          .reg_benefit .rb_main{font-size: 16px;}
-          .reg_benefit ul li{font-size: 12px; line-height: 1.8;}
+          .reg_benefit{padding: 22px 22px; margin-bottom: 24px;}
+          .reg_benefit .rb_eyebrow{font-size: 11px;}
+          .reg_benefit .rb_main{font-size: 17px; margin-bottom: 16px;}
+          .reg_benefit ul{padding-top: 14px;}
+          .reg_benefit ul li{font-size: 13px; line-height: 1.85;}
+          .reg_benefit ul li::before{top: 10px;}
         }
 
         .btn_area{margin-top: 30px;}
@@ -299,8 +303,9 @@
         }
       </style>
 
+      <div class="reg_wrap">
       <div class="reg_benefit">
-        <p class="rb_title">관심고객으로 등록하시면</p>
+        <p class="rb_eyebrow">관심고객으로 등록하시면</p>
         <p class="rb_main">잔여세대 안내 및 견본주택 방문예약을 빠르게 받으실 수 있습니다</p>
         <ul>
           <li>분양가·평면도 자료 안내</li>
@@ -309,7 +314,7 @@
         </ul>
       </div>
 
-      <form name="fwrite" id="fwrite" onsubmit="return handleRegSubmit(this);" autocomplete="off" style="max-width:760px;margin:0 auto 80px;font-family:'Pretendard','Noto Sans',sans-serif;">
+      <form name="fwrite" id="fwrite" onsubmit="return handleRegSubmit(this);" autocomplete="off" style="font-family:'Pretendard','Noto Sans',sans-serif;">
         <input type="text" name="hp_check" id="hp_check" style="display:none" tabindex="-1" autocomplete="off">
 
         <div class="bo_tbl">
@@ -389,6 +394,7 @@
           </ul>
         </div>
       </form>
+      </div>
 
       <style>
         /* 모바일에서 휴대폰 입력 칸 한 줄 강제 + 안내 텍스트 자연 줄바꿈 */
