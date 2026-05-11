@@ -103,6 +103,11 @@ export default async function handler(req, res) {
   if (!body.name || body.name.trim().length < 2) return res.status(400).json({ error: "이름 오류" });
 
   const phone = body.phone || body.number || "";
+  // 2026-05-11: 11자리 010 시작 강제 (5/9 칸타빌 010-0105-2365 사고 후 6사이트 공통 서버 가드)
+  const _phoneDigits = String(phone).replace(/[^0-9]/g, "");
+  if (_phoneDigits.length !== 11 || !_phoneDigits.startsWith("010")) {
+    return res.status(400).json({ error: "전화번호 형식 오류 (11자리 010 시작)" });
+  }
 
   let recaptchaScore = null;
   let suspectFlag = null;
