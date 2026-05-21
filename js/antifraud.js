@@ -1,4 +1,5 @@
 /* 부정클릭 방지 시스템 V41 — Vercel 배포용 (antifraud.js) */
+// V85.49 (2026-05-21): 기기지문 8→16자 확대, prefix DEV2_
 /* V41 변경사항 (2026-04-12): 차단 재방문 접속로그 기록
  *  1. 차단된 사용자가 네이버 광고 재클릭 시에도 VISIT 전송 (blockedRevisit 플래그)
  *  2. 네이버 클릭 vs 접속로그 괴리 해소 + 무효클릭 신고 증거 확보
@@ -91,8 +92,8 @@ async function generateUID() {
     var tzName = ''; try { tzName = Intl.DateTimeFormat().resolvedOptions().timeZone || '' } catch(e) { tzName = '' + (new Date().getTimezoneOffset()) }
     s.push(navigator.hardwareConcurrency || 0, navigator.deviceMemory || 0, screen.width + 'x' + screen.height + 'x' + (screen.colorDepth || 0), screen.availWidth + 'x' + screen.availHeight, tzName, navigator.platform || '', navigator.language || '', navigator.maxTouchPoints || 0, navigator.languages ? navigator.languages.join(',') : '');
     var h = await sha256hex(s.join('|'));
-    // V55: 기기 해시 앞 8자 + 랜덤 16자 (폴백 포함)
-    var fp8 = h.substring(0, 8).toUpperCase();
+    // V85.49: 기기 해시 앞 16자(64bit) + 랜덤 16자. 신형식 prefix DEV2_ (구 DEV_+8자에서 확대)
+    var fp16 = h.substring(0, 16).toUpperCase();
     var randHex = '';
     try {
         if (crypto && crypto.randomUUID) {
@@ -106,7 +107,7 @@ async function generateUID() {
     } catch (e) {
         randHex = (Date.now().toString(16) + Math.random().toString(16).substring(2)).substring(0, 16).toUpperCase();
     }
-    uid = 'DEV_' + fp8 + randHex;
+    uid = 'DEV2_' + fp16 + randHex;
     persistUID(uid);
     return uid;
 }
