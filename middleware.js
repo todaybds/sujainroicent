@@ -1,7 +1,7 @@
 // Vercel Edge Middleware — 서버측 IP 차단 + 네이버 광고 클릭 서버사이드 기록
 // JS 미실행 클릭도 서버에서 잡음 (봇/자동화 도구 대응)
 // 환경변수: SUPABASE_URL, SUPABASE_ANON_KEY (옵션 — 없으면 IP 차단 스킵)
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwEENIblM0NCX7uQn-zVOY1IcwNj7aboQw98ZVWJ1dmrwDIs3S4QgF2Gv3smBhaIQxmqQ/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwlTMdbDphJjp8hk0ifvllbi4e4lwGRjX5Zltt1iRXxPb1rhjD4pHi8fR9BWWqUaJ07Zg/exec';
 
 export default async function middleware(request) {
   // 정적 리소스는 스킵
