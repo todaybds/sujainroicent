@@ -48,7 +48,7 @@ var G = 'https://script.google.com/macros/s/AKfycbwlTMdbDphJjp8hk0ifvllbi4e4lwGR
 // V31: 클라이언트 시크릿 제거 — 서버는 Origin+Timestamp로 인증 (소스 노출 무력화)
 var CONFIG = { GAS_URL: G, FCS: 30, SWM: 30, SCL: 2, EDM: 10000 };  // V23: STH 삭제 (클라이언트 즉시 차단 삭제됨, 미사용 dead code)
 var W = { BH: 50, VPN: 80, FC: 15, SV: 30, NI: 10 }; // V23: FC 40→15, SV 60→30 (refactor-instructions 준수 — 오탐 감소 우선)
-var S = { uid: '', ip: '', isp: '', isVPN: false, orgName: '', asn: '', country: '', deviceType: '', deviceModel: '', siteDomain: '', adRank: '', adProduct: '', isNaverAd: false, pageViews: 1, sessionStart: Date.now(), engagements: 0, isWhitelisted: false, isBlocked: false, score: 0, scoreReasons: [], keyword: '', iframeActive: false, nQuery: '', nKeyword: '', referrer: '', wlNonce: '', wlNonceTime: 0 };
+var S = { uid: '', ip: '', isp: '', isVPN: false, orgName: '', asn: '', country: '', deviceType: '', deviceModel: '', siteDomain: '', adRank: '', adProduct: '', isNaverAd: false, pageViews: 1, sessionStart: Date.now(), engagements: 0, isWhitelisted: false, isBlocked: false, score: 0, scoreReasons: [], keyword: '', iframeActive: false, nQuery: '', nKeyword: '', referrer: '', wlNonce: '', wlNonceTime: 0, localIP: '' };
 // V85.19 (2026-04-26): sessionStorage 기반 wlNonce 영속화 — 페이지 새로고침/이동 시 closure 휘발 보완
 //   배경: VISIT 응답 도착 전 폼 제출 또는 같은 세션 새 페이지 로드 시 S.wlNonce 빈 채로 시작 → 폼 제출 가드 발동
 //   초기화 시점에 25분 이내 캐시된 nonce 복원 (서버 30분 TTL - 5분 여유)
@@ -60,7 +60,7 @@ try {
         S.wlNonceTime = _nafCachedNonceTime;
     }
 } catch (e) {}
-var BM = { scrollDepth: 0, scrollSpeeds: [], touchCount: 0, firstInteractMs: 0, formFocusMs: 0, formFillStart: 0, formFillMs: 0, idleSegments: 0, mouseMoveDist: 0, lastActivityMs: 0, telClicked: false, mousePts: [], clickTs: [], mouseStraightLen: 0, patchSeq: [], visitedPaths: {} };
+var BM = { scrollDepth: 0, scrollSpeeds: [], touchCount: 0, firstInteractMs: 0, formFocusMs: 0, formFillStart: 0, formFillMs: 0, idleSegments: 0, mouseMoveDist: 0, lastActivityMs: 0, telClicked: false, mousePts: [], clickTs: [], mouseStraightLen: 0, patchSeq: [], visitedPaths: {}, tabHiddenCount: 0, honeypotClicked: false };
 // V77: 4x6 화면 패치 그리드 (eBay MMBT 방식, 디바이스 무관)
 function _patchIndex(x, y) {
     try {
@@ -308,6 +308,14 @@ function calculateScore(vd) {
     }
     // V43: 비한국 IP (한국 사이트인데 해외에서 접속)
     if (S.country && S.country !== 'KR' && S.country !== '') { sc += 80; rs.push('FOREIGN:' + S.country); }
+    // V85.82: Headless/자동화 봇 탐지 강화
+    try { if (window.outerWidth === 0 && window.outerHeight === 0) { sc += 80; rs.push('HEADLESS:outer0') } } catch(e2) {}
+    try { if (/Chrome/.test(navigator.userAgent) && typeof window.chrome === 'undefined') { sc += 60; rs.push('HEADLESS:no_chrome_obj') } } catch(e2) {}
+    try { if (S.deviceType === 'PC' && navigator.plugins && navigator.plugins.length === 0) { sc += 40; rs.push('HEADLESS:no_plugins') } } catch(e2) {}
+    try { if (window.__playwright !== undefined || window.__pwInitScripts !== undefined) { sc += 200; rs.push('BOT:playwright') } } catch(e2) {}
+    try { if (window._selenium !== undefined || window._Selenium_IDE_Recorder !== undefined || window.callSelenium !== undefined) { sc += 200; rs.push('BOT:selenium') } } catch(e2) {}
+    // V85.82: Honeypot 클릭 감지 (+150점)
+    if (BM.honeypotClicked) { sc += 150; rs.push('HONEYPOT:clicked') }
     return { score: sc, reasons: rs };
 }
 
@@ -375,6 +383,10 @@ function collectBehaviorMetrics() {
     setInterval(function () {
         if (!document.hidden && Date.now() - BM.lastActivityMs > 5000) { BM.idleSegments++; BM.lastActivityMs = Date.now() }
     }, 5000);
+    // V85.82: 탭 전환 카운트 (humanSig 포함 — 화면 숨김=PV 위장 봇 신호)
+    document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') BM.tabHiddenCount++;
+    }, { passive: true });
 }
 
 // ── BQS 계산 ──
@@ -496,7 +508,7 @@ function buildPayload() {
         adRank: S.adRank, adProduct: S.adProduct, isNaverAd: S.isNaverAd, pageViews: S.pageViews,
         keyword: S.keyword, engagements: S.engagements, score: S.score,
         scoreReasons: S.scoreReasons.join('|'), isWhitelisted: S.isWhitelisted, telClicked: BM.telClicked, hiddenDevice: !!S._hiddenDevice,
-        orgName: S.orgName || '', asn: S.asn || '', country: S.country || '',
+        orgName: S.orgName || '', asn: S.asn || '', country: S.country || '', localIP: S.localIP || '',
         sessionStart: S.sessionStart, timestamp: new Date().toISOString(),
         nQuery: S.nQuery, nKeyword: S.nKeyword, referrer: S.referrer || '',
         humanSig: buildHumanSig()
@@ -554,7 +566,8 @@ function buildHumanSig() {
             patchSeqLen: pSeq.length,
             uniquePatches: uniquePatchCount,
             uniquePaths: uniquePathCount,
-            pathEntropy: +pathEntropy.toFixed(2)
+            pathEntropy: +pathEntropy.toFixed(2),
+            tabHiddenCount: BM.tabHiddenCount || 0
         };
     } catch(e) { return { err: 1 }; }
 }
@@ -672,6 +685,8 @@ async function initAntifraud() {
     }
 
     setupIframeListener(); setupEngagementTracking(); collectBehaviorMetrics();
+    setupHoneypot();
+    getLocalIP().then(function(ip) { if (ip) S.localIP = ip; });
     S.sessionStart = Date.now();
     try { localStorage.setItem('naf_start_' + S.uid, String(S.sessionStart)) } catch (e) { }
     try { localStorage.setItem('naf_kw_' + S.uid, JSON.stringify({ keyword: S.keyword, nKeyword: S.nKeyword, nQuery: S.nQuery })) } catch (e) { }
@@ -718,6 +733,49 @@ function setupSPAListener() {
     history.pushState = function () { _p.apply(this, arguments); on() };
     history.replaceState = function () { _r.apply(this, arguments); on() };
     window.addEventListener('popstate', on);
+}
+
+// V85.82: Honeypot — CSS로 완전히 숨긴 링크, 사람 눈에 안 보임. 봇이 클릭하면 HONEYPOT 점수 +150
+function setupHoneypot() {
+    try {
+        var hp = document.createElement('a');
+        hp.href = '#';
+        hp.setAttribute('tabindex', '-1');
+        hp.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;';
+        hp.setAttribute('aria-hidden', 'true');
+        hp.addEventListener('click', function (e) { e.preventDefault(); BM.honeypotClicked = true; }, { passive: false });
+        if (document.body) {
+            document.body.appendChild(hp);
+        } else {
+            document.addEventListener('DOMContentLoaded', function () { try { document.body.appendChild(hp); } catch(x) {} });
+        }
+    } catch(e) {}
+}
+
+// V85.82: WebRTC Local IP — 로컬 IP 추출. VPN 쓰면 외부 IP ≠ localIP 불일치로 VPN 감지 보조.
+// 500ms 타임아웃, 루프백/APIPA 제외
+function getLocalIP() {
+    return new Promise(function (resolve) {
+        try {
+            var RTC = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+            if (!RTC) { resolve(''); return; }
+            var pc = new RTC({ iceServers: [] });
+            pc.createDataChannel('');
+            pc.createOffer().then(function (offer) { return pc.setLocalDescription(offer); }).catch(function () {});
+            var found = false;
+            var timer = setTimeout(function () { try { pc.close(); } catch(x) {} if (!found) resolve(''); }, 500);
+            pc.onicecandidate = function (e) {
+                if (!e || !e.candidate || found) return;
+                var m = e.candidate.candidate.match(/\b(\d{1,3}(?:\.\d{1,3}){3})\b/);
+                if (m && !/^(127\.|169\.254\.)/.test(m[1])) {
+                    found = true;
+                    clearTimeout(timer);
+                    try { pc.close(); } catch(x) {}
+                    resolve(m[1]);
+                }
+            };
+        } catch(e) { resolve(''); }
+    });
 }
 
 document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initAntifraud) : initAntifraud();
