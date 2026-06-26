@@ -48,7 +48,7 @@ var G = 'https://script.google.com/macros/s/AKfycbwlTMdbDphJjp8hk0ifvllbi4e4lwGR
 // V31: 클라이언트 시크릿 제거 — 서버는 Origin+Timestamp로 인증 (소스 노출 무력화)
 var CONFIG = { GAS_URL: G, FCS: 30, SWM: 30, SCL: 2, EDM: 10000 };  // V23: STH 삭제 (클라이언트 즉시 차단 삭제됨, 미사용 dead code)
 var W = { BH: 50, VPN: 80, FC: 15, SV: 30, NI: 10 }; // V23: FC 40→15, SV 60→30 (refactor-instructions 준수 — 오탐 감소 우선)
-var S = { uid: '', ip: '', isp: '', isVPN: false, orgName: '', asn: '', country: '', deviceType: '', deviceModel: '', siteDomain: '', adRank: '', adProduct: '', isNaverAd: false, pageViews: 1, sessionStart: Date.now(), engagements: 0, isWhitelisted: false, isBlocked: false, score: 0, scoreReasons: [], keyword: '', iframeActive: false, nQuery: '', nKeyword: '', referrer: '', wlNonce: '', wlNonceTime: 0, localIP: '' };
+var S = { uid: '', ip: '', isp: '', isVPN: false, orgName: '', asn: '', country: '', deviceType: '', deviceModel: '', siteDomain: '', adRank: '', adProduct: '', isNaverAd: false, pageViews: 1, sessionStart: Date.now(), engagements: 0, isWhitelisted: false, isBlocked: false, score: 0, scoreReasons: [], keyword: '', iframeActive: false, nQuery: '', nKeyword: '', referrer: '', wlNonce: '', wlNonceTime: 0, localIP: '', auxFp: '' };
 // V85.19 (2026-04-26): sessionStorage 기반 wlNonce 영속화 — 페이지 새로고침/이동 시 closure 휘발 보완
 //   배경: VISIT 응답 도착 전 폼 제출 또는 같은 세션 새 페이지 로드 시 S.wlNonce 빈 채로 시작 → 폼 제출 가드 발동
 //   초기화 시점에 25분 이내 캐시된 nonce 복원 (서버 30분 TTL - 5분 여유)
@@ -81,6 +81,35 @@ function _patchIndex(x, y) {
 // 배경: 실측 방문로그 2,872 UID 중 55건(1.9%) 충돌 확인 (갤럭시 S24 vs S24 Ultra 동일 UID 등)
 //       충돌 UID는 대부분 활동적 사용자 → 진성고객 오탐 집중
 // 효과: 같은 기종끼리 앞 8자 공유(분석 가치 유지), 뒤 16자 랜덤(충돌률 0.0001% 이하)
+// V85.90: 보조지문(auxFp) — fp16과 독립. 같은 fp16 충돌 기기를 가르는 측정용(유저설정 신호: 폰트/DPR/미디어쿼리). 판정 무영향·로깅만.
+async function computeAuxFp() {
+    var s = [];
+    try {
+        var probes = ['Apple SD Gothic Neo', 'SamsungOne', 'Samsung Sans', '맑은 고딕', 'NanumGothic', 'Noto Sans KR', 'Roboto', 'Gulim', 'Batang', 'Apple Color Emoji', 'Segoe UI Emoji'];
+        var base = ['monospace', 'sans-serif', 'serif'];
+        var span = document.createElement('span');
+        span.style.cssText = 'position:absolute;left:-9999px;top:-9999px;font-size:72px';
+        span.textContent = '믱핧Wq가나다AB1';
+        document.body.appendChild(span);
+        var ref = {};
+        base.forEach(function (b) { span.style.fontFamily = b; ref[b] = span.offsetWidth + 'x' + span.offsetHeight; });
+        probes.forEach(function (f) {
+            var hit = '';
+            base.forEach(function (b) { span.style.fontFamily = "'" + f + "'," + b; hit += (span.offsetWidth + 'x' + span.offsetHeight !== ref[b]) ? '1' : '0'; });
+            s.push(hit);
+        });
+        document.body.removeChild(span);
+    } catch (e) { s.push('ft:e'); }
+    s.push('dpr:' + (window.devicePixelRatio || 0));
+    try { s.push('vv:' + (window.visualViewport ? Math.round(window.visualViewport.scale * 100) : 0)); } catch (e) { }
+    try {
+        s.push(matchMedia('(prefers-reduced-motion:reduce)').matches ? 'rm1' : 'rm0');
+        s.push(matchMedia('(pointer:coarse)').matches ? 'pc1' : 'pc0');
+        s.push(matchMedia('(prefers-contrast:more)').matches ? 'ct1' : 'ct0');
+    } catch (e) { }
+    try { var h = await sha256hex(s.join('|')); return h.substring(0, 12).toUpperCase(); } catch (e) { return ''; }
+}
+
 async function generateUID() {
     var uid = recoverUIDSync();
     if (!uid) { try { uid = await idbGet('naf_uid') } catch (e) { } }
@@ -508,7 +537,7 @@ function buildPayload() {
         adRank: S.adRank, adProduct: S.adProduct, isNaverAd: S.isNaverAd, pageViews: S.pageViews,
         keyword: S.keyword, engagements: S.engagements, score: S.score,
         scoreReasons: S.scoreReasons.join('|'), isWhitelisted: S.isWhitelisted, telClicked: BM.telClicked, hiddenDevice: !!S._hiddenDevice,
-        orgName: S.orgName || '', asn: S.asn || '', country: S.country || '', localIP: S.localIP || '',
+        orgName: S.orgName || '', asn: S.asn || '', country: S.country || '', localIP: S.localIP || '', auxFp: S.auxFp || '',
         sessionStart: S.sessionStart, timestamp: new Date().toISOString(),
         nQuery: S.nQuery, nKeyword: S.nKeyword, referrer: S.referrer || '',
         humanSig: buildHumanSig()
@@ -639,6 +668,7 @@ async function initAntifraud() {
     }
 
     S.uid = await generateUID();
+    S.auxFp = await computeAuxFp();   // V85.90: 보조지문 병렬수집(측정용·판정무영향)
     var dv = await detectDevice(); S.deviceType = dv.deviceType; S.deviceModel = dv.deviceModel;
     S.siteDomain = location.hostname;
     S.keyword = extractKeyword();
